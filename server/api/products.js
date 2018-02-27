@@ -9,5 +9,10 @@ productRouter.get('/', (req, res, next) => {
   .then(products => res.json(products))
   .catch(next);
 });
+productRouter.get('/:id', (req, res, next)=> {
+  Product.findById(req.params.id)
+  .then(id => res.json(id))
+  .catch(next);
+})
 
 module.exports = productRouter;
