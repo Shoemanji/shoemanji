@@ -4,7 +4,7 @@ const {expect} = require('chai')
 const request = require('supertest')
 const db = require('../db')
 const app = require('../index')
-const Products = db.model('products')
+const Product = db.model('product')
 
 describe('Products routes', () => {
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe('Products routes', () => {
 
 
     beforeEach(() => {
-      return Products.create({
+      return Product.create({
         title: productTitle,
         price: productPrice,
         category: productCategory,

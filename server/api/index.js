@@ -3,9 +3,6 @@ const router = require('express').Router();
 const userRouter = require('./users');
 const productRouter = require('./products');
 
-module.exports = {
-  router,
-}
 
 router.use('/users', userRouter);
 router.use('/products', productRouter);
@@ -15,5 +12,8 @@ router.use((req, res, next) => {
   error.status = 404
   next(error)
 })
+
+
+module.exports = router;
 
 // testing pro-new

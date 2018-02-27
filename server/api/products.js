@@ -1,9 +1,9 @@
 const productRouter = require('express').Router();
-const { Products } = require('../db/models');
+const { Product } = require('../db/models');
 
 // GET /products
 productRouter.get('/', (req, res, next) => {
-  Products.findAll({
+  Product.findAll({
 
   })
   .then(products => res.json(products))
