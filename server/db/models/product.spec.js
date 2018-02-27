@@ -15,7 +15,7 @@ describe('Products model', () => {
     describe('todo', () => {
 
       beforeEach(() => {
-        return Products.create({
+        return Product.create({
           todo1: 'xxx',
           todo2: 'xxx'
         })
