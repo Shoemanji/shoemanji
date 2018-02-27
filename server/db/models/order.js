@@ -2,14 +2,9 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 
 const Order = db.define('order', {
-    items: {
-        type: Sequelize.ARRAY(Sequelize.INTEGER),
-    },
-    shippingAddress: {
-        type: Sequelize.STRING,
-    },
-    status: {
-        type: Sequelize.ENUM('created', 'processing', 'cancelled', 'completed'),
+    placedAt: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
     },
     email: {
         type: Sequelize.STRING,
@@ -17,6 +12,12 @@ const Order = db.define('order', {
             isEmail: true,
         },
     },
+    shippingAddress: {
+        type: Sequelize.STRING,
+    },
+    status: {
+        type: Sequelize.ENUM('created', 'processing', 'cancelled', 'completed'),
+    }
 });
 
 module.exports = Order;
