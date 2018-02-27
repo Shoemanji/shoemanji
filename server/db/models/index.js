@@ -1,6 +1,6 @@
 const User = require('./user')
 const Order = require('./order')
-const Review = require('.review')
+const Review = require('./review')
 const Product = require('./product')
 
 Review.belongsTo(User)
