@@ -52,118 +52,228 @@ function generateProducts () {
 }
 
 function generateReviews () {
-  const review1 = Review.create({
-    text: 'This shoe helped me dunk!',
-    rating: 5,
-    // userId: 1,
-    // productId: 1
-  })
-  .then( (review) => {
-    User.findById(1)
-    .then( (user) => {
-      review.addUser(user)
+  const review1 = () => {
+    return Review.create({
+      text: 'This shoe helped me dunk!',
+      rating: 5,
     })
-  })
+    .then(review => {
+      return User.findById(1)
+      .then(user => {
+        return review.setUser(user);
+      })
+      .then(review => {
+        return Product.findById(1)
+        .then(product => {
+          return review.setProduct(product)
+        })
+      })
+    })
+  }
 
-  const review2 = Review.create({
-    text: 'This shoe is sort of comfortable...',
-    rating: 3,
-    // userId: 2,
-    // productId: 2
-  })
-  const review3 = Review.create({
-    text: 'This shoe was made in China!',
-    rating: 1,
-    // userId: 3,
-    // productId: 1
-  })
-  return Promise.all([review1, review2, review3])
-}
+  const review2 = () => {
+    return Review.create({
+      text: 'This shoe is sort of comfortable...',
+      rating: 3,
+    })
+    .then(review => {
+      return User.findById(2)
+      .then(user => {
+        return review.setUser(user);
+      })
+      .then(review => {
+        return Product.findById(2)
+        .then(product => {
+          return review.setProduct(product)
+        })
+      })
+    })
+  }
 
-function generateProductOrderedQuantities () {
-  const poq1 = ProductOrderedQuantity.create({
-    // productId: 1,
-    quantity: 1
-  })
-  const poq2 = ProductOrderedQuantity.create({
-    // productId: 1,
-    quantity: 1
-  })
-  const poq3 = ProductOrderedQuantity.create({
-    // productId: 2,
-    quantity: 1
-  })
-  const poq4 = ProductOrderedQuantity.create({
-    // productId: 3,
-    quantity: 4
-  })
-  return Promise.all([poq1, poq2, poq3, poq4])
+  const review3 = () => {
+    return Review.create({
+      text: 'This shoe was made in China!',
+      rating: 1,
+    })
+    .then(review => {
+      return User.findById(3)
+      .then(user => {
+        return review.setUser(user);
+      })
+      .then(review => {
+        return Product.findById(1)
+        .then(product => {
+          return review.setProduct(product)
+        })
+      })
+    })
+  }
+  return Promise.all([review1(), review2(), review3()])
 }
 
 function generateOrders () {
-  const order1 = Order.create({
-    email: 'user1@gmail.com',
-    shippingAddress: '1 User Lane',
-    status: 'created',
-    // userId: 1
-  })
-  const order2 = Order.create({
-    email: 'user2@gmail.com',
-    shippingAddress: '2 User Lane',
-    status: 'processing',
-    // userId: 2
-  })
-  const order3 = Order.create({
-    email: 'user3@gmail.com',
-    shippingAddress: '3 User Lane',
-    status: 'cancelled',
-    // userId: 3
-  })
-  const order4 = Order.create({
-    email: 'user1@gmail.com',
-    shippingAddress: '1 User Lane',
-    status: 'completed',
-    // userId: 1
-  })
-  const order5 = Order.create({
-    email: 'user2@gmail.com',
-    shippingAddress: '2 User Lane',
-    status: 'completed',
-    // userId: 2
-  })
-  const order6 = Order.create({
-    email: 'user3@gmail.com',
-    shippingAddress: '3 User Lane',
-    status: 'completed',
-    // userId: 3
-  })
+  const order1 = () => {
+    return Order.create({
+      email: 'user1@gmail.com',
+      shippingAddress: '1 User Lane',
+      status: 'created',
+    })
+    .then(order => {
+      return User.findById(1)
+      .then(user => {
+        return order.setUser(user)
+      })
+    })
+  }
+
+  const order2 = () => {
+    return Order.create({
+      email: 'user2@gmail.com',
+      shippingAddress: '2 User Lane',
+      status: 'processing',
+    })
+    .then(order => {
+      return User.findById(2)
+      .then(user => {
+        return order.setUser(user)
+      })
+    })
+  }
+
+  const order3 = () => {
+    return Order.create({
+      email: 'user3@gmail.com',
+      shippingAddress: '3 User Lane',
+      status: 'cancelled',
+    })
+    .then(order => {
+      return User.findById(3)
+      .then(user => {
+        return order.setUser(user)
+      })
+    })
+  }
+
+  const order4 = () => {
+    return Order.create({
+      email: 'user1@gmail.com',
+      shippingAddress: '1 User Lane',
+      status: 'completed',
+    })
+    .then(order => {
+      return User.findById(1)
+      .then(user => {
+        return order.setUser(user)
+      })
+    })
+  }
+
+  const order5 = () => {
+    return Order.create({
+      email: 'user2@gmail.com',
+      shippingAddress: '2 User Lane',
+      status: 'completed',
+    })
+    .then(order => {
+      return User.findById(2)
+      .then(user => {
+        return order.setUser(user)
+      })
+    })
+  }
+
+  const order6 = () => {
+    return Order.create({
+      email: 'user3@gmail.com',
+      shippingAddress: '3 User Lane',
+      status: 'completed',
+    })
+    .then(order => {
+      return User.findById(3)
+      .then(user => {
+        return order.setUser(user)
+      })
+    })
+  }
+
   const order7 = Order.create({
     email: 'guest@gmail.com',
     shippingAddress: '1 Guest Street',
     status: 'created'
   })
-  return Promise.all([order1, order2, order3, order4, order5, order6, order7])
+  
+  return Promise.all([order1(), order2(), order3(), order4(), order5(), order6(), order7])
 }
 
-function seed () {
-  return Promise.all([generateUsers(),
-  generateProducts(),
-  generateReviews(),
-  generateProductOrderedQuantities(),
-  generateOrders()])
+function generateProductOrderedQuantities () {
+  const poq1 = () => {
+    return ProductOrderedQuantity.create({
+      quantity: 1
+    })
+    .then(poq => {
+      return Product.findById(1)
+      .then(product => {
+        return poq.setProduct(product)
+      })
+    })
+  }
+
+  const poq2 = () => {
+    return ProductOrderedQuantity.create({
+      quantity: 1
+    })
+    .then(poq => {
+      return Product.findById(1)
+      .then(product => {
+        return poq.setProduct(product)
+      })
+    })
+  }
+
+  const poq3 = () => {
+    return ProductOrderedQuantity.create({
+      quantity: 1
+    })
+    .then(poq => {
+      return Product.findById(2)
+      .then(product => {
+        return poq.setProduct(product)
+      })
+    })
+  } 
+
+  const poq4 = () => {
+    return ProductOrderedQuantity.create({
+      quantity: 4
+    })
+    .then(poq => {
+      return Product.findById(3)
+      .then(product => {
+        return poq.setProduct(product)
+      })
+    })
+  }
+
+  return Promise.all([poq1(), poq2(), poq3(), poq4()])
 }
 
 db.sync({force: true})
   .then(() => {
     console.log('Seeding database');
-    return seed();
+    return Promise.all([
+      generateUsers(),
+      generateProducts(),
+      generateProductOrderedQuantities(),
+      generateReviews(),
+      generateOrders(),
+    ])
   })
-  .then(() => console.log('Seeding successful'))
+  .then(() => {
+    console.log('Seeding successful')
+    db.close();
+    return null;
+  })
   .catch(err => {
     console.error('Error while seeding');
     console.error(err.stack);
   })
-  .finally(() => {
-    db.close();
-    return null;
-  });
