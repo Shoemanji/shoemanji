@@ -1,13 +1,14 @@
 import React from 'react'; 
 import { connect } from 'react-redux';
-import { fetchProduct } from '../store/product';
+import { fetchProduct } from '../store';
+import { addToCart } from '../store';
 
 class SingleProduct extends React.Component {
     constructor(props){
         super(props)
-        this.state = {
-            product: props.product
-        }
+        // this.state = {
+        //     product: props.product
+        // }
     }
 
     componentDidMount(){
@@ -16,11 +17,12 @@ class SingleProduct extends React.Component {
     }
 
     render(){
-        const {product} = this.props
+        const { product, addToCart } = this.props
         return (
             product ? (
                 <div>
-                    {this.props.product.title}
+                    <h3>{ product.title }</h3>
+                    <button onClick={() => addToCart(product.id)}>ADD TO CART</button>
                 </div>
             ) : null
         )
@@ -30,7 +32,8 @@ class SingleProduct extends React.Component {
 const mapStateToProps = ({ product }) => ({ product })
 
 const mapDispatchToProps = dispatch => ({
-    fetchProduct: id => dispatch(fetchProduct(id))
+    fetchProduct: id => dispatch(fetchProduct(id)),
+    addToCart: id => dispatch(addToCart(id)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);
