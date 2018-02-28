@@ -1,7 +1,7 @@
 import React from 'react'; 
 import { connect } from 'react-redux';
 import { fetchProduct } from '../store';
-import { addToCart } from '../store';
+import { testLocalStorage } from '../store';
 
 class SingleProduct extends React.Component {
     constructor(props){
@@ -22,7 +22,8 @@ class SingleProduct extends React.Component {
             product ? (
                 <div>
                     <h3>{ product.title }</h3>
-                    <button onClick={() => addToCart(product.id)}>ADD TO CART</button>
+                    <button onClick={() => addToCart(product.id, quantity)}>ADD TO CART</button>
+                    <input type="number" />
                 </div>
             ) : null
         )
@@ -33,7 +34,7 @@ const mapStateToProps = ({ product }) => ({ product })
 
 const mapDispatchToProps = dispatch => ({
     fetchProduct: id => dispatch(fetchProduct(id)),
-    addToCart: id => dispatch(addToCart(id)),
+    addToCart: (id, quantity) => dispatch(testLocalStorage(id, quantity)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);
