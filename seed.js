@@ -154,55 +154,13 @@ function generateOrders () {
     })
   }
 
-  const order4 = () => {
-    return Order.create({
-      email: 'user1@gmail.com',
-      shippingAddress: '1 User Lane',
-      status: 'completed',
-    })
-    .then(order => {
-      return User.findById(1)
-      .then(user => {
-        return order.setUser(user)
-      })
-    })
-  }
-
-  const order5 = () => {
-    return Order.create({
-      email: 'user2@gmail.com',
-      shippingAddress: '2 User Lane',
-      status: 'completed',
-    })
-    .then(order => {
-      return User.findById(2)
-      .then(user => {
-        return order.setUser(user)
-      })
-    })
-  }
-
-  const order6 = () => {
-    return Order.create({
-      email: 'user3@gmail.com',
-      shippingAddress: '3 User Lane',
-      status: 'completed',
-    })
-    .then(order => {
-      return User.findById(3)
-      .then(user => {
-        return order.setUser(user)
-      })
-    })
-  }
-
-  const order7 = Order.create({
+  const order4 = Order.create({
     email: 'guest@gmail.com',
     shippingAddress: '1 Guest Street',
     status: 'created'
   })
   
-  return Promise.all([order1(), order2(), order3(), order4(), order5(), order6(), order7])
+  return Promise.all([order1(), order2(), order3(), order4])
 }
 
 function generateProductOrderedQuantities () {
@@ -215,6 +173,12 @@ function generateProductOrderedQuantities () {
       .then(product => {
         return poq.setProduct(product)
       })
+      .then(poq => {
+        return Order.findById(1)
+        .then(order => {
+          return poq.addOrder(order);
+        })
+      })
     })
   }
 
@@ -226,6 +190,12 @@ function generateProductOrderedQuantities () {
       return Product.findById(1)
       .then(product => {
         return poq.setProduct(product)
+      })
+      .then(poq => {
+        return Order.findById(2)
+        .then(order => {
+          return poq.addOrder(order);
+        })
       })
     })
   }
@@ -240,6 +210,12 @@ function generateProductOrderedQuantities () {
         return poq.setProduct(product)
       })
     })
+    .then(poq => {
+      return Order.findById(3)
+      .then(order => {
+        return poq.addOrder(order);
+      })
+    })
   } 
 
   const poq4 = () => {
@@ -250,6 +226,12 @@ function generateProductOrderedQuantities () {
       return Product.findById(3)
       .then(product => {
         return poq.setProduct(product)
+      })
+    })
+    .then(poq => {
+      return Order.findById(4)
+      .then(order => {
+        return poq.addOrder(order);
       })
     })
   }
