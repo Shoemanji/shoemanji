@@ -1,7 +1,6 @@
 const userRouter = require('express').Router();
 const { User } = require('../db/models');
 
-// GET /users
 userRouter.get('/', (req, res, next) => {
   User.findAll({
     // explicitly select only the id and email fields - even though

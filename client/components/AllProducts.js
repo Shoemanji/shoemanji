@@ -16,7 +16,7 @@ class AllProducts extends React.Component {
                 <ul>
                     {this.props.products && this.props.products.map(product =>
                         (<li key={product.id}>
-                            <Link to={`/products/${product.id}`}>{product.id}</Link>
+                            <Link to={`/products/${product.id}`}>{product.title}</Link>
                         </li>)
                     )}
                 </ul>
