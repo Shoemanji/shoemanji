@@ -1,6 +1,6 @@
 import React from 'react'; 
-import {connect} from 'react-redux';
-import {fetchProduct} from '../store/products';
+import { connect } from 'react-redux';
+import { fetchProduct } from '../store/product';
 
 class SingleProduct extends React.Component {
     constructor(props){
@@ -9,29 +9,28 @@ class SingleProduct extends React.Component {
             product: props.product
         }
     }
+
+    componentDidMount(){
+        const id = this.props.match.params.id
+        this.props.fetchProduct(id);
+    }
+
     render(){
         const {product} = this.props
-        console.log(this.props)
         return (
-            !product ? null :
-            <div>
-            {this.props.product.title}
-            </div>
+            product ? (
+                <div>
+                    {this.props.product.title}
+                </div>
+            ) : null
         )
     }
 }
-const mapStateToProps = ({products}, ownProps) => {
-    const paramId = Number(ownProps.match.params.id)
-    console.log(products)
-    return {
-        product: products.find(product => product.id === paramId)
-    }
-}
+
+const mapStateToProps = ({ product }) => ({ product })
 
 const mapDispatchToProps = dispatch => ({
-    fetchProduct: (product) => {
-        dispatch(fetchProduct(product))
-    }
+    fetchProduct: id => dispatch(fetchProduct(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);
