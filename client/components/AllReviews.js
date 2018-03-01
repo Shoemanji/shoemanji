@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchReviews } from '../store/reviews';
-// import { Link } from 'react-router-dom';
 
 class AllReviews extends React.Component {
     constructor(props) {
@@ -13,7 +12,7 @@ class AllReviews extends React.Component {
     }
 
     render() {
-        const filteredReviews = this.props.reviews.filter(review => review.productId === productId)
+        const filteredReviews = this.props.reviews.filter(review => review.productId === this.props.productId)
         return (
             <div>
                 <ul>
