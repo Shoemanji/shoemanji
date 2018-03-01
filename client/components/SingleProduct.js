@@ -26,8 +26,6 @@ class SingleProduct extends React.Component {
 
     onAddToCartClick (product) {
         const { quantity } = this.state;
-        const newInventoryQuantity = product.inventory - quantity;
-        product.inventory = newInventoryQuantity;
         this.props.addToCart({product, quantity});
     }
 

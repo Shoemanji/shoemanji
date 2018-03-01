@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react'; 
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { updateIsFetching, clearCart } from '../store';
 
 class Cart extends React.Component {
@@ -17,20 +18,20 @@ class Cart extends React.Component {
         this.setState({ quantity });
     }
 
-    onCartSubmit (product) {
+    onCartSubmit () {
         this.props.updateIsFetching(true);
     }
 
     render(){
         const { cart, isFetching } = this.props;
         const cartInMemory = JSON.parse(window.localStorage.getItem('cart'));
-        const activeCart = cartInMemory.length ? cartInMemory : cart;
-        
+        // const activeCart = cartInMemory.length ? cartInMemory : cart;
+
         return (
-            activeCart ? (
+            cart ? (
                 <Fragment>
                     <h3>CART</h3>
-                    {activeCart.map(cartRow => {
+                    {cart.map(cartRow => {
                         const { product, quantity } = cartRow
                         return (
                             <Fragment key={product.id}>
@@ -41,7 +42,10 @@ class Cart extends React.Component {
                             </Fragment>
                         )
                     })}
-                    <button disabled={isFetching} type="submit" onClick={() => this.onCartSubmit(product)}>Place Order</button>
+                    <hr />
+                    <Link to="/cart/checkout">
+                        <button>Go to Checkout</button>
+                    </Link>
                 </Fragment>
             ) : (
                 <Fragment>No Products in your cart</Fragment>
