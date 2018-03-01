@@ -1,5 +1,5 @@
 const db = require('./server/db')
-const { User, Product, Review, Order, QuantityHavingOrder } = require('./server/db/models');
+const { User, Product, Review, Order, LineItem } = require('./server/db/models');
 
 function generateUsers () {
   const user1 = User.create({
@@ -165,110 +165,118 @@ function generateOrders () {
   return Promise.all([order1(), order2(), order3(), order4()])
 }
 
-function generateQuantityHavingOrders () {
-  const qho1 = () => {
-    return QuantityHavingOrder.create({
+function generateLineItems () {
+  const lineItem1 = () => {
+    return LineItem.create({
       quantity: 1
     })
-    .then(qho => {
+    .then(lineItem => {
       return Product.findById(1)
       .then(product => {
-        return qho.setProduct(product)
+        return lineItem.setProduct(product)
       })
-      .then(qho => {
+      .then(lineItem => {
         return Order.findById(1)
         .then(order => {
-          return qho.setOrder(order);
+          return lineItem.setOrder(order);
         })
       })
     })
   }
 
-  const qho2 = () => {
-    return QuantityHavingOrder.create({
+  const lineItem2 = () => {
+    return LineItem.create({
       quantity: 1
     })
-    .then(qho => {
+    .then(lineItem => {
       return Product.findById(1)
       .then(product => {
-        return qho.setProduct(product)
+        return lineItem.setProduct(product)
       })
-      .then(qho => {
+      .then(lineItem => {
         return Order.findById(2)
         .then(order => {
-          return qho.setOrder(order);
+          return lineItem.setOrder(order);
         })
       })
     })
   }
 
-  const qho3 = () => {
-    return QuantityHavingOrder.create({
+  const lineItem3 = () => {
+    return LineItem.create({
       quantity: 1
     })
-    .then(qho => {
+    .then(lineItem => {
       return Product.findById(2)
       .then(product => {
-        return qho.setProduct(product)
+        return lineItem.setProduct(product)
       })
     })
-    .then(qho => {
+    .then(lineItem => {
       return Order.findById(3)
       .then(order => {
-        return qho.setOrder(order);
+        return lineItem.setOrder(order);
       })
     })
   }
 
-  const qho4 = () => {
-    return QuantityHavingOrder.create({
+  const lineItem4 = () => {
+    return LineItem.create({
       quantity: 4
     })
-    .then(qho => {
+    .then(lineItem => {
       return Product.findById(3)
       .then(product => {
-        return qho.setProduct(product)
+        return lineItem.setProduct(product)
       })
     })
-    .then(qho => {
+    .then(lineItem => {
       return Order.findById(4)
       .then(order => {
-        return qho.setOrder(order);
+        return lineItem.setOrder(order);
       })
     })
   }
 
-  const qho5 = () => {
-    return QuantityHavingOrder.create({
+  const lineItem5 = () => {
+    return LineItem.create({
       quantity: 2
     })
-    .then(qho => {
+    .then(lineItem => {
       return Product.findById(2)
       .then(product => {
-        return qho.setProduct(product)
+        return lineItem.setProduct(product)
       })
     })
-    .then(qho => {
+    .then(lineItem => {
       return Order.findById(1)
       .then(order => {
-        return qho.setOrder(order);
+        return lineItem.setOrder(order);
       })
     })
   }
 
-  return Promise.all([qho1(), qho2(), qho3(), qho4(), qho5()])
+  return Promise.all([lineItem1(), lineItem2(), lineItem3(), lineItem4(), lineItem5()])
 }
 
 db.sync({force: true})
   .then(() => {
-    console.log('Seeding database');
+    console.log('Seeding users and products')
     return Promise.all([
       generateUsers(),
-      generateProducts(),
-      generateReviews(),
-      generateOrders(),
-      generateQuantityHavingOrders()
+      generateProducts()
     ])
+  })
+  .then(() => {
+    console.log('Seeding reviews and products')
+    return Promise.all([
+      generateReviews(),
+      generateOrders()
+    ])
+  })
+  .then(() => {
+    console.log('Seeding line items')
+    return generateLineItems()
   })
   .then(() => {
     console.log('Seeding successful')
