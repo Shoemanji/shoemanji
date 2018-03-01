@@ -16,6 +16,9 @@ Product.hasMany(Review)
 ProductOrderedQuantity.belongsTo(Product)
 Product.hasMany(ProductOrderedQuantity)
 
+// ProductOrderedQuantity.belongsTo(Order)
+// Order.hasMany(ProductOrderedQuantity)
+
 ProductOrderedQuantity.belongsToMany(Order, { through: 'OrderedProducts'})
 
 module.exports = {

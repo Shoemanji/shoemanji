@@ -154,13 +154,15 @@ function generateOrders () {
     })
   }
 
-  const order4 = Order.create({
+  const order4 = () => {
+    return Order.create({
     email: 'guest@gmail.com',
     shippingAddress: '1 Guest Street',
     status: 'created'
   })
-  
-  return Promise.all([order1(), order2(), order3(), order4])
+}
+
+  return Promise.all([order1(), order2(), order3(), order4()])
 }
 
 function generateProductOrderedQuantities () {
@@ -216,7 +218,7 @@ function generateProductOrderedQuantities () {
         return poq.addOrder(order);
       })
     })
-  } 
+  }
 
   const poq4 = () => {
     return ProductOrderedQuantity.create({
@@ -236,7 +238,25 @@ function generateProductOrderedQuantities () {
     })
   }
 
-  return Promise.all([poq1(), poq2(), poq3(), poq4()])
+  const poq5 = () => {
+    return ProductOrderedQuantity.create({
+      quantity: 2
+    })
+    .then(poq => {
+      return Product.findById(2)
+      .then(product => {
+        return poq.setProduct(product)
+      })
+    })
+    .then(poq => {
+      return Order.findById(1)
+      .then(order => {
+        return poq.addOrder(order);
+      })
+    })
+  }
+
+  return Promise.all([poq1(), poq2(), poq3(), poq4(), poq5()])
 }
 
 db.sync({force: true})
