@@ -25,7 +25,7 @@ Order.prototype.getTotal = async function() {
     const lines = LineItem.findAll({where: {orderId: this.id}})
     return lines.reduce(async (total, line) =>
         total + await this.getPrice(),
-        0)
+        0
     )
 }
 
