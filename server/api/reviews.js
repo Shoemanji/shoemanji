@@ -13,4 +13,11 @@ reviewRouter.get('/:id', (req, res, next) => {
   .catch(next);
 })
 
+reviewRouter.post('/', (req, res, next) => {
+  console.log(req.body)
+  Review.create(req.body)
+  .then(instance => res.json(instance))
+  .catch(next);
+})
+
 module.exports = reviewRouter;

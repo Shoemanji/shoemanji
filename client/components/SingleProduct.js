@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchProduct } from '../store/product';
-import AllReviews from './AllReviews'
+import AllReviews from './AllReviews';
+import { Link } from 'react-router-dom';
+
 
 class SingleProduct extends React.Component {
     constructor(props) {
@@ -15,12 +17,12 @@ class SingleProduct extends React.Component {
         const productId = Number(this.props.match.params.id);
         this.props.fetchProduct(productId);
     }
-
     render() {
         const { product } = this.props
         return (
             product ? (
                 <div>
+                    <Link to={`/products/${product.id}/review`}><button>add review</button></Link>
                     {this.props.product.title}
                     <AllReviews productId={this.props.product.id} />
                 </div>
