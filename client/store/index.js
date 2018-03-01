@@ -6,12 +6,14 @@ import user from './user'
 import products from './products'
 import product from './product'
 import cart from './cart'
+import isFetching from './fetch'
 
 const reducer = combineReducers({
   user,
   products,
   product,
   cart,
+  isFetching,
 })
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
@@ -24,3 +26,4 @@ export * from './user'
 export * from './products'
 export * from './product'
 export * from './cart'
+export * from './fetch'

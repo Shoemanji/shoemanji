@@ -1,14 +1,16 @@
 import React from 'react'; 
 import { connect } from 'react-redux';
-import { fetchProduct } from '../store';
-import { testLocalStorage } from '../store';
+import { fetchProduct, addToCart, updateProduct } from '../store';
 
 class SingleProduct extends React.Component {
     constructor(props){
         super(props)
-        // this.state = {
-        //     product: props.product
-        // }
+        this.state = {
+            quantity: 1,
+            cart: [],
+        }
+        this.onQuantityChange.bind(this);
+        this.onAddToCartClick.bind(this);
     }
 
     componentDidMount(){
@@ -16,25 +18,40 @@ class SingleProduct extends React.Component {
         this.props.fetchProduct(id);
     }
 
+    onQuantityChange (evt) {
+        const quantity = +evt.target.value;
+        this.setState({ quantity });
+    }
+
+    onAddToCartClick (product) {
+        const { quantity } = this.state;
+        const newInventoryQuantity = product.inventory - quantity;
+        product.inventory = newInventoryQuantity;
+        this.props.addToCart({product, quantity});
+        this.props.updateProduct(product);
+    }
+
     render(){
-        const { product, addToCart } = this.props
+        const { product } = this.props;
+        const { quantity } = this.state;
         return (
             product ? (
                 <div>
                     <h3>{ product.title }</h3>
-                    <button onClick={() => addToCart(product.id, quantity)}>ADD TO CART</button>
-                    <input type="number" />
+                    <button disabled={product.inventory === 0} onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
+                    <input onClick={(evt) => this.onQuantityChange(evt)} type="number" defaultValue={quantity} min="1" max={product.inventory} step="1"/>
                 </div>
             ) : null
         )
     }
 }
 
-const mapStateToProps = ({ product }) => ({ product })
+const mapStateToProps = ({ product, cart }) => ({ product, cart })
 
 const mapDispatchToProps = dispatch => ({
     fetchProduct: id => dispatch(fetchProduct(id)),
-    addToCart: (id, quantity) => dispatch(testLocalStorage(id, quantity)),
+    addToCart: cartRow => dispatch(addToCart(cartRow)),
+    updateProduct: product => dispatch(updateProduct(product))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);

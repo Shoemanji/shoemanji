@@ -1,32 +1,28 @@
 const ADD_TO_CART = 'ADD_TO_CART';
 const DELETE_FROM_CART = 'DELETE_FROM_CART';
 const UPDATE_CART = 'UPDATE_CART';
+const CLEAR_CART = 'CLEAR_CART';
 
-const cart = [];
+const emptyCart = [];
 
-export const addToCart = productId => ({ type: ADD_TO_CART, productId });
+export const addToCart = cartRow => ({ type: ADD_TO_CART, cartRow });
 export const deleteFromCart = productId => ({ type: DELETE_FROM_CART, productId });
 export const updateCart = product => ({ type: UPDATE_CART, product });
+export const clearCart = () => ({ type: CLEAR_CART, emptyCart });
 
-export default function reducer(state = cart, action) {
+export default function reducer(cart = [], action) {
     switch (action.type) {
         case ADD_TO_CART:
-            return [...state, action.productId];
+            window.localStorage.setItem('cart', JSON.stringify([...cart, action.cartRow]));
+            return [...cart, action.cartRow];
 
         case DELETE_FROM_CART:
-            return state.filter(productId => { return productId !== action.productId });
+            return cart.filter(productId => { return productId !== action.productId });
 
-        case UPDATE_CART:
-            return state;
+        case CLEAR_CART:
+            return action.emptyCart;
         
         default:
-            return state;
+            return cart;
     }
-}
-
-
-
-export const testLocalStorage = productId => dispatch => {
-    dispatch(addToCart(productId));
-    // window.localStorage.setItem('cart', cart);
 }
