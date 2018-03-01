@@ -11,14 +11,6 @@ export default function reducer (products = [], action){
         case ALL_PRODUCTS:
             return action.products;
 
-        case UPDATE_PRODUCT:
-            const index = products.findIndex(product => product.id === action.product.id);
-            return [
-                ...products.slice(0, index), // everything before current post
-                action.product,
-                ...products.slice(index + 1) // everything after current post
-             ]
-
         default:
             return products;
     }

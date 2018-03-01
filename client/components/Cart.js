@@ -38,10 +38,10 @@ class Cart extends React.Component {
                                 <div>{`price: $${product.price}`}</div>
                                 <div>quantity: </div>
                                 <input onClick={(evt) => this.onQuantityChange(evt)} type="number" defaultValue={quantity} min="1" max={product.inventory} step="1" />
-                                <button disabled={isFetching} type="submit" onClick={() => this.onCartSubmit(product)}>Place Order</button>
                             </Fragment>
                         )
                     })}
+                    <button disabled={isFetching} type="submit" onClick={() => this.onCartSubmit(product)}>Place Order</button>
                 </Fragment>
             ) : (
                 <Fragment>No Products in your cart</Fragment>

@@ -1,5 +1,5 @@
 const db = require('./server/db')
-const { User, Product, Review, Order, ProductOrderedQuantity } = require('./server/db/models');
+const { User, Product, Review, Order, QuantityHavingOrder } = require('./server/db/models');
 
 function generateUsers () {
   const user1 = User.create({
@@ -154,89 +154,109 @@ function generateOrders () {
     })
   }
 
-  const order4 = Order.create({
+  const order4 = () => {
+    return Order.create({
     email: 'guest@gmail.com',
     shippingAddress: '1 Guest Street',
     status: 'created'
   })
-  
-  return Promise.all([order1(), order2(), order3(), order4])
 }
 
-function generateProductOrderedQuantities () {
-  const poq1 = () => {
-    return ProductOrderedQuantity.create({
+  return Promise.all([order1(), order2(), order3(), order4()])
+}
+
+function generateQuantityHavingOrders () {
+  const qho1 = () => {
+    return QuantityHavingOrder.create({
       quantity: 1
     })
-    .then(poq => {
+    .then(qho => {
       return Product.findById(1)
       .then(product => {
-        return poq.setProduct(product)
+        return qho.setProduct(product)
       })
-      .then(poq => {
+      .then(qho => {
         return Order.findById(1)
         .then(order => {
-          return poq.addOrder(order);
+          return qho.setOrder(order);
         })
       })
     })
   }
 
-  const poq2 = () => {
-    return ProductOrderedQuantity.create({
+  const qho2 = () => {
+    return QuantityHavingOrder.create({
       quantity: 1
     })
-    .then(poq => {
+    .then(qho => {
       return Product.findById(1)
       .then(product => {
-        return poq.setProduct(product)
+        return qho.setProduct(product)
       })
-      .then(poq => {
+      .then(qho => {
         return Order.findById(2)
         .then(order => {
-          return poq.addOrder(order);
+          return qho.setOrder(order);
         })
       })
     })
   }
 
-  const poq3 = () => {
-    return ProductOrderedQuantity.create({
+  const qho3 = () => {
+    return QuantityHavingOrder.create({
       quantity: 1
     })
-    .then(poq => {
+    .then(qho => {
       return Product.findById(2)
       .then(product => {
-        return poq.setProduct(product)
+        return qho.setProduct(product)
       })
     })
-    .then(poq => {
+    .then(qho => {
       return Order.findById(3)
       .then(order => {
-        return poq.addOrder(order);
-      })
-    })
-  } 
-
-  const poq4 = () => {
-    return ProductOrderedQuantity.create({
-      quantity: 4
-    })
-    .then(poq => {
-      return Product.findById(3)
-      .then(product => {
-        return poq.setProduct(product)
-      })
-    })
-    .then(poq => {
-      return Order.findById(4)
-      .then(order => {
-        return poq.addOrder(order);
+        return qho.setOrder(order);
       })
     })
   }
 
-  return Promise.all([poq1(), poq2(), poq3(), poq4()])
+  const qho4 = () => {
+    return QuantityHavingOrder.create({
+      quantity: 4
+    })
+    .then(qho => {
+      return Product.findById(3)
+      .then(product => {
+        return qho.setProduct(product)
+      })
+    })
+    .then(qho => {
+      return Order.findById(4)
+      .then(order => {
+        return qho.setOrder(order);
+      })
+    })
+  }
+
+  const qho5 = () => {
+    return QuantityHavingOrder.create({
+      quantity: 2
+    })
+    .then(qho => {
+      return Product.findById(2)
+      .then(product => {
+        return qho.setProduct(product)
+      })
+    })
+    .then(qho => {
+      return Order.findById(1)
+      .then(order => {
+        return qho.setOrder(order);
+      })
+    })
+  }
+
+  return Promise.all([qho1(), qho2(), qho3(), qho4(), qho5()])
 }
 
 db.sync({force: true})
@@ -245,9 +265,9 @@ db.sync({force: true})
     return Promise.all([
       generateUsers(),
       generateProducts(),
-      generateProductOrderedQuantities(),
       generateReviews(),
       generateOrders(),
+      generateQuantityHavingOrders()
     ])
   })
   .then(() => {

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 
-const ProductOrderedQuantity = db.define('productOrderedQuantity', {
+const QuantityHavingOrder = db.define('quantityhavingorder', {
   quantity: {
     type: Sequelize.INTEGER,
     defaultValue: 1,
@@ -12,4 +12,4 @@ const ProductOrderedQuantity = db.define('productOrderedQuantity', {
   }
 })
 
-module.exports = ProductOrderedQuantity;
+module.exports = QuantityHavingOrder;

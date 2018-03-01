@@ -1,21 +1,22 @@
-import React from 'react'; 
+import React from 'react';
 import { connect } from 'react-redux';
-import { fetchProduct, addToCart, updateProduct } from '../store';
+import { Link } from 'react-router-dom';
+import { fetchProduct, addToCart } from '../store';
+import AllReviews from './AllReviews';
 
 class SingleProduct extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
             quantity: 1,
-            cart: [],
         }
         this.onQuantityChange.bind(this);
         this.onAddToCartClick.bind(this);
     }
 
-    componentDidMount(){
-        const id = this.props.match.params.id
-        this.props.fetchProduct(id);
+    componentDidMount() {
+        const productId = Number(this.props.match.params.id);
+        this.props.fetchProduct(productId);
     }
 
     onQuantityChange (evt) {
@@ -28,7 +29,6 @@ class SingleProduct extends React.Component {
         const newInventoryQuantity = product.inventory - quantity;
         product.inventory = newInventoryQuantity;
         this.props.addToCart({product, quantity});
-        this.props.updateProduct(product);
     }
 
     render(){
@@ -38,10 +38,13 @@ class SingleProduct extends React.Component {
             product ? (
                 <div>
                     <h3>{ product.title }</h3>
-                    <button disabled={product.inventory === 0} onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
-                    <input onClick={(evt) => this.onQuantityChange(evt)} type="number" defaultValue={quantity} min="1" max={product.inventory} step="1"/>
+                    <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
+                    <input onClick={(evt) => this.onQuantityChange(evt)} type="number" defaultValue={quantity} min="1" max={product.inventory} step="1" />
+                    <Link to="/products">Back to all products</Link>
+                    <AllReviews productId={product.id} />
                 </div>
             ) : null
+
         )
     }
 }
@@ -51,7 +54,6 @@ const mapStateToProps = ({ product, cart }) => ({ product, cart })
 const mapDispatchToProps = dispatch => ({
     fetchProduct: id => dispatch(fetchProduct(id)),
     addToCart: cartRow => dispatch(addToCart(cartRow)),
-    updateProduct: product => dispatch(updateProduct(product))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);
