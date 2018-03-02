@@ -37,7 +37,17 @@ class SingleProduct extends React.Component {
                 <div>
                     <h3>{ product.title }</h3>
                     <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
-                    <input onClick={(evt) => this.onQuantityChange(evt)} type="number" defaultValue={quantity} min="1" max={product.inventory} step="1" />
+                    <Link to={`/products/${product.id}/review`}>
+                        <button>ADD REVIEW</button>
+                    </Link>
+                    <input
+                        onClick={(evt) => this.onQuantityChange(evt)}
+                        type="number"
+                        defaultValue={quantity}
+                        min="1"
+                        max={product.inventory}
+                        step="1"
+                    />
                     <Link to="/products">Back to all products</Link>
                     <AllReviews productId={product.id} />
                 </div>
