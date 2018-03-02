@@ -2,7 +2,6 @@ const orderRouter = require('express').Router();
 const { Order } = require('../db/models')
 
 orderRouter.get('/:userId', (req, res, next) => {
-    console.log('BODY', req.params);
     Order.findAll({ where: { userId: req.params.userId }})
         .then(orders => res.json(orders))
 })

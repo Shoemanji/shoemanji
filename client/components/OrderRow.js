@@ -6,7 +6,6 @@ export default class OrderRow extends React.Component {
         super(props)
     }
     render(){
-        console.log(this.props.order)
         return (
             <div>
                 <h4>{this.props.order.id} </h4>
