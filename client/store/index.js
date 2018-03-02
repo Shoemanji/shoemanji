@@ -8,6 +8,8 @@ import product from './product'
 import cart from './cart'
 import isFetching from './fetch'
 import reviews from './reviews'
+import orders from './orders'
+import order from './order'
 
 const reducer = combineReducers({
   user,
@@ -16,6 +18,8 @@ const reducer = combineReducers({
   cart,
   isFetching,
   reviews,
+  orders,
+  order,
 })
 
 const middleware = composeWithDevTools(applyMiddleware(
@@ -31,3 +35,5 @@ export * from './product'
 export * from './cart'
 export * from './fetch'
 export * from './reviews'
+export * from './orders'
+export * from './order'
