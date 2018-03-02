@@ -5,9 +5,6 @@ import { fetchOrder } from '../store/order';
 class SingleOrder extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            order: props.order
-        }
     }
     componentDidMount() {
         const orderId = Number(this.props.match.params.id);

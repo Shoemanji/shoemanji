@@ -11,19 +11,22 @@ class AllOrders extends React.Component {
     componentDidMount() {
         const userId = Number(this.props.match.params.id)
         this.props.fetchOrders(userId)
-        
+
     }
     render() {
+        const { orders } = this.props
         return (
-            <div>
-                <ul>
-                    {this.props.orders && this.props.orders.map(order =>
-                        (<li key={order.id}>
-                            <OrderRow order={order} />
-                        </li>)
-                    )}
-                </ul>
-            </div>
+            orders.length ? (
+                <div>
+                    <ul>
+                        {this.props.orders.map(order =>
+                            (<li key={order.id}>
+                                <OrderRow order={order} />
+                            </li>)
+                        )}
+                    </ul>
+                </div>
+            ) : (<h3>No Orders Found </h3>)
         )
     }
 }
@@ -35,4 +38,3 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllOrders);
-// <OrderRow props={order}/>

@@ -5,11 +5,23 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import products from './products'
 import product from './product'
+import cart from './cart'
+import isFetching from './fetch'
 import reviews from './reviews'
 import orders from './orders'
 import order from './order'
 
-const reducer = combineReducers({user, products, product, reviews, orders, order})
+const reducer = combineReducers({
+  user,
+  products,
+  product,
+  cart,
+  isFetching,
+  reviews,
+  orders,
+  order,
+})
+
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({collapsed: true})
@@ -20,6 +32,8 @@ export default store
 export * from './user'
 export * from './products'
 export * from './product'
+export * from './cart'
+export * from './fetch'
 export * from './reviews'
 export * from './orders'
 export * from './order'
