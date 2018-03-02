@@ -29,12 +29,13 @@ class Checkout extends React.Component {
   }
 
   render() {
+    const { user } = this.props;
     return (
       <Fragment>
         <h1>Checkout</h1>
         <form onSubmit={this.handleSubmit}>
           <h4>Email</h4>
-          <input required name="email" type="email" placeholder="email address..." />
+          <input required name="email" type="email" placeholder="email address..." value={user.email ? user.email : null} />
 
           <h4>Address</h4>
           <input name="address" type="text" placeholder="shipping address..." />

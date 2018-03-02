@@ -10,7 +10,7 @@ const emptyCart = [];
 
 export const addToCart = cartRow => ({ type: ADD_TO_CART, cartRow });
 export const deleteFromCart = product => ({ type: DELETE_FROM_CART, product });
-export const updateCart = product => ({ type: UPDATE_CART, product });
+export const updateCart = cartRow => ({ type: UPDATE_CART, cartRow });
 export const clearCart = () => ({ type: CLEAR_CART, emptyCart });
 
 export default function reducer(cart = [], action) {
@@ -23,6 +23,17 @@ export default function reducer(cart = [], action) {
       return cart.filter(row => {
         return row.product.id !== action.product.id
       });
+
+    case UPDATE_CART:
+      const index = cart.findIndex(cartRow => cartRow.product.id === action.cartRow.product.id);
+      return [
+        ...cart.slice(0, index),
+        {
+          ...cart[index],
+          quantity: action.cartRow.quantity
+        },
+        ...cart.slice(index + 1),
+      ];
 
     case CLEAR_CART:
       return action.emptyCart;
