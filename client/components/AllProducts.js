@@ -16,10 +16,8 @@ class AllProducts extends React.Component {
   }
 
   handleChange(event) {
-    const value = event.target.value;
-    this.setState({
-      inputValue: value,
-    });
+    const inputValue = event.target.value;
+    this.setState({ inputValue });
   }
 
   componentDidMount() {
@@ -29,8 +27,8 @@ class AllProducts extends React.Component {
   render() {
     const { products } = this.props;
     const inputValue = this.state.inputValue;
-    const re = new RegExp(inputValue, 'i');
-    const filteredProducts = products.filter(product => product.title.match(re));
+    const regex = new RegExp(inputValue, 'i');
+    const filteredProducts = products.filter(product => product.title.match(regex));
 
     return (
       <div>
