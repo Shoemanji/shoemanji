@@ -23,6 +23,7 @@ class SingleProduct extends React.Component {
             product ? (
                 <div>
                     <Link to={`/products/${product.id}/review`}><button>add review</button></Link>
+                    <br /><br />
                     {this.props.product.title}
                     <AllReviews productId={this.props.product.id} />
                 </div>
