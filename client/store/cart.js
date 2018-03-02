@@ -43,10 +43,10 @@ export default function reducer(cart = [], action) {
   }
 }
 
-export const sendCart = (reqBody, history) => dispatch => {
-  axios.post('/api/order', reqBody)
+export const sendCart = reqBody => dispatch => {
+  axios.post('/api/orders', reqBody)
     .then(res => {
-      history.push('/products')
+      history.push('/products');
     })
     .catch(error => console.error(error))
 }
