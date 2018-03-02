@@ -11,17 +11,18 @@ class Checkout extends React.Component {
 
   handleSubmit (event) {
     event.preventDefault();
-
+    const email =  event.target.email.value;
     const address = event.target.address.value;
+    const city = event.target.city.value;
     const state = event.target.state.value;
     const zip = event.target.zip.value;
 
     const reqBody = {
       status: 'created',
-      email: event.target.email.value,
-      shippingAddress: `${address} ${state} ${zip}`,
+      email,
+      shippingAddress: `${address} ${city} ${state} ${zip}`,
+      userId: this.props.user.id ? this.props.user.id : null,
     };
-
     this.props.sendCart(reqBody);
   }
 
@@ -33,8 +34,11 @@ class Checkout extends React.Component {
           <h4>Email</h4>
           <input required name="email" type="email" placeholder="email address..." />
 
-          <h4>Shipping Address</h4>
+          <h4>Address</h4>
           <input name="address" type="text" placeholder="shipping address..." />
+
+          <h4>City</h4>
+          <input name="city" type="text" placeholder="city..." />
 
           <h4>State</h4>
           <input name="state" type="text" maxLength="2" pattern="[a-zA-Z]{2}" placeholder="state..." />
@@ -51,7 +55,7 @@ class Checkout extends React.Component {
   }
 }
 
-const mapStateToProps = ({ cart }) => ({ cart })
+const mapStateToProps = ({ cart, user }) => ({ cart, user })
 
 const mapDispatchToProps = dispatch => ({
   sendCart: reqBody => dispatch(sendCart(reqBody))
