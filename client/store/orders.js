@@ -16,4 +16,5 @@ export default function reducer (orders = [], action){
 export const fetchOrders = id => dispatch => {
     axios.get(`/api/orders/${id}`)
         .then(res => dispatch(getOrders(res.data)))
+       //.then(res => console.log(res.data))
 }

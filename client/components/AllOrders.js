@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchOrders } from '../store';
-import { Link } from 'react-router-dom';
+import OrderRow from './OrderRow';
 
 class AllOrders extends React.Component {
     constructor(props) {
@@ -9,8 +9,9 @@ class AllOrders extends React.Component {
     }
 
     componentDidMount() {
-        const UserId = Number(this.props.match.params.id)
-        this.props.fetchOrders(UserId)
+        const userId = Number(this.props.match.params.id)
+        this.props.fetchOrders(userId)
+        
     }
     render() {
         return (
@@ -18,7 +19,7 @@ class AllOrders extends React.Component {
                 <ul>
                     {this.props.orders && this.props.orders.map(order =>
                         (<li key={order.id}>
-                            <Link to= {`/orders/${order.id}`}>{order.id}</Link>
+                            <OrderRow order={order} />
                         </li>)
                     )}
                 </ul>
@@ -30,7 +31,7 @@ class AllOrders extends React.Component {
 const mapStateToProps = ({ orders }) => ({ orders })
 
 const mapDispatchToProps = dispatch => ({
-    fetchOrders: id => dispatch(fetchOrders(id))
+    fetchOrders: userId => dispatch(fetchOrders(userId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllOrders);
