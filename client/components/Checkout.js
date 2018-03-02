@@ -11,6 +11,7 @@ class Checkout extends React.Component {
 
   handleSubmit (event) {
     event.preventDefault();
+    const { user, cart } = this.props;
     const email =  event.target.email.value;
     const address = event.target.address.value;
     const city = event.target.city.value;
@@ -18,10 +19,11 @@ class Checkout extends React.Component {
     const zip = event.target.zip.value;
 
     const reqBody = {
+      cart,
       status: 'created',
       email,
       shippingAddress: `${address} ${city} ${state} ${zip}`,
-      userId: this.props.user.id ? this.props.user.id : null,
+      userId: user.id ? user.id : null,
     };
     this.props.sendCart(reqBody);
   }
