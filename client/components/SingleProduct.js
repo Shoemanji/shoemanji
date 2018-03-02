@@ -10,8 +10,8 @@ class SingleProduct extends React.Component {
         this.state = {
             quantity: 1,
         }
-        this.onQuantityChange.bind(this);
-        this.onAddToCartClick.bind(this);
+        this.onQuantityChange = this.onQuantityChange.bind(this);
+        this.onAddToCartClick = this.onAddToCartClick.bind(this);
     }
 
     componentDidMount() {
