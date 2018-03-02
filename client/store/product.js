@@ -2,12 +2,13 @@ import axios from 'axios';
 
 const SINGLE_PRODUCT = 'SINGLE_PRODUCT'
 
-const getProduct = id => ({ type: SINGLE_PRODUCT, id })
+const getProduct = product => ({ type: SINGLE_PRODUCT, product })
 
 export default function reducer(product = {}, action) {
     switch (action.type) {
         case SINGLE_PRODUCT:
-            return action.id;
+            return action.product;
+
         default:
             return product;
     }
