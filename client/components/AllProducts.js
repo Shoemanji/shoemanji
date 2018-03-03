@@ -15,7 +15,7 @@ class AllProducts extends React.Component {
     this.onAddToCartClick = this.onAddToCartClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-  
+
   componentDidMount() {
     this.props.fetchInitialData();
   }
@@ -43,12 +43,14 @@ class AllProducts extends React.Component {
             ? filteredProducts.map(product =>
               (<li key={product.id}>
                 <Link to={`/products/${product.id}`}>{product.title}</Link>
-                <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
               </li>))
             : products && products.map(product =>
               (<li key={product.id}>
+
                 <Link to={`/products/${product.id}`}>{product.title}</Link>
-                <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
+                <br />
+                <img className="mini" src={  product.image } />
+                <br /><br /><br />
               </li>)
             )
           }
@@ -56,9 +58,6 @@ class AllProducts extends React.Component {
       </div>
     )
   }
-
-
-
 
   //   render() {
 

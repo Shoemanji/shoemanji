@@ -16,6 +16,10 @@ const Product = db.define('product', {
       min: 0.01,
     }
   },
+  image: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
   inventory: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
