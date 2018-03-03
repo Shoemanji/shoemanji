@@ -168,7 +168,8 @@ function generateOrders () {
 function generateLineItems () {
   const lineItem1 = () => {
     return LineItem.create({
-      quantity: 1
+      quantity: 1,
+      priceAtPurchase: 180
     })
     .then(lineItem => {
       return Product.findById(1)
@@ -186,7 +187,8 @@ function generateLineItems () {
 
   const lineItem2 = () => {
     return LineItem.create({
-      quantity: 1
+      quantity: 1,
+      priceAtPurchase: 180
     })
     .then(lineItem => {
       return Product.findById(1)
@@ -204,7 +206,8 @@ function generateLineItems () {
 
   const lineItem3 = () => {
     return LineItem.create({
-      quantity: 1
+      quantity: 1,
+      priceAtPurchase: 70
     })
     .then(lineItem => {
       return Product.findById(2)
@@ -222,7 +225,8 @@ function generateLineItems () {
 
   const lineItem4 = () => {
     return LineItem.create({
-      quantity: 4
+      quantity: 4,
+      priceAtPurchase: 30
     })
     .then(lineItem => {
       return Product.findById(3)
@@ -240,7 +244,8 @@ function generateLineItems () {
 
   const lineItem5 = () => {
     return LineItem.create({
-      quantity: 2
+      quantity: 2,
+      priceAtPurchase: 70
     })
     .then(lineItem => {
       return Product.findById(2)
