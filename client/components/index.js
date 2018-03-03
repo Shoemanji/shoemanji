@@ -11,5 +11,8 @@ export {default as SingleProduct} from './SingleProduct';
 export {default as Cart} from './Cart';
 export {default as AllReviews} from './AllReviews';
 export {default as AddReview} from './AddReview'
+export {default as AllOrders} from './AllOrders'
+export {default as SingleOrder} from './SingleOrder'
+export {default as OrderRow} from './OrderRow'
 export {default as Checkout} from './Checkout';
 export {default as CategorySelect} from './CategorySelect';

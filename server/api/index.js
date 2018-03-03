@@ -3,12 +3,12 @@ const router = require('express').Router();
 const userRouter = require('./users');
 const productRouter = require('./products');
 const reviewRouter = require('./reviews');
-const orderRouter = require('./order');
+const orderRouter = require('./orders');
 
 router.use('/users', userRouter);
 router.use('/products', productRouter);
-router.use('/reviews', reviewRouter);
-router.use('/order', orderRouter);
+router.use('/reviews', reviewRouter)
+router.use('/orders', orderRouter)
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')
