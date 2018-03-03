@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, AllProducts, SingleProduct, AddReview, AllOrders, SingleOrder,  Cart, Checkout} from './components'
+import { Login, Signup, UserHome, AllProducts, SingleProduct, AddReview, AllOrders, SingleOrder, Cart, Checkout, ProductForm } from './components'
 import {me} from './store'
 
 /**
@@ -22,12 +22,14 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/products" component={AllProducts} />
-        <Route exact path="/products/:id" component={SingleProduct} />
-        <Route path="/products/:id/review" component={AddReview} />
+        <Route exact path="/products/:id/review" component={AddReview} />
         <Route exact path="/user/:id/orders" component={AllOrders} />
         <Route exact path="/orders/:id" component={SingleOrder} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/cart/checkout" component={Checkout} />
+        <Route exact path="/products/:id/edit" component={ProductForm} />
+        <Route exact path="/products/new" component={ProductForm} />
+        <Route exact path="/products/:id" component={SingleProduct} />
         {
           isLoggedIn &&
             <Switch>

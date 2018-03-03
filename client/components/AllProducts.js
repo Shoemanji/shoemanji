@@ -30,13 +30,32 @@ class AllProducts extends React.Component {
     this.props.addToCart({ product, quantity });
   }
 
+  onNewProductClick() {
+    console.log('create');
+  }
+
+  onProductDeleteClick() {
+    console.log('delete');
+  }
+
+  onProductEditClick() {
+    console.log('edit');
+  }
+
   render() {
-    const { products } = this.props;
+    const { products, isAdmin } = this.props;
     const inputValue = this.state.inputValue;
     const regex = new RegExp(inputValue, 'i');
     const filteredProducts = products.filter(product => product.title.match(regex));
     return (
       <div>
+        {isAdmin ? (
+            <Link to="/products/new">
+              <button onClick={() => this.onNewProductClick()}>CREATE NEW PRODUCT</button>
+            </Link>
+          ) :
+          (null)
+        }
         <FilterInput handleChange={this.handleChange} inputValue={inputValue} />
         <ul>
           {(inputValue)
@@ -49,6 +68,16 @@ class AllProducts extends React.Component {
               (<li key={product.id}>
                 <Link to={`/products/${product.id}`}>{product.title}</Link>
                 <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
+                {isAdmin ? (
+                  <div>
+                    <button onClick={() => this.onProductDeleteClick()}>DELETE PRODUCT</button>
+                    <Link to={`/products/${product.id}/edit`}>
+                      <button onClick={() => this.onProductEditClick()}>EDIT PRODUCT</button>
+                    </Link>
+                  </div>
+                ) : (
+                  null
+                )}
               </li>)
             )
           }
@@ -56,41 +85,17 @@ class AllProducts extends React.Component {
       </div>
     )
   }
-
-
-
-
-  //   render() {
-
-
-  //     return (
-  //       <div>
-  //         <FilterInput handleChange={this.handleChange} inputValue={inputValue} />
-  //         <ul>
-  //           { (inputValue)
-  //             ? filteredProducts.map(product =>
-  //               (<li key={product.id}>
-  //                 <Link to={`/products/${product.id}`}>{product.title}</Link>
-  //                 <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
-  //               </li>))
-  //             : products && products.map(product =>
-  //               (<li key={product.id}>
-  //                 <Link to={`/products/${product.id}`}>{product.title}</Link>
-  //                 <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
-  //               </li>)
-  //             )
-  //           }
-  //         </ul>
-  //       </div>
-  //     )
-  //   }
 }
-const mapStateToProps = ({ products }) => ({ products })
+const mapStateToProps = ({ products, user }) => { 
+  return {
+    isAdmin: user.isAdmin,
+    products,
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
   fetchInitialData: () => dispatch(fetchProducts()),
   addToCart: cartRow => dispatch(addToCart(cartRow)),
 });
-//need to add product POST request
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllProducts);
