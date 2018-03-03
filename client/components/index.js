@@ -12,3 +12,4 @@ export {default as Cart} from './Cart';
 export {default as AllReviews} from './AllReviews';
 export {default as AddReview} from './AddReview'
 export {default as Checkout} from './Checkout';
+export {default as CategorySelect} from './CategorySelect';
