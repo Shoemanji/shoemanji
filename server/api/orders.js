@@ -19,6 +19,7 @@ orderRouter.post('/', (req, res, next) => {
       req.body.cart.forEach(cartRow => {
         LineItem.create({
           quantity: cartRow.quantity,
+          priceAtPurchase: cartRow.product.price,
         })
         .then(lineItem => {
           return lineItem.setOrder(order)
