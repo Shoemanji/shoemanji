@@ -8,6 +8,7 @@ import product from './product'
 import cart from './cart'
 import isFetching from './fetch'
 import reviews from './reviews'
+import category from './category'
 import orders from './orders'
 import order from './order'
 
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   cart,
   isFetching,
   reviews,
+  category
   orders,
   order,
 })
@@ -35,5 +37,6 @@ export * from './product'
 export * from './cart'
 export * from './fetch'
 export * from './reviews'
+export * from './category'
 export * from './orders'
 export * from './order'
