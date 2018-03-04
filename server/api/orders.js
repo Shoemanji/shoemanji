@@ -1,6 +1,11 @@
 const orderRouter = require('express').Router();
 const { Order, LineItem, Product } = require('../db/models')
 
+orderRouter.get('/', (req, res, next) => {
+  Order.findAll()
+  .then(orders => res.json(orders))
+})
+
 orderRouter.get('/:userId', (req, res, next) => {
   Order.findAll({ where: { userId: req.params.userId } })
     .then(orders => res.json(orders))
@@ -36,5 +41,17 @@ orderRouter.post('/', (req, res, next) => {
     .then(order => res.json(order))
     .catch(next);
 });
+
+orderRouter.put('/:id', (req, res, next) => {
+  Order.update(req.body, {
+    where: {
+      id: req.params.id
+    }
+  })
+  .then(([updatedOrderRows, updatedOrder]) => {
+    res.status(200).json(updatedOrder);
+  })
+  .catch(next);
+})
 
 module.exports = orderRouter; 

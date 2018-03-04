@@ -20,14 +20,12 @@ export const fetchProduct = id => dispatch => {
 }
 
 export const editProduct = (reqBody, productId) => dispatch => {
-    console.log('BODY', reqBody)
     axios.put(`/api/products/${productId}`, reqBody)
     .then(res => console.log(res.data))
     .catch(err => console.error(err));
 }
 
 export const createProduct = reqBody => dispatch => {
-    console.log('BODY', reqBody)
     axios.post('/api/products', reqBody)
     .then(res => console.log(res.data))
     .catch(err => console.error(err));

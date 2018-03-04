@@ -31,7 +31,6 @@ class ProductForm extends React.Component {
       const productId = +this.props.match.params.id;
       this.props.fetchProduct(productId);
     }
-
   }
 
   generateTitle() {
@@ -214,13 +213,6 @@ class ProductForm extends React.Component {
     )
   }
 }
-
-// [x] checkbox for categories / [x] losing categories - fixed
-// [x] edit / [x] create / delete product
-// [] view all AllOrders
-// [] filter AllOrders / update AllOrders
-
-// [] user management
 
 const mapState = ({ product, categories }) => ({ product, categories });
 
