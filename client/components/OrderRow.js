@@ -6,9 +6,13 @@ export default class OrderRow extends React.Component {
         super(props)
     }
     render() {
+       
+    
         return (
+
             <div>
-                <h4>{this.props.order.id} </h4>
+                <h4>Order Id: {this.props.order.id} </h4>
+                <h4>Status: {this.props.order.status}</h4>
                 <Link to={`/orders/${this.props.order.id}`}>show order</Link>
             </div>
         )
