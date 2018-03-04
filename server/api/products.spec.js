@@ -15,6 +15,7 @@ describe('Products routes', () => {
     const productTitle = 'tv';
     const productPrice = 500.00;
     const productCategory = 'appliance';
+    const productImage = '/jordans600x393.jpg';
 
 
     beforeEach(() => {
@@ -22,6 +23,7 @@ describe('Products routes', () => {
         title: productTitle,
         price: productPrice,
         category: productCategory,
+        image: productImage,
       })
     })
 

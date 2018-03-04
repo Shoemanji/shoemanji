@@ -8,7 +8,7 @@ const FilterInput = props => {
   return (
     <form>
       <input
-        placeholder="search products..."
+        placeholder="search all products..."
         type="text"
         onChange={handleChange}
         value={inputValue}

@@ -15,13 +15,14 @@ class AllReviews extends React.Component {
         const filteredReviews = this.props.reviews.filter(review => review.productId === this.props.productId)
         return (
             <div>
+                <h4>Reviews</h4>
                 <ul>
                     {filteredReviews && filteredReviews.map(review =>
                         (<li key={review.id}>
-                            {review.rating}
+                            {review.rating} out of 5
                             <br />
                             {review.text}
-                            <br />
+                            <br /><br />
                         </li>)
                     )}
                 </ul>

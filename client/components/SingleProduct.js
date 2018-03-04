@@ -35,11 +35,11 @@ class SingleProduct extends React.Component {
         return (
             product ? (
                 <div>
-                    <h3>{ product.title }</h3>
+                    <h2>{ product.title }</h2>
+                    <p>{ product.description }</p>
+                    <img src={  product.image } />
+                    <br />
                     <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
-                    <Link to={`/products/${product.id}/review`}>
-                        <button>ADD REVIEW</button>
-                    </Link>
                     <input
                         onClick={(evt) => this.onQuantityChange(evt)}
                         type="number"
@@ -48,8 +48,11 @@ class SingleProduct extends React.Component {
                         max={product.inventory}
                         step="1"
                     />
-                    <Link to="/products">Back to all products</Link>
+                    <br /><br />
                     <AllReviews productId={product.id} />
+                    <Link to={`/products/${product.id}/review`}>
+                        <button>ADD REVIEW</button>
+                    </Link>
                 </div>
             ) : null
 

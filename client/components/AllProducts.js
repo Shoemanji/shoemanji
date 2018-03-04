@@ -49,6 +49,7 @@ class AllProducts extends React.Component {
                   .filter(product => product.title.match(regex))
                   .map(product =>
                     (<li key={product.id}>
+                      <img width="200" src={  product.image } />
                       <Link to={`/products/${product.id}`}>{product.title}</Link>
                       <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
                     </li>))
@@ -57,6 +58,7 @@ class AllProducts extends React.Component {
                   .map(product => {
                     return (
                       <li key={product.id}>
+                        <img width="200" src={  product.image } />
                         <Link to={`/products/${product.id}`}>{product.title}</Link>
                         <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
                       </li>
