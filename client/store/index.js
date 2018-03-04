@@ -19,7 +19,7 @@ const reducer = combineReducers({
   cart,
   isFetching,
   reviews,
-  category
+  category,
   orders,
   order,
 })

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { fetchProducts, addToCart } from '../store';
 import FilterInput from './FilterInput';
 import CategorySelect from './CategorySelect';
+import { escapeRegExp } from 'lodash';
 
 class AllProducts extends React.Component {
   constructor(props) {
@@ -24,7 +25,14 @@ class AllProducts extends React.Component {
 
   handleChange(event) {
     const inputValue = event.target.value;
-    this.setState({ inputValue });
+
+    // prevents re-renders from crashing due to expected regex statement
+    // i.e in search box: '\' or other regex chars need to be closed \ \ to be valid
+    const escapedRegexValue = escapeRegExp(inputValue);
+    // disables special chars in search field
+    const cleanString = escapedRegexValue.replace(/[\\|&;$%@"<>()+,*]/g, '');
+
+    this.setState({ inputValue: cleanString });
   }
 
   onAddToCartClick(product) {
@@ -34,7 +42,7 @@ class AllProducts extends React.Component {
 
   render() {
     const { products, category } = this.props;
-    const inputValue = this.state.inputValue;
+    const { inputValue } = this.state;
     const regex = new RegExp(inputValue, 'i');
 
     return (
