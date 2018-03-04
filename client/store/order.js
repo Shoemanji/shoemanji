@@ -4,7 +4,7 @@ const SINGLE_ORDER = 'SINGLE_ORDER'
 
 const getOrder = order => ({ type: SINGLE_ORDER, order })
 
-export default function reducer(order = {}, action) {
+export default function reducer(order = [], action) {
     switch (action.type) {
         case SINGLE_ORDER:
             return action.order;

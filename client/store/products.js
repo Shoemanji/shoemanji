@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getCategories } from './';
 
 const ALL_PRODUCTS = 'ALL_PRODUCTS';
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
@@ -18,5 +19,12 @@ export default function reducer (products = [], action){
 
 export const fetchProducts = () => dispatch => {
     axios.get('/api/products')
-        .then(res => dispatch(getProducts(res.data)))
+        .then(res => {
+            return res.data;
+        })
+        .then(products => {
+            const categories = [...new Set(products.map(product => product.category))].sort();
+            dispatch(getProducts(products));
+            dispatch(getCategories(categories));
+        })
 }

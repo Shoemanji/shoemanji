@@ -3,19 +3,21 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchProducts, addToCart } from '../store';
 import FilterInput from './FilterInput';
-
+import CategorySelect from './CategorySelect';
 
 class AllProducts extends React.Component {
   constructor(props) {
     super(props)
+
     this.state = {
       quantity: 1,
       inputValue: '',
     }
+
     this.onAddToCartClick = this.onAddToCartClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-  
+
   componentDidMount() {
     this.props.fetchInitialData();
   }
@@ -43,10 +45,10 @@ class AllProducts extends React.Component {
   }
 
   render() {
-    const { products, isAdmin } = this.props;
+    const { products, isAdmin, category } = this.props;
     const inputValue = this.state.inputValue;
     const regex = new RegExp(inputValue, 'i');
-    const filteredProducts = products.filter(product => product.title.match(regex));
+
     return (
       <div>
         {isAdmin ? (
@@ -57,39 +59,52 @@ class AllProducts extends React.Component {
           (null)
         }
         <FilterInput handleChange={this.handleChange} inputValue={inputValue} />
+        <br />
+        <CategorySelect />
         <ul>
-          {(inputValue)
-            ? filteredProducts.map(product =>
-              (<li key={product.id}>
-                <Link to={`/products/${product.id}`}>{product.title}</Link>
-                <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
-              </li>))
-            : products && products.map(product =>
-              (<li key={product.id}>
-                <Link to={`/products/${product.id}`}>{product.title}</Link>
-                <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
-                {isAdmin ? (
-                  <div>
-                    <button onClick={() => this.onProductDeleteClick()}>DELETE PRODUCT</button>
-                    <Link to={`/products/${product.id}/edit`}>
-                      <button onClick={() => this.onProductEditClick()}>EDIT PRODUCT</button>
-                    </Link>
-                  </div>
-                ) : (
-                  null
-                )}
-              </li>)
-            )
+          {
+            (category === 'ALL' || !category)
+              ? products && products
+                  .filter(product => product.title.match(regex))
+                  .map(product =>
+                    (<li key={product.id}>
+                      <img width="200" src={  product.image } />
+                      <Link to={`/products/${product.id}`}>{product.title}</Link>
+                      <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
+                      {isAdmin ? (
+                        <div>
+                          <button onClick={() => this.onProductDeleteClick()}>DELETE PRODUCT</button>
+                          <Link to={`/products/${product.id}/edit`}>
+                            <button onClick={() => this.onProductEditClick()}>EDIT PRODUCT</button>
+                          </Link>
+                        </div>
+                      ) : (
+                        null
+                      )}
+                    </li>))
+              : products.filter(product => product.category === category)
+                  .filter(product => product.title.match(regex))
+                  .map(product => {
+                    return (
+                      <li key={product.id}>
+                        <img width="200" src={  product.image } />
+                        <Link to={`/products/${product.id}`}>{product.title}</Link>
+                        <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
+                      </li>
+                    );
+                  })
           }
         </ul>
       </div>
     )
   }
 }
-const mapStateToProps = ({ products, user }) => { 
+
+const mapStateToProps = ({ products, user, category }) => { 
   return {
     isAdmin: user.isAdmin,
     products,
+    category
   }
 }
 

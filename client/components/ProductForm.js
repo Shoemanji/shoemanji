@@ -68,8 +68,8 @@ class ProductForm extends React.Component {
     // this.props.editProduct(reqBody);
   }
 
-  onSubmit(isNewProduct) {
-    // evt.preventDefault();
+  onSubmit(evt, isNewProduct) {
+    evt.preventDefault();
     if (isNewProduct) {
       return this.onCreateNewProductClick()
     } else {
@@ -79,25 +79,36 @@ class ProductForm extends React.Component {
 
   render() {
     const isNewProduct = this.props.match.path === '/products/new' ? true : false;
-    const { product } = this.props;
+    const { product, categories } = this.props;
     return (
       <Fragment>
         {this.generateTitle(isNewProduct)}
-        <form onSubmit={this.onSubmit(isNewProduct)}>
+        <form onSubmit={(evt) => this.onSubmit(evt, isNewProduct)}>
           <h4>TITLE</h4>
-          <input required name="title" type="text" placeholder="title" value={product.title && !isNewProduct ? product.title : null} />
+          <input required name="title" type="text" placeholder="title" value={product.title && !isNewProduct ? product.title : ''} />
 
           <h4>DESCRIPTION</h4>
-          <textarea name="description" type="text" placeholder="description" value={product.description && !isNewProduct ? product.description : null} ></textarea>
+          <textarea name="description" type="text" placeholder="description" value={product.description && !isNewProduct ? product.description : ''} ></textarea>
 
           <h4>PRICE</h4>
-          <input name="price" type="number" pattern="[0-9]" placeholder="price" value={product.price && !isNewProduct ? product.price : null} />
+          <input name="price" type="number" pattern="[0-9]" placeholder="price" value={product.price && !isNewProduct ? product.price : ''} />
 
           <h4>INVENTORY</h4>
-          <input name="inventory" type="text" pattern="[0-9]" placeholder="inventory" value={product.inventory && !isNewProduct ? product.inventory : null} />
+          <input name="inventory" type="text" pattern="[0-9]" placeholder="inventory" value={product.inventory && !isNewProduct ? product.inventory : ''} />
 
           <h4>CATEGORY</h4>
-          <input name="category" type="text" placeholder="category" value={product.category && !isNewProduct ? product.category : null} />
+          {
+            categories.map(category => {
+              return (
+                <div key={category}>
+                  <input type="checkbox" id={`category-${category}`} name="category" value={category} checked={product.category === category && !isNewProduct ? true : false}/>
+                  <label htmlFor={`category-${category}`}>{category}</label>
+                </div>
+              )
+            })
+          }
+          <label htmlFor="create-category">Add new Category</label>
+          <input name="create-category" type="text" placeholder="category name" />
           <br />
           <br />
           <button>EDIT</button>
@@ -107,13 +118,13 @@ class ProductForm extends React.Component {
   }
 }
 
-// [] checkbox for categories
+// [x] checkbox for categories
 // [] view all AllOrders
 // [] filter AllOrders / update AllOrders
 
 // [] user management
 
-const mapState = ({ product }) => ({ product });
+const mapState = ({ product, categories }) => ({ product, categories });
 
 const mapDispatch = dispatch => ({
   fetchProduct: id => dispatch(fetchProduct(id)),
