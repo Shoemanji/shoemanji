@@ -15,7 +15,6 @@ orderRouter.get('/singleOrder/:id', (req, res, next) => {
 })
 
 orderRouter.post('/', (req, res, next) => {
-  console.log('$$$$$', req.body)
   Order.create(req.body)
     .then(order => {
       req.body.cart.forEach(cartRow => {

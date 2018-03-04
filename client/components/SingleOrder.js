@@ -13,7 +13,6 @@ class SingleOrder extends React.Component {
     render() {
         const { order } = this.props
         const orderHistory = this.props.order[0]
-        console.log(orderHistory)
 
         return (
             order, orderHistory ? (
