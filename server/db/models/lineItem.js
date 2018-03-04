@@ -9,7 +9,17 @@ const LineItem = db.define('lineItem', {
       min: 0,
       max: 4,
     }
+  },
+  priceAtPurchase: {
+    type: Sequelize.DECIMAL,
+    allowNull: false,
+    validate: {
+      min: 0.01,
+    }
   }
 })
+
+  // lineItem.priceAtPurchase = Product.findById(lineItem.productId).price;
+
 
 module.exports = LineItem;

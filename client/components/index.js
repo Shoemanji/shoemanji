@@ -15,3 +15,4 @@ export {default as AllOrders} from './AllOrders'
 export {default as SingleOrder} from './SingleOrder'
 export {default as OrderRow} from './OrderRow'
 export {default as Checkout} from './Checkout';
+export {default as CategorySelect} from './CategorySelect';
