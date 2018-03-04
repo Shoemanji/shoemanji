@@ -52,7 +52,7 @@ class AllProducts extends React.Component {
     return (
       <div>
         {isAdmin ? (
-            <Link to="/products/new">
+            <Link to="/products/create">
               <button onClick={() => this.onNewProductClick()}>CREATE NEW PRODUCT</button>
             </Link>
           ) :
@@ -82,7 +82,7 @@ class AllProducts extends React.Component {
                         null
                       )}
                     </li>))
-              : products.filter(product => product.category === category)
+              : products.filter(product => product.categories.includes(category))
                   .filter(product => product.title.match(regex))
                   .map(product => {
                     return (
@@ -100,7 +100,7 @@ class AllProducts extends React.Component {
   }
 }
 
-const mapStateToProps = ({ products, user, category }) => { 
+const mapStateToProps = ({ products, user, category }) => {
   return {
     isAdmin: user.isAdmin,
     products,

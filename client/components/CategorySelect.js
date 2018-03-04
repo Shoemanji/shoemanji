@@ -28,9 +28,9 @@ class CategorySelect extends React.Component {
           <select onChange={this.handleChange}>
             <option value={'ALL'}> -- ALL -- </option>
               {
-                categories.map(category => {
+                categories.map((category, i) => {
                   return (
-                    <option key={category} value={category}>{category}</option>
+                    <option key={i} value={category}>{category}</option>
                   );
                 })
               }

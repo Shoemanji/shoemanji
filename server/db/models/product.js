@@ -27,8 +27,9 @@ const Product = db.define('product', {
       min: 0,
     }
   },
-  category: {
-    type: Sequelize.STRING,
+  categories: {
+    // type: Sequelize.STRING,
+    type: Sequelize.ARRAY(Sequelize.STRING),
     allowNull: false,
   }
 }, {

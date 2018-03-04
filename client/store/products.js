@@ -23,8 +23,14 @@ export const fetchProducts = () => dispatch => {
             return res.data;
         })
         .then(products => {
-            const categories = [...new Set(products.map(product => product.category))].sort();
+            let allCategories = []
+            products.forEach(product => {
+                product.categories.forEach(category => {
+                    allCategories.push(category);
+                })
+            })
+            const uniqueCategories = [...new Set(allCategories)].sort()
             dispatch(getProducts(products));
-            dispatch(getCategories(categories));
+            dispatch(getCategories(uniqueCategories));
         })
 }

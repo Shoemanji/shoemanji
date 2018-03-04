@@ -33,7 +33,7 @@ function generateProducts () {
     price: 200.00,
     image: '/jordans600x393.jpg',
     inventory: 2,
-    category: 'sport'
+    categories: ['sport']
   })
   const product2 = Product.create({
     title: 'Pumpernickel Loafers',
@@ -41,7 +41,7 @@ function generateProducts () {
     price: 50.00,
     image: '/loafers600x393.jpg',
     inventory: 10,
-    category: 'casual'
+    categories: ['casual']
   })
   const product3 = Product.create({
     title: 'Hip Boots',
@@ -49,7 +49,7 @@ function generateProducts () {
     price: 75.00,
     image: '/boots600x393.jpg',
     inventory: 10,
-    category: 'winter'
+    categories: ['winter']
   })
   const product4 = Product.create({
     title: 'Flawless Pumps',
@@ -57,7 +57,7 @@ function generateProducts () {
     price: 100.00,
     image: '/pumps600x393.jpg',
     inventory: 10,
-    category: 'heels'
+    categories: ['heels']
   })
   return Promise.all([product1, product2, product3, product4])
 }
