@@ -42,15 +42,15 @@ class AllProducts extends React.Component {
           {(inputValue)
             ? filteredProducts.map(product =>
               (<li key={product.id}>
+                <img width="200" src={  product.image } />
                 <Link to={`/products/${product.id}`}>{product.title}</Link>
+                <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
               </li>))
             : products && products.map(product =>
               (<li key={product.id}>
-
+                <img width="200" src={  product.image } />
                 <Link to={`/products/${product.id}`}>{product.title}</Link>
-                <br />
-                <img className="mini" src={  product.image } />
-                <br /><br /><br />
+                <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
               </li>)
             )
           }
@@ -58,31 +58,6 @@ class AllProducts extends React.Component {
       </div>
     )
   }
-
-  //   render() {
-
-
-  //     return (
-  //       <div>
-  //         <FilterInput handleChange={this.handleChange} inputValue={inputValue} />
-  //         <ul>
-  //           { (inputValue)
-  //             ? filteredProducts.map(product =>
-  //               (<li key={product.id}>
-  //                 <Link to={`/products/${product.id}`}>{product.title}</Link>
-  //                 <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
-  //               </li>))
-  //             : products && products.map(product =>
-  //               (<li key={product.id}>
-  //                 <Link to={`/products/${product.id}`}>{product.title}</Link>
-  //                 <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
-  //               </li>)
-  //             )
-  //           }
-  //         </ul>
-  //       </div>
-  //     )
-  //   }
 }
 const mapStateToProps = ({ products }) => ({ products })
 
