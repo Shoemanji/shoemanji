@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { fetchOrders, fetchAllOrders } from '../store';
 import OrderRow from './OrderRow';
+import OrderSelect from './OrderSelect';
 
 class AllOrders extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+
     this.state = {
       displayAllOrders: false,
+      currentStatus: 'ALL',
     }
+
     this.updatePage = this.updatePage.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.filteredRender = this.filteredRender.bind(this);
   }
 
   componentDidMount() {
@@ -42,11 +48,19 @@ class AllOrders extends React.Component {
     }
   }
 
-  render() {
-    const { orders, user } = this.props
-    return (
-      orders.length ? (
-        <div>
+  handleChange(event) {
+    const currentStatus = event.target.value;
+    this.setState({ currentStatus });
+  }
+
+  filteredRender(orders, statusFlag) {
+    const { user } = this.props;
+
+    if (!orders.length) return (<h3>No Orders Found </h3>);
+
+    if (statusFlag === 'ALL') {
+      return (
+        <Fragment>
           <ul>
             {orders.map(order =>
               (<li key={order.id}>
@@ -54,8 +68,28 @@ class AllOrders extends React.Component {
               </li>)
             )}
           </ul>
-        </div>
-      ) : (<h3>No Orders Found </h3>)
+        </Fragment>);
+    }
+
+    return (<Fragment>
+      <ul>
+        {orders.filter(order => order.status === this.state.currentStatus).map(order =>
+          (<li key={order.id}>
+            <OrderRow order={order} isAdmin={user.isAdmin} />
+          </li>)
+        )}
+      </ul>
+    </Fragment>);
+  }
+
+  render() {
+    const { orders } = this.props;
+    const { currentStatus } = this.state;
+    return (
+      <Fragment>
+        <OrderSelect handleChange={this.handleChange} />
+        { this.filteredRender(orders, currentStatus) }
+      </Fragment>
     )
   }
 }
