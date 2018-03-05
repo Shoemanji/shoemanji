@@ -17,3 +17,4 @@ export {default as OrderRow} from './OrderRow'
 export {default as Checkout} from './Checkout';
 export {default as ProductForm} from './ProductForm';
 export {default as CategorySelect} from './CategorySelect';
+export {default as OrderSelect} from './OrderSelect';
