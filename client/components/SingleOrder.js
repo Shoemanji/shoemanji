@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchOrder, updateOrder } from '../store';
+import { Link } from 'react-router-dom';
 
 class SingleOrder extends React.Component {
   constructor(props) {
@@ -63,10 +64,10 @@ class SingleOrder extends React.Component {
           <ul>
             {this.props.order.map(lineItem =>
               (<li key={lineItem.id}>
-                <div>Product name: {lineItem.product.title} </div>
+                <div><Link to={`/products/${lineItem.product.id}`}>Product name: {lineItem.product.title} </Link></div>
                 <div>Description: {lineItem.product.description}</div>
                 <div>Quantity: {lineItem.quantity}</div>
-                <div>Price: {lineItem.product.price}</div>
+                <div>Price: {lineItem.priceAtPurchase}</div>
               </li>
               ))}
           </ul>

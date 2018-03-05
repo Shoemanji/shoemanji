@@ -1,6 +1,6 @@
 import React from 'react'; 
 import { connect } from 'react-redux'; 
-import { myReviews } from '../store'; 
+import { myReviews, fetchProduct } from '../store'; 
 
 class MyReviews extends React.Component {
     constructor(props) {
@@ -10,6 +10,7 @@ class MyReviews extends React.Component {
     componentDidMount() {
         const userId = Number(this.props.match.params.id)
         this.props.myReviews(userId)
+        this.props.singleProduct(userId)
     }
     render() {
         const { reviews } = this.props
@@ -17,9 +18,10 @@ class MyReviews extends React.Component {
             reviews.length ? (
                 <div>
                 <ul>
+                <h2>{this.props.product.title}</h2>
                 {this.props.reviews.map(review =>
                     (<li key={review.id}>
-                    {review.text}
+                    <div>{review.text}</div>
                     </li>)
                 )}
                 </ul>
@@ -30,10 +32,11 @@ class MyReviews extends React.Component {
 }
 
 
-const mapStateToProps = ({ reviews }) => ({ reviews })
+const mapStateToProps = ({ reviews, product }) => ({ reviews, product })
 
 const mapDispatchToProps = dispatch => ({
-    myReviews: userId => dispatch(myReviews(userId))
+    myReviews: userId => dispatch(myReviews(userId)),
+    singleProduct: userId => dispatch(fetchProduct(userId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyReviews);
