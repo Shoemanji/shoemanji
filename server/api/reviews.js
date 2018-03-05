@@ -21,6 +21,12 @@ reviewRouter.get('/:id', (req, res, next) => {
   .catch(next);
 })
 
+reviewRouter.get('/user/:id', (req, res, next) => {
+  Review.findAll({
+    where: { userId: req.params.id } })
+    .then(reviews => res.json(reviews))
+})
+
 reviewRouter.post('/', isLoggedIn, (req, res, next) => {
   Review.create(req.body)
   .then(instance => res.json(instance))

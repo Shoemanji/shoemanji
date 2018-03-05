@@ -15,6 +15,7 @@ import {
   Checkout,
   ProductForm,
   AllUsers,
+  MyReviews,
 } from './components'
 import {me} from './store'
 
@@ -41,6 +42,7 @@ class Routes extends Component {
         <Route exact path="/orders/:id" component={SingleOrder} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/cart/checkout" component={Checkout} />
+        <Route exact path="/user/:id/reviews" component={MyReviews} />
         <Route exact path="/products/:id/edit" component={ProductForm} />
         <Route exact path="/products/create" component={ProductForm} />
         <Route exact path="/products/:id" component={SingleProduct} />

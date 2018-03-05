@@ -24,6 +24,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, user }) => (
             Logout
           </a>
           <Link to={`/user/${user.id}/orders`}>My Orders</Link>
+          <Link to= {`/user/${user.id}/reviews`}>My Reviews</Link>
         </div>
       ) : (
         <div>
