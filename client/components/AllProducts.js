@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchProducts, addToCart } from '../store';
+import { fetchProducts, addToCart, deleteProduct } from '../store';
 import FilterInput from './FilterInput';
 import CategorySelect from './CategorySelect';
 
@@ -32,13 +32,24 @@ class AllProducts extends React.Component {
     this.props.addToCart({ product, quantity });
   }
 
+  onProductDeleteClick(productId) {
+    this.props.deleteProduct(productId);
+  }
+
   render() {
-    const { products, category } = this.props;
+    const { products, isAdmin, category } = this.props;
     const inputValue = this.state.inputValue;
     const regex = new RegExp(inputValue, 'i');
 
     return (
       <div>
+        {isAdmin ? (
+            <Link to="/products/create">
+              <button>CREATE NEW PRODUCT</button>
+            </Link>
+          ) :
+          (null)
+        }
         <FilterInput handleChange={this.handleChange} inputValue={inputValue} />
         <br />
         <CategorySelect />
@@ -52,8 +63,18 @@ class AllProducts extends React.Component {
                       <img width="200" src={  product.image } />
                       <Link to={`/products/${product.id}`}>{product.title}</Link>
                       <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
+                      {isAdmin ? (
+                        <div>
+                          <button onClick={() => this.onProductDeleteClick(product.id)}>DELETE PRODUCT</button>
+                          <Link to={`/products/${product.id}/edit`}>
+                            <button>EDIT PRODUCT</button>
+                          </Link>
+                        </div>
+                      ) : (
+                        null
+                      )}
                     </li>))
-              : products.filter(product => product.category === category)
+              : products.filter(product => product.categories.includes(category))
                   .filter(product => product.title.match(regex))
                   .map(product => {
                     return (
@@ -71,12 +92,18 @@ class AllProducts extends React.Component {
   }
 }
 
-const mapStateToProps = ({ products, category }) => ({ products, category })
+const mapStateToProps = ({ products, user, category }) => {
+  return {
+    isAdmin: user.isAdmin,
+    products,
+    category
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
   fetchInitialData: () => dispatch(fetchProducts()),
   addToCart: cartRow => dispatch(addToCart(cartRow)),
+  deleteProduct: productId => dispatch(deleteProduct(productId)),
 });
-//need to add product POST request
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllProducts);

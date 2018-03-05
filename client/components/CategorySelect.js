@@ -16,12 +16,10 @@ class CategorySelect extends React.Component {
   handleChange(event) {
     const category = event.target.value;
     this.props.getCategory(category);
-    console.log('current category:', category)
   }
 
   render() {
-    const { products } = this.props;
-    let uniqueCategories = new Set();
+    const { categories } = this.props;
     return (
       <Fragment>
         <form>
@@ -30,14 +28,9 @@ class CategorySelect extends React.Component {
           <select onChange={this.handleChange}>
             <option value={'ALL'}> -- ALL -- </option>
               {
-                products && products.map(product => {
-                  uniqueCategories.add(product.category);
-                })
-              }
-              {
-                Array.from(uniqueCategories).sort().map(category => {
+                categories.map((category, i) => {
                   return (
-                    <option key={category} value={category}>{category}</option>
+                    <option key={i} value={category}>{category}</option>
                   );
                 })
               }
@@ -49,7 +42,7 @@ class CategorySelect extends React.Component {
   }
 }
 
-const mapStateToProps = ({ products }) => ({ products });
+const mapStateToProps = ({ categories }) => ({ categories });
 
 const mapDispatchToProps = dispatch => ({
   getCategory: category => dispatch(getCategory(category)),
