@@ -9,7 +9,10 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, user }) => (
     <h1>SHOEMANJI</h1>
     <nav>
       {isLoggedIn && isAdmin ? (
-        <Link to="/orders/all">Manage Orders</Link>
+        <div>
+          <Link to="/orders/all">Manage Orders</Link>
+          <Link to="/users/all">Manage Users</Link>
+        </div>
       ) : (
         null
       )}
@@ -21,6 +24,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, user }) => (
             Logout
           </a>
           <Link to={`/user/${user.id}/orders`}>My Orders</Link>
+          <Link to= {`/user/${user.id}/reviews`}>My Reviews</Link>
         </div>
       ) : (
         <div>
