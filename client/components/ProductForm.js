@@ -34,6 +34,7 @@ class ProductForm extends React.Component {
   }
 
   resetForm() {
+    console.log('RESET FORM')
     this.setState({
       activeCheckboxes: {},
       title: '',
@@ -161,8 +162,14 @@ class ProductForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let activeCheckboxes = {}
-    if (Object.keys(nextProps.product).length !== 0 && nextProps.product.constructor === Object) {
+    const oldPath = this.props.match.path;
+    const newPath = nextProps.match.path;
+    let activeCheckboxes = {};
+    if (
+      Object.keys(nextProps.product).length !== 0 &&
+      nextProps.product.constructor === Object &&
+      newPath !== '/products/create'
+    ) {
       nextProps.product.categories.forEach(category =>
         Object.defineProperty(activeCheckboxes, category, {
           value: true,
@@ -179,9 +186,14 @@ class ProductForm extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.resetForm();
+  }
+
   render() {
     const { categories } = this.props;
     const isNewProduct = this.props.match.path === '/products/create';
+    console.log('STATE', this.state);
     return (
       <Fragment>
         {this.generateTitle(isNewProduct)}
