@@ -48,7 +48,7 @@ class AllOrders extends React.Component {
       orders.length ? (
         <div>
           <ul>
-            {this.props.orders.map(order =>
+            {orders.map(order =>
               (<li key={order.id}>
                 <OrderRow order={order} isAdmin={user.isAdmin} />
               </li>)

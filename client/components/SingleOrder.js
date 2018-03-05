@@ -56,17 +56,17 @@ class SingleOrder extends React.Component {
           ) : (
             null
           )}
-          <div> order ID: {orderHistory.orderId}</div>
-          <div> Date Placed: {orderHistory.order.placedAt.substr(0, 10)}</div>
-          <div> Shipping Address: {orderHistory.order.shippingAddress}</div>
-          <div> Email: {orderHistory.order.email}</div>
+          <div>Order ID: {orderHistory.orderId}</div>
+          <div>Date Placed: {orderHistory.order.placedAt.substr(0, 10)}</div>
+          <div>Shipping Address: {orderHistory.order.shippingAddress}</div>
+          <div>Email: {orderHistory.order.email}</div>
           <ul>
             {this.props.order.map(lineItem =>
               (<li key={lineItem.id}>
-                <div> Product name: {lineItem.product.title} </div>
-                <div> Description: {lineItem.product.description}</div>
-                <div> Quantity: {lineItem.quantity}</div>
-                <div> Price: {lineItem.product.price}</div>
+                <div>Product name: {lineItem.product.title} </div>
+                <div>Description: {lineItem.product.description}</div>
+                <div>Quantity: {lineItem.quantity}</div>
+                <div>Price: {lineItem.product.price}</div>
               </li>
               ))}
           </ul>

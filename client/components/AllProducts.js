@@ -33,7 +33,6 @@ class AllProducts extends React.Component {
   }
 
   onProductDeleteClick(productId) {
-    console.log('delete');
     this.props.deleteProduct(productId);
   }
 
@@ -104,7 +103,7 @@ const mapStateToProps = ({ products, user, category }) => {
 const mapDispatchToProps = dispatch => ({
   fetchInitialData: () => dispatch(fetchProducts()),
   addToCart: cartRow => dispatch(addToCart(cartRow)),
-  deleteProduct: (productId) => dispatch(deleteProduct(productId)),
+  deleteProduct: productId => dispatch(deleteProduct(productId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllProducts);
