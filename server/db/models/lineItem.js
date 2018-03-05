@@ -19,7 +19,4 @@ const LineItem = db.define('lineItem', {
   }
 })
 
-  // lineItem.priceAtPurchase = Product.findById(lineItem.productId).price;
-
-
 module.exports = LineItem;

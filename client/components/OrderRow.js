@@ -2,19 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default class OrderRow extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-    render() {
-       
-    
-        return (
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    const { order, isAdmin } = this.props;
 
-            <div>
-                <h4>Order Id: {this.props.order.id} </h4>
-                <h4>Status: {this.props.order.status}</h4>
-                <Link to={`/orders/${this.props.order.id}`}>show order</Link>
-            </div>
-        )
-    }
+    return (
+      <div>
+        <h4>Order Id: {order.id} </h4>
+        <h4>Status: {order.status}</h4>
+        <Link to={`/orders/${order.id}`}>show order</Link>
+      </div>
+    )
+  }
 }

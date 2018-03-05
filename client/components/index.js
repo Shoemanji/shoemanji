@@ -15,5 +15,8 @@ export {default as AllOrders} from './AllOrders'
 export {default as SingleOrder} from './SingleOrder'
 export {default as OrderRow} from './OrderRow'
 export {default as Checkout} from './Checkout';
+export {default as ProductForm} from './ProductForm';
 export {default as CategorySelect} from './CategorySelect';
 export {default as MyReviews} from './MyReviews';
+export {default as AllUsers} from './AllUsers';
+

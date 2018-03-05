@@ -14,7 +14,7 @@ describe('Products routes', () => {
   describe('/api/products/', () => {
     const productTitle = 'tv';
     const productPrice = 500.00;
-    const productCategory = 'appliance';
+    const productCategories = ['appliance', '4k'];
     const productImage = '/jordans600x393.jpg';
 
 
@@ -22,7 +22,7 @@ describe('Products routes', () => {
       return Product.create({
         title: productTitle,
         price: productPrice,
-        category: productCategory,
+        categories: productCategories,
         image: productImage,
       })
     })
