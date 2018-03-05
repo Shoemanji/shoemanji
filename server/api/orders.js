@@ -1,17 +1,33 @@
 const orderRouter = require('express').Router();
 const { Order, LineItem, Product } = require('../db/models')
 
-orderRouter.get('/', (req, res, next) => {
+function isAdmin(req, res, next) {
+  if (req.user.isAdmin) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+}
+
+function isLoggedIn(req, res, next) {
+  if (req.user) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+}
+
+orderRouter.get('/', isAdmin, (req, res, next) => {
   Order.findAll()
   .then(orders => res.json(orders))
 })
 
-orderRouter.get('/:userId', (req, res, next) => {
+orderRouter.get('/:userId', isLoggedIn, (req, res, next) => {
   Order.findAll({ where: { userId: req.params.userId } })
     .then(orders => res.json(orders))
 })
 
-orderRouter.get('/singleOrder/:id', (req, res, next) => {
+orderRouter.get('/singleOrder/:id', isLoggedIn, (req, res, next) => {
   LineItem.findAll({
     where: { orderId: req.params.id },
     include: [{model: Product}, {model: Order}],
@@ -54,7 +70,7 @@ orderRouter.post('/', (req, res, next) => {
     .catch(next);
 });
 
-orderRouter.put('/:id', (req, res, next) => {
+orderRouter.put('/:id', isAdmin, (req, res, next) => {
   Order.update(req.body, {
     where: {
       id: req.params.id
@@ -66,4 +82,4 @@ orderRouter.put('/:id', (req, res, next) => {
   .catch(next);
 })
 
-module.exports = orderRouter; 
+module.exports = orderRouter;
