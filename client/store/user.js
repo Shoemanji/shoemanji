@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import { deleteCurrentUser } from './'
+import { deleteCurrentUser } from './users'
 
 /**
  * ACTION TYPES
