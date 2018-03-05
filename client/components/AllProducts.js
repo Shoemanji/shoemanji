@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchProducts, addToCart } from '../store';
+import { fetchProducts, addToCart, deleteProduct } from '../store';
 import FilterInput from './FilterInput';
 import CategorySelect from './CategorySelect';
 
@@ -32,16 +32,9 @@ class AllProducts extends React.Component {
     this.props.addToCart({ product, quantity });
   }
 
-  onNewProductClick() {
-    console.log('create');
-  }
-
-  onProductDeleteClick() {
+  onProductDeleteClick(productId) {
     console.log('delete');
-  }
-
-  onProductEditClick() {
-    console.log('edit');
+    this.props.deleteProduct(productId);
   }
 
   render() {
@@ -53,7 +46,7 @@ class AllProducts extends React.Component {
       <div>
         {isAdmin ? (
             <Link to="/products/create">
-              <button onClick={() => this.onNewProductClick()}>CREATE NEW PRODUCT</button>
+              <button>CREATE NEW PRODUCT</button>
             </Link>
           ) :
           (null)
@@ -73,9 +66,9 @@ class AllProducts extends React.Component {
                       <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
                       {isAdmin ? (
                         <div>
-                          <button onClick={() => this.onProductDeleteClick()}>DELETE PRODUCT</button>
+                          <button onClick={() => this.onProductDeleteClick(product.id)}>DELETE PRODUCT</button>
                           <Link to={`/products/${product.id}/edit`}>
-                            <button onClick={() => this.onProductEditClick()}>EDIT PRODUCT</button>
+                            <button>EDIT PRODUCT</button>
                           </Link>
                         </div>
                       ) : (
@@ -111,6 +104,7 @@ const mapStateToProps = ({ products, user, category }) => {
 const mapDispatchToProps = dispatch => ({
   fetchInitialData: () => dispatch(fetchProducts()),
   addToCart: cartRow => dispatch(addToCart(cartRow)),
+  deleteProduct: (productId) => dispatch(deleteProduct(productId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllProducts);

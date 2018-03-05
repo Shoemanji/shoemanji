@@ -51,7 +51,7 @@ class Checkout extends React.Component {
 
           <br />
           <br />
-          <button>Checkout</button>
+          <button>PLACE ORDER</button>
         </form>
       </Fragment>
     )

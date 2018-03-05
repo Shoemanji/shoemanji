@@ -27,18 +27,30 @@ orderRouter.post('/', (req, res, next) => {
           quantity: cartRow.quantity,
           priceAtPurchase: cartRow.product.price,
         })
-          .then(lineItem => {
-            return lineItem.setOrder(order)
-              .then(() => {
-                return Product.findById(cartRow.product.id)
-                  .then(product => {
-                    return lineItem.setProduct(product)
-                  })
+        .then(lineItem => {
+          return lineItem.setOrder(order)
+          .then(() => {
+            return Product.findById(cartRow.product.id)
+            .then(product => {
+              return lineItem.setProduct(product)
+            })
+            .then(() => {
+              return Product.update({inventory: (cartRow.product.inventory - cartRow.quantity)}, {
+                where: {
+                  id: cartRow.product.id
+                }
               })
+            })
+            .then(() => {
+              res.status(200).json(order)
+            })
           })
+        })
       })
     })
-    .then(order => res.json(order))
+    // .then(order => {
+    //   res.status(200).json(order)
+    // })
     .catch(next);
 });
 

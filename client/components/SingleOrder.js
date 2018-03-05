@@ -31,7 +31,6 @@ class SingleOrder extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.order.length) {
       const orderHistory = nextProps.order[0];
-      console.log('HISTORY', nextProps);
       const orderStatus = orderHistory.order.status;
       this.setState({ orderStatus });
     }

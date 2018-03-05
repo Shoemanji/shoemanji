@@ -41,4 +41,16 @@ productRouter.put('/:id', (req, res, next) => {
   .catch(next);
 });
 
+productRouter.delete('/:id', (req, res, next) => {
+  Product.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+  .then(() => {
+    res.sendStatus(202);
+  })
+  .catch(next);
+});
+
 module.exports = productRouter;

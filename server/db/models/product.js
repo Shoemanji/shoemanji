@@ -32,9 +32,13 @@ const Product = db.define('product', {
     type: Sequelize.ARRAY(Sequelize.STRING),
     allowNull: false,
   }
-}, {
-
 });
+
+Product.prototype.updateInventory = function(quantity) {
+  const oldInventory = this.getDataValue('inventory');
+  const newInventory = oldInventory - quantity;
+  this.setDataValue('inventory', newInventory);
+}
 
 module.exports = Product;
 

@@ -17,17 +17,14 @@ export const fetchOrders = id => dispatch => {
   axios.get(`/api/orders/${id}`)
   .then(res => dispatch(getOrders(res.data)))
   .catch(err => console.error(err))
-  //.then(res => console.log(res.data))
 }
 
 export const fetchAllOrders = () => dispatch => {
   axios.get('/api/orders')
   .then(res => {
-    console.log('orders', res.data)
     dispatch(getOrders(res.data))
   })
   .catch(err => console.error(err))
-  //.then(res => console.log(res.data))
 }
 
 export const updateOrder = (orderId, orderStatus) => dispatch => {
