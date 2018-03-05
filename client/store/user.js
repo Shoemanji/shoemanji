@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import { deleteCurrentUser } from './'
 
 /**
  * ACTION TYPES
@@ -21,6 +22,20 @@ const removeUser = () => ({type: REMOVE_USER})
 /**
  * THUNK CREATORS
  */
+export const updateUserRole = (userId, isAdmin) => dispatch => {
+  axios.put(`/api/users/${userId}`, isAdmin)
+  .then(res => console.log(res.data))
+  .catch(err => console.error(err));
+}
+
+export const deleteUser = userId => dispatch => {
+  axios.delete(`/api/users/${userId}`)
+  .then(res => {
+    dispatch(deleteCurrentUser(userId));
+  })
+  .catch(err => console.error(err));
+}
+
 export const me = () =>
   dispatch =>
     axios.get('/auth/me')
