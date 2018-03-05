@@ -101,9 +101,10 @@ class AllProducts extends React.Component {
 }
 
 const mapStateToProps = ({ products, user, category }) => {
+  const availableProducts = products.filter(product => product.inventory > 0);
   return {
     isAdmin: user.isAdmin,
-    products,
+    products: availableProducts,
     category
   }
 }
