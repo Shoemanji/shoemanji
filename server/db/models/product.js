@@ -16,6 +16,10 @@ const Product = db.define('product', {
       min: 0.01,
     }
   },
+  image: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
   inventory: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
@@ -23,13 +27,18 @@ const Product = db.define('product', {
       min: 0,
     }
   },
-  category: {
-    type: Sequelize.STRING,
+  categories: {
+    // type: Sequelize.STRING,
+    type: Sequelize.ARRAY(Sequelize.STRING),
     allowNull: false,
   }
-}, {
-
 });
+
+Product.prototype.updateInventory = function(quantity) {
+  const oldInventory = this.getDataValue('inventory');
+  const newInventory = oldInventory - quantity;
+  this.setDataValue('inventory', newInventory);
+}
 
 module.exports = Product;
 

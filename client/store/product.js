@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-const SINGLE_PRODUCT = 'SINGLE_PRODUCT'
+const GET_PRODUCT = 'GET_PRODUCT'
 
-const getProduct = product => ({ type: SINGLE_PRODUCT, product })
+const getProduct = product => ({ type: GET_PRODUCT, product })
 
 export default function reducer(product = {}, action) {
     switch (action.type) {
-        case SINGLE_PRODUCT:
+        case GET_PRODUCT:
             return action.product;
 
         default:
@@ -17,4 +17,27 @@ export default function reducer(product = {}, action) {
 export const fetchProduct = id => dispatch => {
     axios.get(`/api/products/${id}`)
         .then(res => dispatch(getProduct(res.data)))
+}
+
+export const editProduct = (reqBody, productId) => dispatch => {
+    axios.put(`/api/products/${productId}`, reqBody)
+    .then(res => console.log(res.data))
+    .catch(err => console.error(err));
+
+    // todo update product in array of products
+}
+
+export const createProduct = reqBody => dispatch => {
+    axios.post('/api/products', reqBody)
+    .then(res => console.log(res.data))
+    .catch(err => console.error(err));
+    // todo add product to array of products
+}
+
+export const deleteProduct = productId => dispatch => {
+    axios.delete(`api/products/${productId}`)
+    .then(res => console.log(res.data))
+    .catch(err => console.error(err));
+
+    // todo remove product from array of products
 }

@@ -51,7 +51,7 @@ class Checkout extends React.Component {
 
           <br />
           <br />
-          <button>Checkout</button>
+          <button>PLACE ORDER</button>
         </form>
       </Fragment>
     )
@@ -60,8 +60,10 @@ class Checkout extends React.Component {
 
 const mapStateToProps = ({ cart, user }) => ({ cart, user })
 
-const mapDispatchToProps = dispatch => ({
-  sendCart: reqBody => dispatch(sendCart(reqBody))
-});
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    sendCart: reqBody => dispatch(sendCart(reqBody, ownProps.history))
+  }
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

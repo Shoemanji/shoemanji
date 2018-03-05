@@ -43,10 +43,12 @@ export default function reducer(cart = [], action) {
   }
 }
 
-export const sendCart = reqBody => dispatch => {
-  console.log('sending cart to db', reqBody);
+export const sendCart = (reqBody, history) => dispatch => {
   axios.post('/api/orders', reqBody)
-    .then(res => res.data)
+    .then(res => {
+      history.push(`/orders/${res.data.id}`);
+      dispatch(clearCart());
+    })
     .catch(error => console.error(error))
 }
 
