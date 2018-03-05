@@ -33,7 +33,7 @@ productRouter.post('/', (req, res, next) => {
       categories,
     }
   })
-  .then(product => res.json(product))
+  .then(([product, created]) => res.status(200).json(product))
   .catch(next);
 });
 
@@ -41,7 +41,8 @@ productRouter.put('/:id', isAdmin, (req, res, next) => {
   Product.update(req.body, {
     where: {
       id: req.params.id
-    }
+    },
+    returning: true,
   })
   .then(([updatedProductRows, updatedProduct]) => {
     res.status(200).json(updatedProduct);
@@ -53,10 +54,11 @@ productRouter.delete('/:id', isAdmin, (req, res, next) => {
   Product.destroy({
     where: {
       id: req.params.id
-    }
+    },
+    returning: true,
   })
   .then(() => {
-    res.sendStatus(202);
+    res.sendStatus(202)
   })
   .catch(next);
 });

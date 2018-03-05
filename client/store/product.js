@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { addProduct, updateProduct, removeProduct } from './products';
 
 const GET_PRODUCT = 'GET_PRODUCT'
 
-const getProduct = product => ({ type: GET_PRODUCT, product })
+export const getProduct = product => ({ type: GET_PRODUCT, product })
 
 export default function reducer(product = {}, action) {
     switch (action.type) {
@@ -19,24 +20,32 @@ export const fetchProduct = id => dispatch => {
         .then(res => dispatch(getProduct(res.data)))
 }
 
-export const editProduct = (reqBody, productId) => dispatch => {
+export const editProduct = (reqBody, productId, history) => dispatch => {
     axios.put(`/api/products/${productId}`, reqBody)
-    .then(res => console.log(res.data))
+    .then(res => {
+        const product = res.data[0]
+        dispatch(getProduct(product));
+        dispatch(updateProduct(product))
+        history.push(`/products/${product.id}`);
+    })
     .catch(err => console.error(err));
-
-    // todo update product in array of products
 }
 
-export const createProduct = reqBody => dispatch => {
+export const createProduct = (reqBody, history) => dispatch => {
     axios.post('/api/products', reqBody)
-    .then(res => console.log(res.data))
+    .then(res => {
+        dispatch(addProduct(res.data));
+        history.push(`/products/${res.data.id}`);
+    })
     .catch(err => console.error(err));
-    // todo add product to array of products
 }
 
 export const deleteProduct = productId => dispatch => {
     axios.delete(`api/products/${productId}`)
-    .then(res => console.log(res.data))
+    .then(res => {
+        console.log(res.data);
+        dispatch(removeProduct(productId))
+    })
     .catch(err => console.error(err));
 
     // todo remove product from array of products
