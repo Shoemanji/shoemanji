@@ -12,6 +12,7 @@ import category from './category'
 import categories from './categories'
 import orders from './orders'
 import order from './order'
+import users from './users'
 
 const reducer = combineReducers({
   user,
@@ -24,6 +25,7 @@ const reducer = combineReducers({
   categories,
   orders,
   order,
+  users,
 })
 
 const middleware = composeWithDevTools(applyMiddleware(
@@ -43,3 +45,4 @@ export * from './category'
 export * from './categories'
 export * from './orders'
 export * from './order'
+export * from './users'

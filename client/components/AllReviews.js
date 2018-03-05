@@ -35,6 +35,5 @@ const mapStateToProps = ({ reviews }) => ({ reviews })
 const mapDispatchToProps = dispatch => ({
     fetchReviews: () =>  dispatch(fetchReviews())
 });
-//need to add product POST request
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllReviews);
