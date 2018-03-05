@@ -1,6 +1,14 @@
 const productRouter = require('express').Router();
 const { Product } = require('../db/models');
 
+function isAdmin(req, res, next) {
+  if (req.user.isAdmin) {
+    next();
+  } else {
+    res.redirect('/products');
+  }
+}
+
 productRouter.get('/', (req, res, next) => {
   Product.findAll()
   .then(products => res.json(products))
@@ -29,7 +37,7 @@ productRouter.post('/', (req, res, next) => {
   .catch(next);
 });
 
-productRouter.put('/:id', (req, res, next) => {
+productRouter.put('/:id', isAdmin, (req, res, next) => {
   Product.update(req.body, {
     where: {
       id: req.params.id
@@ -41,7 +49,7 @@ productRouter.put('/:id', (req, res, next) => {
   .catch(next);
 });
 
-productRouter.delete('/:id', (req, res, next) => {
+productRouter.delete('/:id', isAdmin, (req, res, next) => {
   Product.destroy({
     where: {
       id: req.params.id
