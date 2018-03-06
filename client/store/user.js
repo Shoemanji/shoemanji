@@ -7,6 +7,7 @@ import { deleteCurrentUser } from './users'
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const UPDATE_USER = 'UPDATE_USER'
 
 /**
  * INITIAL STATE
@@ -18,6 +19,7 @@ const defaultUser = {}
  */
 const getUser = user => ({ type: GET_USER, user })
 const removeUser = () => ({ type: REMOVE_USER })
+const updateUser = user => ({ type: UPDATE_USER, user })
 
 /**
  * THUNK CREATORS
@@ -35,7 +37,6 @@ export const auth = (email, password, method) =>
     axios.post(`/auth/${method}`, { email, password })
       .then(res => {
         dispatch(getUser(res.data))
-        console.log(res.data)
         res.data.pendingPwReset ?
         history.push(`/${res.data.id}/resetpw`) :
         history.push('/home')
@@ -60,10 +61,12 @@ export const updateUserRole = (userId, isAdmin) => dispatch => {
 }
 
 export const updateUserPassword = (userId, newpw, history) => dispatch => {
-  console.log(userId)
-  axios.put(`/auth/${userId}/resetpw`, newpw)
-    .then(() => history.push('/home'))
-    .catch(err => console.error(err));
+  axios.put(`/auth/${userId}/resetpw`, {password: newpw, pendingPwReset: false})
+  .then((res) => {
+    dispatch(updateUser(res.data))
+    history.push('/home')
+  })
+  .catch(err => console.error(err));
 }
 
 export const forcePwReset = (userId) => dispatch => {
@@ -89,6 +92,8 @@ export default function (state = defaultUser, action) {
       return action.user
     case REMOVE_USER:
       return defaultUser
+    case UPDATE_USER:
+      return action.user
     default:
       return state
   }

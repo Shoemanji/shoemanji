@@ -7,7 +7,7 @@ const ChangePw = (props) => {
   const {name, displayName, handleSubmit, error, user} = props
   return (
     <div>
-      <form onSubmit={(evt) => handleSubmit(evt, user)} name={name} >
+      <form onSubmit={(evt) => handleSubmit(evt, user)} name={name}>
         <div>
           <label htmlFor="newpw"><small>Enter New Password</small></label>
           <input name="newpw" type="password" />
@@ -50,8 +50,11 @@ const mapDispatch = (dispatch, ownProps) => {
       const newpw = evt.target.newpw.value
       const confirmnewpw = evt.target.confirmnewpw.value
       const userid = user.id
+      // const PwResetStatus = false
+      // console.log(user)
+      // console.log(PwResetStatus)
       if (newpw === confirmnewpw){
-        dispatch(updateUserPassword(userid, {password: newpw}, ownProps.history))
+        dispatch(updateUserPassword(userid, newpw, ownProps.history))
       }
     }
   }
