@@ -31,6 +31,8 @@ export const updateOrder = (orderId, orderStatus) => dispatch => {
   axios.put(`/api/orders/${orderId}`, orderStatus)
   .then(res => {
     console.log(res.data);
+    axios.post('/api/sendmail/notify', orderStatus)
+      .catch(err => console.error(err));
   })
-  .catch(err => console.error(err))
+  .catch(err => console.error(err));
 }
