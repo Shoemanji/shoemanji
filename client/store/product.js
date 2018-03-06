@@ -43,7 +43,6 @@ export const createProduct = (reqBody, history) => dispatch => {
 export const deleteProduct = productId => dispatch => {
     axios.delete(`api/products/${productId}`)
     .then(res => {
-        console.log(res.data);
         dispatch(removeProduct(productId))
     })
     .catch(err => console.error(err));
