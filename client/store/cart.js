@@ -29,11 +29,7 @@ export default function reducer(cart = [], action) {
       });
 
     case UPDATE_CART:
-      console.log('CART ROW', action.cartRow)
-      const index = cart.findIndex(cartRow => {
-        console.log('ALREADY IN CART', cartRow.product.id)
-        cartRow.product.id === action.cartRow.product.id
-      });
+      const index = cart.findIndex(cartRow => cartRow.product.id === action.cartRow.product.id);
       return [
         ...cart.slice(0, index),
         {
@@ -56,8 +52,7 @@ export const sendCart = (reqBody, history) => dispatch => {
     .then(res => {
       history.push(`/orders/${res.data.id}`);
       dispatch(clearCart());
+      window.localStorage.setItem('cart', JSON.stringify(emptyCart));
     })
     .catch(error => console.error(error))
 }
-
-// window.localStorage.setItem('cart', JSON.stringify([...cart, action.cartRow]));
