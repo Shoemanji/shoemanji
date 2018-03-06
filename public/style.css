@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background-color: #f7f7f7;
 }
 
 a {
@@ -23,4 +24,23 @@ form div {
 ul {
   padding: 0px;
   list-style-type: none;
+}
+
+.all-products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border: 10px solid goldenrod;
+}
+
+.all-products li {
+  display: flex;
+  flex-direction: column;
+  border: 10px solid dodgerblue;
+  background-color: #fff;
+}
+
+.all-products a {
+  display: flex;
+  justify-content: center;
 }
