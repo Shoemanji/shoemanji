@@ -24,7 +24,6 @@ router.put('/:id/resetpw', (req, res, next) => {
     individualHooks: true
   })
     .then(([updatedRows, [updatedUser]]) => {
-      console.log("UPDATEDUSER", updatedUser)
       res.status(200).json(updatedUser)
     })
     .catch(next)
