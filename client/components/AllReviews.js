@@ -15,7 +15,6 @@ class AllReviews extends React.Component {
 
     renderReviews() {
         return this.props.filteredReviews.map(review => {
-            console.log('REVIEW', review);
             return (
                 <li key={review.id}>
                     <h3>
@@ -33,7 +32,6 @@ class AllReviews extends React.Component {
 
     render() {
         const { filteredReviews } = this.props;
-        console.log('PROPS', filteredReviews)
         return (
             <div>
                 {filteredReviews.length ? (
@@ -47,7 +45,7 @@ class AllReviews extends React.Component {
         );
     }
 }
-// const mapStateToProps = ({ reviews }) => ({ reviews })
+
 const mapStateToProps = ({ reviews, product }) => {
     const filteredReviews = reviews.filter(review => {
         return review.productId === product.id;
@@ -63,15 +61,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllReviews);
-
-
-// {filteredReviews.length > 0 && filteredReviews.map(review =>
-//     (<li key={review.id}>
-//         <h3><Link to={`/user/${review.userId}/reviews/`}> User : {review.user.email}</Link></h3>
-        
-//         {review.rating} out of 5
-//         <br />
-//         {review.text}
-//         <br /><br />
-//     </li>)
-// )}

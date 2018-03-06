@@ -15,7 +15,6 @@ class AddReview extends React.Component {
             rating: Number(event.target.rating.value),
             userId: this.props.user.id
         }
-        console.log(this.props)
         this.props.addReview(review)
         this.props.history.push(`/products/${review.productId}`)
     }

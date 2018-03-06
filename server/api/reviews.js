@@ -30,7 +30,6 @@ reviewRouter.get('/user/:id', (req, res, next) => {
 })
 
 reviewRouter.post('/', isLoggedIn, (req, res, next) => {
-  console.log(req.body)
   Review.create(req.body)
   .then(instance => res.json(instance))
   .catch(next);
@@ -38,8 +37,3 @@ reviewRouter.post('/', isLoggedIn, (req, res, next) => {
 
 module.exports = reviewRouter;
 
-// .then(review => {
-//   return User.findById(1)
-//   .then(user => {
-//     return review.setUser(user);
-//   })
