@@ -67,9 +67,11 @@ class SingleOrder extends React.Component {
             {this.props.order.map(lineItem =>
               (<li key={lineItem.id}>
                 <div><Link to={`/products/${lineItem.product.id}`}>Product name: {lineItem.product.title} </Link></div>
+                <img width="200" src={  lineItem.product.image } />
                 <div>Description: {lineItem.product.description}</div>
+                <div>Size: {lineItem.product.size}</div>
+                <div>Price: ${lineItem.priceAtPurchase}</div>
                 <div>Quantity: {lineItem.quantity}</div>
-                <div>Price: {lineItem.priceAtPurchase}</div>
               </li>
               ))}
           </ul>

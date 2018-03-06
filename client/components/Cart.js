@@ -15,7 +15,7 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    if (localStorage.getItem('cart')) {      
+    if (localStorage.getItem('cart')) {
       const cartInLocalStorage = JSON.parse(localStorage.getItem('cart'));
       this.props.getCart(cartInLocalStorage);
     }
@@ -23,7 +23,7 @@ class Cart extends React.Component {
 
   removeItemFromLocalStorage(product) {
     let updatedCart = [];
-    if (localStorage.getItem('cart')) {    
+    if (localStorage.getItem('cart')) {
       const cartInLocalStorage = JSON.parse(localStorage.getItem('cart'));
       updatedCart = cartInLocalStorage.filter(lineItem => lineItem.product.id !== product.id);
       window.localStorage.setItem('cart', JSON.stringify(updatedCart));
@@ -33,7 +33,7 @@ class Cart extends React.Component {
 
   updateItemInLocalStorage(updatedLineItem) {
     let updatedCart = [];
-    if (localStorage.getItem('cart')) {    
+    if (localStorage.getItem('cart')) {
       const cartInLocalStorage = JSON.parse(localStorage.getItem('cart'));
       const index = cartInLocalStorage.findIndex(cartRow => cartRow.product.id === updatedLineItem.product.id);
       updatedCart = [
@@ -84,8 +84,10 @@ class Cart extends React.Component {
             return (
               <Fragment key={product.id}>
                 <div>{product.title}</div>
+                <img width="200" src={ product.image } />
+                <div>{`size: ${product.size}`}</div>
                 <div>{`price: $${product.price}`}</div>
-                <div>quantity: </div>
+                <div>quantity:
                 <input
                   onClick={(evt) => this.onQuantityChange(evt, product)}
                   type="number"
@@ -94,6 +96,8 @@ class Cart extends React.Component {
                   max={product.inventory}
                   step="1"
                 />
+                </div>
+
                 <button onClick={() => this.onRemoveItemClick(product)}>REMOVE ITEM</button>
               </Fragment>
             )
