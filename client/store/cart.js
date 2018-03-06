@@ -52,6 +52,7 @@ export const sendCart = (reqBody, history) => dispatch => {
       history.push(`/orders/${res.data.id}`);
       dispatch(clearCart());
       window.localStorage.setItem('cart', JSON.stringify(emptyCart));
+
       axios.post('/api/sendmail')
         .catch(error => console.error(error));
     })
