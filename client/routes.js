@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {withRouter, Route, Switch} from 'react-router-dom'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { withRouter, Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   Login,
@@ -16,43 +16,45 @@ import {
   ProductForm,
   AllUsers,
   MyReviews,
+  ResetPw
 } from './components'
-import {me} from './store'
+import { me } from './store'
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.props.loadInitialData()
   }
 
-  render () {
-    const {isLoggedIn} = this.props
+  render() {
+    const { isLoggedIn } = this.props
 
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:id/review" component={AddReview} />
         <Route exact path="/orders/all" component={AllOrders} />
-        <Route exact path="/user/:id/orders" component={AllOrders} />
         <Route exact path="/orders/:id" component={SingleOrder} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/cart/checkout" component={Checkout} />
-        <Route exact path="/user/:id/reviews" component={MyReviews} />
-        <Route exact path="/products/:id/edit" component={ProductForm} />
-        <Route exact path="/products/create" component={ProductForm} />
         <Route exact path="/products/:id" component={SingleProduct} />
-        <Route exact path="/users/all" component={AllUsers} />
         {
           isLoggedIn &&
-            <Switch>
-              {/* Routes placed here are only available after logging in */}
-              <Route path="/home" component={UserHome} />
-            </Switch>
+          <Switch>
+            {/* Routes placed here are only available after logging in */}
+            <Route path="/home" component={UserHome} />
+            <Route exact path="/:id/resetpw" component={ResetPw} />
+            <Route exact path="/user/:id/orders" component={AllOrders} />
+            <Route exact path="/user/:id/reviews" component={MyReviews} />
+            <Route exact path="/products/:id/edit" component={ProductForm} />
+            <Route exact path="/products/create" component={ProductForm} />
+            <Route exact path="/users/all" component={AllUsers} />
+          </Switch>
         }
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
@@ -74,7 +76,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    loadInitialData () {
+    loadInitialData() {
       dispatch(me())
 
     }

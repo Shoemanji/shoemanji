@@ -32,6 +32,18 @@ userRouter.put('/:id', (req, res, next) => {
   .catch(next);
 });
 
+userRouter.put('/:id/forcereset', (req, res, next) => {
+  User.update(req.body, {
+    where: {
+      id: req.params.id,
+    }
+  })
+  .then(([updatedRows, updatedUser]) => {
+    res.status(200).json(updatedUser)
+  })
+  .catch(next);
+});
+
 userRouter.delete('/:id', (req, res, next) => {
   User.destroy({
     where: {

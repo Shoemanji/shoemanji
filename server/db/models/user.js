@@ -38,6 +38,11 @@ const User = db.define('user', {
   shippingAddress: {
     type: Sequelize.STRING,
   },
+  pendingPwReset: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  }
 })
 
 module.exports = User

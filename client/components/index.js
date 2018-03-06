@@ -20,3 +20,4 @@ export {default as CategorySelect} from './CategorySelect';
 export {default as OrderSelect} from './OrderSelect';
 export {default as MyReviews} from './MyReviews';
 export {default as AllUsers} from './AllUsers';
+export {ResetPw} from './change-pw'
