@@ -42,6 +42,7 @@ class SingleOrder extends React.Component {
 
   renderOrders() {
     return this.props.order.map(lineItem => {
+      if (lineItem.product){
         return (
           <li key={lineItem.id}>
           <div><Link to={`/products/${lineItem.product.id}`}>Product name: {lineItem.product.title} </Link></div>
@@ -52,6 +53,15 @@ class SingleOrder extends React.Component {
           <div>Quantity: {lineItem.quantity}</div>
         </li>
         )
+      } else {
+        return (
+          <div>
+          <br />
+          <br />
+          <div>This line represents another product you purchased as part of this order that is no longer in the database.</div>
+          </div>
+        )
+      }
     })
 }
 
@@ -80,13 +90,7 @@ class SingleOrder extends React.Component {
           <div>Shipping Address: {orderHistory.order.shippingAddress}</div>
           <div>Email: {orderHistory.order.email}</div>
           <ul>
-            {order.id ? (
-              <div>
-                {this.renderOrders()}
-              </div>
-            ) : (
-              <h3>All products from this order have been removed from the database</h3>
-            )}
+            {this.renderOrders()}
           </ul>
         </div>
       ) : null
@@ -102,15 +106,3 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleOrder);
-
-
-// {this.props.order.map(lineItem =>
-//   (<li key={lineItem.id}>
-//     <div><Link to={`/products/${lineItem.product.id}`}>Product name: {lineItem.product.title} </Link></div>
-//     <img width="200" src={  lineItem.product.image } />
-//     <div>Description: {lineItem.product.description}</div>
-//     <div>Size: {lineItem.product.size}</div>
-//     <div>Price: ${lineItem.priceAtPurchase}</div>
-//     <div>Quantity: {lineItem.quantity}</div>
-//   </li>
-//   ))}
