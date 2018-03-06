@@ -125,7 +125,7 @@ class ProductForm extends React.Component {
       description,
       price,
       inventory,
-      image,
+      // image,
     } = this.state;
 
     const reqBody = {
@@ -133,7 +133,7 @@ class ProductForm extends React.Component {
       description,
       price,
       inventory,
-      image,
+      image: this.state.image ? this.state.image : 'https://i.imgur.com/pXes8hO.jpg',
       categories: this.getCategories(),
     }
     return reqBody;
@@ -187,8 +187,7 @@ class ProductForm extends React.Component {
 
   render() {
     const { categories } = this.props;
-    const isNewProduct = this.props.match.path === '/products/create';
-    console.log('state', this.state)
+    const isNewProduct = this.props.match.path === '/create';
     return (
       <Fragment>
         {this.generateTitle(isNewProduct)}

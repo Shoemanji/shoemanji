@@ -18,7 +18,7 @@ const Product = db.define('product', {
   },
   image: {
     type: Sequelize.STRING,
-    allowNull: false
+    defaultValue: 'https://i.imgur.com/pXes8hO.jpg',
   },
   inventory: {
     type: Sequelize.INTEGER,
@@ -28,7 +28,6 @@ const Product = db.define('product', {
     }
   },
   categories: {
-    // type: Sequelize.STRING,
     type: Sequelize.ARRAY(Sequelize.STRING),
     allowNull: false,
   }
@@ -41,7 +40,3 @@ Product.prototype.updateInventory = function(quantity) {
 }
 
 module.exports = Product;
-
-// TODO: write class method maybe for inventory subtraction
-
-// TODO: talk about possible instance  methods with group
