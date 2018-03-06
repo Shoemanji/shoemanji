@@ -26,7 +26,6 @@ class SingleOrder extends React.Component {
   onUpdateOrderStatusClick() {
     const status = this.state.orderStatus;
     const email = this.props.order[0].order.email;
-    console.log('props in onUpdateOrderStatus', this.props.order[0].order.email);
 
     const orderId = this.props.order[0].orderId;
     this.props.updateOrderStatus(orderId, { status, email });

@@ -57,9 +57,6 @@ emailRouter.post('/', (req, res, next) => {
 
 emailRouter.post('/notify', (req, res, next) => {
 
-  console.log('req.body in /notify', req.body);
-  // console.log('res in /notify', res);
-
   const mailGenerator = new Mailgen({
     theme: 'default',
     product: {
