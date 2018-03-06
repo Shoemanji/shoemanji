@@ -35,7 +35,7 @@ class Checkout extends React.Component {
         <h1>Checkout</h1>
         <form onSubmit={this.handleSubmit}>
           <h4>Email</h4>
-          <input required name="email" type="email" placeholder="email address..." value={user.email ? user.email : null} />
+          <input required name="email" type="email" placeholder="email address..." value={user.email ? user.email : ''} />
 
           <h4>Address</h4>
           <input name="address" type="text" placeholder="shipping address..." />
