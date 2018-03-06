@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { updateIsFetching, clearCart, deleteFromCart, updateCart } from '../store';
+import { updateIsFetching, clearCart, deleteFromCart, updateCart, getCart } from '../store';
 
 class Cart extends React.Component {
   constructor(props) {
@@ -9,16 +9,56 @@ class Cart extends React.Component {
     this.onQuantityChange = this.onQuantityChange.bind(this);
     this.onCartSubmit = this.onCartSubmit.bind(this);
     this.onRemoveItemClick = this.onRemoveItemClick.bind(this);
-    this.calculateTotal = this.calculateTotal.bind(this)
+    this.calculateTotal = this.calculateTotal.bind(this);
+    this.removeItemFromLocalStorage = this.removeItemFromLocalStorage.bind(this);
+    this.updateItemInLocalStorage = this.updateItemInLocalStorage.bind(this);
+  }
+
+  componentDidMount() {
+    if (localStorage.getItem('cart')) {      
+      const cartInLocalStorage = JSON.parse(localStorage.getItem('cart'));
+      this.props.getCart(cartInLocalStorage);
+    }
+  }
+
+  removeItemFromLocalStorage(product) {
+    let updatedCart = [];
+    if (localStorage.getItem('cart')) {    
+      const cartInLocalStorage = JSON.parse(localStorage.getItem('cart'));
+      updatedCart = cartInLocalStorage.filter(lineItem => lineItem.product.id !== product.id);
+      window.localStorage.setItem('cart', JSON.stringify(updatedCart));
+      this.props.getCart(updatedCart);
+    }
+  }
+
+  updateItemInLocalStorage(updatedLineItem) {
+    let updatedCart = [];
+    if (localStorage.getItem('cart')) {    
+      const cartInLocalStorage = JSON.parse(localStorage.getItem('cart'));
+      const index = cartInLocalStorage.findIndex(cartRow => cartRow.product.id === updatedLineItem.product.id);
+      updatedCart = [
+        ...cartInLocalStorage.slice(0, index),
+        {
+          ...cartInLocalStorage[index],
+          quantity: updatedLineItem.quantity
+        },
+        ...cartInLocalStorage.slice(index + 1),
+      ]
+      window.localStorage.setItem('cart', JSON.stringify(updatedCart));
+      this.props.getCart(updatedCart);
+    }
   }
 
   onQuantityChange(evt, product) {
     const quantity = +evt.target.value;
-    this.props.updateCart({ product, quantity })
+    const lineItem = { product, quantity };
+    this.props.updateCart(lineItem);
+    this.updateItemInLocalStorage(lineItem);
   }
 
   onRemoveItemClick(product) {
     this.props.removeItemFromCart(product);
+    this.removeItemFromLocalStorage(product);
   }
 
   onCartSubmit() {
@@ -35,8 +75,6 @@ class Cart extends React.Component {
 
   render() {
     const { cart, isFetching } = this.props;
-    const cartInMemory = JSON.parse(window.localStorage.getItem('cart'));
-    // const activeCart = cartInMemory.length ? cartInMemory : cart;
     return (
       cart.length ? (
         <Fragment>
@@ -83,6 +121,7 @@ const mapDispatchToProps = dispatch => ({
   emptyCart: () => dispatch(clearCart()),
   removeItemFromCart: product => dispatch(deleteFromCart(product)),
   updateCart: cartRow => dispatch(updateCart(cartRow)),
+  getCart: cart => dispatch(getCart(cart)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

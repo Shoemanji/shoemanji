@@ -36,38 +36,47 @@ orderRouter.get('/singleOrder/:id', isLoggedIn, (req, res, next) => {
 })
 
 orderRouter.post('/', (req, res, next) => {
-  Order.create(req.body)
-    .then(order => {
-      req.body.cart.forEach(cartRow => {
-        LineItem.create({
-          quantity: cartRow.quantity,
-          priceAtPurchase: cartRow.product.price,
-        })
-        .then(lineItem => {
-          return lineItem.setOrder(order)
-          .then(() => {
-            return Product.findById(cartRow.product.id)
-            .then(product => {
-              return lineItem.setProduct(product)
-            })
-            .then(() => {
-              return Product.update({inventory: (cartRow.product.inventory - cartRow.quantity)}, {
-                where: {
-                  id: cartRow.product.id
-                }
-              })
-            })
-            .then(() => {
-              res.status(200).json(order)
-            })
+  const { status, email, shippingAddress, userId } = req.body;
+  const [...cart] = req.body.cart;
+  return Order.create({
+    status,
+    email,
+    shippingAddress,
+    userId,
+  })
+  .then(order => {
+    res.json(order);
+    return order;
+  })
+  .then(order => {
+    let lineItems = cart.map(cartRow => {
+      return LineItem.create({
+        quantity: cartRow.quantity,
+        priceAtPurchase: cartRow.product.price,
+      })
+      .then(lineItem => {
+        return lineItem.setOrder(order)
+        .then(() => {
+          return Product.findById(cartRow.product.id)
+          .then(product => {
+            return lineItem.setProduct(product)
           })
         })
       })
+      .then(() => {
+        return Product.update({
+          inventory: (cartRow.product.inventory - cartRow.quantity)}, {
+            where: {
+              id: cartRow.product.id
+            }
+        })
+      })
     })
-    // .then(order => {
-    //   res.status(200).json(order)
-    // })
-    .catch(next);
+    return lineItems;
+  })
+  .then(lineItems => {
+    return Promise.all(lineItems);
+  })
 });
 
 orderRouter.put('/:id', isAdmin, (req, res, next) => {

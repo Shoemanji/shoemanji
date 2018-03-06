@@ -161,8 +161,13 @@ class ProductForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let activeCheckboxes = {}
-    if (Object.keys(nextProps.product).length !== 0 && nextProps.product.constructor === Object) {
+    const newPath = nextProps.match.path;
+    let activeCheckboxes = {};
+    if (
+      Object.keys(nextProps.product).length !== 0 &&
+      nextProps.product.constructor === Object &&
+      newPath !== '/products/create'
+    ) {
       nextProps.product.categories.forEach(category =>
         Object.defineProperty(activeCheckboxes, category, {
           value: true,
@@ -177,6 +182,10 @@ class ProductForm extends React.Component {
         activeCheckboxes,
       })
     }
+  }
+
+  componentWillUnmount() {
+    this.resetForm();
   }
 
   render() {

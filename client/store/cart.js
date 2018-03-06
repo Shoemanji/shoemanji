@@ -4,7 +4,7 @@ const ADD_TO_CART = 'ADD_TO_CART';
 const DELETE_FROM_CART = 'DELETE_FROM_CART';
 const UPDATE_CART = 'UPDATE_CART';
 const CLEAR_CART = 'CLEAR_CART';
-// const SEND_CART = 'SEND_CART';
+const GET_CART = 'GET_CART';
 
 const emptyCart = [];
 
@@ -12,11 +12,14 @@ export const addToCart = cartRow => ({ type: ADD_TO_CART, cartRow });
 export const deleteFromCart = product => ({ type: DELETE_FROM_CART, product });
 export const updateCart = cartRow => ({ type: UPDATE_CART, cartRow });
 export const clearCart = () => ({ type: CLEAR_CART, emptyCart });
+export const getCart = cart => ({ type: GET_CART, cart });
 
 export default function reducer(cart = [], action) {
   switch (action.type) {
+    case GET_CART:
+      return action.cart;
+
     case ADD_TO_CART:
-      window.localStorage.setItem('cart', JSON.stringify([...cart, action.cartRow]));
       return [...cart, action.cartRow];
 
     case DELETE_FROM_CART:
@@ -48,9 +51,9 @@ export const sendCart = (reqBody, history) => dispatch => {
     .then(res => {
       history.push(`/orders/${res.data.id}`);
       dispatch(clearCart());
+      window.localStorage.setItem('cart', JSON.stringify(emptyCart));
       axios.post('/api/sendmail')
         .catch(error => console.error(error));
     })
     .catch(error => console.error(error))
 }
-
