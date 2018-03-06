@@ -162,7 +162,6 @@ class ProductForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const oldPath = this.props.match.path;
     const newPath = nextProps.match.path;
     let activeCheckboxes = {};
     if (

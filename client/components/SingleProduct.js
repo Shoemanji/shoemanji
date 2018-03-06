@@ -9,9 +9,11 @@ class SingleProduct extends React.Component {
     super(props)
     this.state = {
       quantity: 1,
+      test: [],
     }
     this.onQuantityChange = this.onQuantityChange.bind(this);
     this.onAddToCartClick = this.onAddToCartClick.bind(this);
+    this.addLineItemToLocalStorage = this.addLineItemToLocalStorage.bind(this);
   }
 
   componentDidMount() {
@@ -26,7 +28,22 @@ class SingleProduct extends React.Component {
 
   onAddToCartClick(product) {
     const { quantity } = this.state;
-    this.props.addToCart({ product, quantity });
+    const lineItem = { product, quantity }
+    this.props.addToCart(lineItem);
+    this.addLineItemToLocalStorage(lineItem);
+  }
+
+  addLineItemToLocalStorage(lineItem) {
+    let updatedCart = [];
+    if (localStorage.getItem('cart')) {      
+      const cartInLocalStorage = JSON.parse(localStorage.getItem('cart'));
+      cartInLocalStorage.map(lineItem => updatedCart.push(lineItem))
+      updatedCart.push(lineItem);
+      window.localStorage.setItem('cart', JSON.stringify(updatedCart));
+    } else {
+      updatedCart.push(lineItem)
+      window.localStorage.setItem('cart', JSON.stringify(updatedCart));
+    }
   }
 
   render() {
