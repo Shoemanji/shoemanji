@@ -17,7 +17,6 @@ class Checkout extends React.Component {
     const city = event.target.city.value;
     const state = event.target.state.value;
     const zip = event.target.zip.value;
-
     const reqBody = {
       cart,
       status: 'created',
@@ -57,7 +56,7 @@ class Checkout extends React.Component {
   }
 }
 
-const mapStateToProps = ({ cart }) => ({ cart })
+const mapStateToProps = ({ cart, user }) => ({ cart, user })
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
