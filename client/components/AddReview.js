@@ -12,7 +12,8 @@ class AddReview extends React.Component {
         const review = {
             productId: this.props.match.params.id, 
             text: event.target.review.value,
-            rating: Number(event.target.rating.value)
+            rating: Number(event.target.rating.value),
+            userId: this.props.user.id
         }
         this.props.addReview(review)
         this.props.history.push(`/products/${review.productId}`)
@@ -36,7 +37,7 @@ class AddReview extends React.Component {
     }
 }
 
-const mapStateToProps = ({ review }) => ({ review })
+const mapStateToProps = ({ review, user }) => ({ review, user })
 
 const mapDispatchToProps = dispatch => ({
     addReview: review => dispatch(addReviews(review))

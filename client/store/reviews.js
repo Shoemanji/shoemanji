@@ -14,7 +14,8 @@ export default function reducer(reviews = [], action) {
             return action.reviews;
         
         case ADD_REVIEW:
-            return [action.review, ...reviews];
+            console.log(action.review)
+            return [...reviews, action.review];
         
         case MY_REVIEWS:
             return action.myReviews;
