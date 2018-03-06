@@ -11,6 +11,7 @@ class SingleProduct extends React.Component {
       quantity: 1,
     }
     this.onQuantityChange = this.onQuantityChange.bind(this);
+    this.onSizeChange = this.onSizeChange.bind(this);
     this.onAddToCartClick = this.onAddToCartClick.bind(this);
     this.addLineItemToLocalStorage = this.addLineItemToLocalStorage.bind(this);
   }
@@ -23,6 +24,11 @@ class SingleProduct extends React.Component {
   onQuantityChange(evt) {
     const quantity = +evt.target.value;
     this.setState({ quantity });
+  }
+
+  onSizeChange(evt) {
+    const size = evt.target.value;
+    this.setState({ size });
   }
 
   onAddToCartClick(product) {
@@ -48,6 +54,7 @@ class SingleProduct extends React.Component {
   render() {
     const { product } = this.props;
     const { quantity } = this.state;
+    // const { size } = this.state
     return (
       product ? (
         <div>
@@ -57,7 +64,7 @@ class SingleProduct extends React.Component {
           <br />
           {product.inventory > 0 ? (
             <div>
-              <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
+              quantity
               <input
                 onClick={(evt) => this.onQuantityChange(evt)}
                 type="number"
@@ -66,6 +73,19 @@ class SingleProduct extends React.Component {
                 max={product.inventory}
                 step="1"
               />
+              size
+              <select
+                onChange={(evt) => this.onSizeChange(evt)}>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+              </select>
+              <br /><br />
+              <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
               <br /><br />
               <AllReviews productId={product.id} />
               <Link to={`/products/${product.id}/review`}>
