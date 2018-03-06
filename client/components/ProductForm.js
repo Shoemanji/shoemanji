@@ -60,7 +60,7 @@ class ProductForm extends React.Component {
     const isChecked = evt.target.checked;
     this.setState(prevState => ({
       ...prevState,
-      activeCheckboxes: {...prevState.activeCheckboxes, [category]: isChecked},
+      activeCheckboxes: {...prevState.activeCheckboxes, [`${category}`]: isChecked},
     }));
   }
 
@@ -141,7 +141,6 @@ class ProductForm extends React.Component {
 
   onEditProductClick(evt) {
     const reqBody = this.createReqBody(evt);
-    console.log('REQ BODY', reqBody)
     const productId = this.props.match.params.id;
     this.props.editProduct(reqBody, productId);
   }
@@ -169,9 +168,7 @@ class ProductForm extends React.Component {
       newPath !== '/products/create'
     ) {
       nextProps.product.categories.forEach(category =>
-        Object.defineProperty(activeCheckboxes, category, {
-          value: true,
-        })
+        activeCheckboxes[category] = true
       )
       this.setState({
         title: nextProps.product.title,
@@ -191,6 +188,7 @@ class ProductForm extends React.Component {
   render() {
     const { categories } = this.props;
     const isNewProduct = this.props.match.path === '/products/create';
+    console.log('state', this.state)
     return (
       <Fragment>
         {this.generateTitle(isNewProduct)}
