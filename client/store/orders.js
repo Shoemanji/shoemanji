@@ -27,10 +27,12 @@ export const fetchAllOrders = () => dispatch => {
   .catch(err => console.error(err))
 }
 
-export const updateOrder = (orderId, orderStatus) => dispatch => {
-  axios.put(`/api/orders/${orderId}`, orderStatus)
+export const updateOrder = (orderId, orderData) => dispatch => {
+  axios.put(`/api/orders/${orderId}`, orderData)
   .then(res => {
-    console.log(res.data);
+    // console.log('res.data in updateOrder', res.data);
+    axios.post('/api/sendmail/notify', orderData)
+    .catch(err => console.error(err));
   })
-  .catch(err => console.error(err))
+  .catch(err => console.error(err));
 }
