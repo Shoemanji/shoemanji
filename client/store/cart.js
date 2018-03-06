@@ -5,7 +5,6 @@ const DELETE_FROM_CART = 'DELETE_FROM_CART';
 const UPDATE_CART = 'UPDATE_CART';
 const CLEAR_CART = 'CLEAR_CART';
 const GET_CART = 'GET_CART';
-// const SEND_CART = 'SEND_CART';
 
 const emptyCart = [];
 

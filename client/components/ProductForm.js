@@ -192,7 +192,6 @@ class ProductForm extends React.Component {
   render() {
     const { categories } = this.props;
     const isNewProduct = this.props.match.path === '/products/create';
-    console.log('STATE', this.state);
     return (
       <Fragment>
         {this.generateTitle(isNewProduct)}
