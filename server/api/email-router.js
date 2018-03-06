@@ -47,13 +47,18 @@ emailRouter.post('/', (req, res, next) => {
   };
 
   transporter.sendMail(mailOptions, (err, info) => {
-    if (err) res.sendStatus(401).json({ err: info });
-    res.sendStatus(200).json({ success: true });
+    if (err) {
+      console.error('error in /sendmail', { err: err });
+    } else {
+      console.log('sucess in /sendmail', { success: info });
+    }
   })
 });
 
 emailRouter.post('/notify', (req, res, next) => {
-  console.log('req body is in /notify', req.body);
+
+  console.log('req.body in /notify', req.body);
+  // console.log('res in /notify', res);
 
   const mailGenerator = new Mailgen({
     theme: 'default',
@@ -65,7 +70,7 @@ emailRouter.post('/notify', (req, res, next) => {
 
   const createdOrderEmail = {
     body: {
-        name: req.user.dataValues.email,
+        name: req.body.email,
         intro: `Order status: ${req.body.status}`,
         action: {
             instructions: 'To review your order, please click here:',
@@ -92,15 +97,18 @@ emailRouter.post('/notify', (req, res, next) => {
 
   let mailOptions = {
     from: process.env.EMAIL_FROM,
-    to: req.user.dataValues.email,
+    to: req.body.email,
     subject: `Order Status: ${req.body.status}`,
     text: 'test',
     html: emailBody,
   };
 
   transporter.sendMail(mailOptions, (err, info) => {
-    if (err) res.sendStatus(401).json({ err: info });
-    res.sendStatus(200).json({ success: true });
+    if (err) {
+      console.error('error in /sendmail/notify', { err: err });
+    } else {
+      console.log('success in /sendmail/notify', { success: info });
+    }
   })
 });
 

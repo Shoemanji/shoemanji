@@ -25,8 +25,11 @@ class SingleOrder extends React.Component {
 
   onUpdateOrderStatusClick() {
     const status = this.state.orderStatus;
+    const email = this.props.order[0].order.email;
+    console.log('props in onUpdateOrderStatus', this.props.order[0].order.email);
+
     const orderId = this.props.order[0].orderId;
-    this.props.updateOrderStatus(orderId, { status });
+    this.props.updateOrderStatus(orderId, { status, email });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -81,7 +84,7 @@ const mapStateToProps = ({ order, user }) => ({ order, user })
 
 const mapDispatchToProps = dispatch => ({
   fetchOrder: id => dispatch(fetchOrder(id)),
-  updateOrderStatus: (orderId, orderStatus) => dispatch(updateOrder(orderId, orderStatus))
+  updateOrderStatus: (orderId, orderData) => dispatch(updateOrder(orderId, orderData))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleOrder);
