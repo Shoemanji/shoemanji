@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchOrder, updateOrder } from '../store';
+import { Link } from 'react-router-dom';
 
 class SingleOrder extends React.Component {
   constructor(props) {
@@ -24,8 +25,10 @@ class SingleOrder extends React.Component {
 
   onUpdateOrderStatusClick() {
     const status = this.state.orderStatus;
+    const email = this.props.order[0].order.email;
+
     const orderId = this.props.order[0].orderId;
-    this.props.updateOrderStatus(orderId, { status });
+    this.props.updateOrderStatus(orderId, { status, email });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -63,10 +66,10 @@ class SingleOrder extends React.Component {
           <ul>
             {this.props.order.map(lineItem =>
               (<li key={lineItem.id}>
-                <div>Product name: {lineItem.product.title} </div>
+                <div><Link to={`/products/${lineItem.product.id}`}>Product name: {lineItem.product.title} </Link></div>
                 <div>Description: {lineItem.product.description}</div>
                 <div>Quantity: {lineItem.quantity}</div>
-                <div>Price: {lineItem.product.price}</div>
+                <div>Price: {lineItem.priceAtPurchase}</div>
               </li>
               ))}
           </ul>
@@ -80,7 +83,7 @@ const mapStateToProps = ({ order, user }) => ({ order, user })
 
 const mapDispatchToProps = dispatch => ({
   fetchOrder: id => dispatch(fetchOrder(id)),
-  updateOrderStatus: (orderId, orderStatus) => dispatch(updateOrder(orderId, orderStatus))
+  updateOrderStatus: (orderId, orderData) => dispatch(updateOrder(orderId, orderData))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleOrder);

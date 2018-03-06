@@ -6,12 +6,11 @@ class ProductForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      isNewProduct: null,
       activeCheckboxes: {},
       title: '',
       description: '',
-      price: '',
-      inventory: '',
+      price: null,
+      inventory: null,
       image: '',
       newCategory: '',
     }
@@ -23,6 +22,7 @@ class ProductForm extends React.Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.getCategories = this.getCategories.bind(this);
     this.createReqBody = this.createReqBody.bind(this);
+    this.resetForm = this.resetForm.bind(this);
   }
 
   componentDidMount() {
@@ -33,9 +33,21 @@ class ProductForm extends React.Component {
     }
   }
 
-  generateTitle() {
+  resetForm() {
+    this.setState({
+      activeCheckboxes: {},
+      title: '',
+      description: '',
+      price: '',
+      inventory: '',
+      image: '',
+      newCategory: '',
+    });
+  }
+
+  generateTitle(isNewProduct) {
     let title = null;
-    if (this.state.isNewProduct) {
+    if (isNewProduct) {
       title = <h3>NEW PRODUCT</h3>
     } else {
       title = <h3>EDIT PRODUCT</h3>
@@ -48,7 +60,7 @@ class ProductForm extends React.Component {
     const isChecked = evt.target.checked;
     this.setState(prevState => ({
       ...prevState,
-      activeCheckboxes: {...prevState.activeCheckboxes, [category]: isChecked},
+      activeCheckboxes: {...prevState.activeCheckboxes, [`${category}`]: isChecked},
     }));
   }
 
@@ -101,13 +113,14 @@ class ProductForm extends React.Component {
         return category;
       }
     })
-    if (this.state.newCategory) {categories.push(this.state.newCategory)}
-    categories = categories.length ? categories.reduce((a, b) => a.concat(b)) : categories;
+    if (this.state.newCategory) {
+      categories.push(this.state.newCategory)
+    }
     return categories;
   }
 
   createReqBody() {
-    const { 
+    const {
       title,
       description,
       price,
@@ -137,9 +150,9 @@ class ProductForm extends React.Component {
     this.props.createProduct(reqBody);
   }
 
-  onSubmit(evt) {
+  onSubmit(evt, isNewProduct) {
     evt.preventDefault();
-    if (this.state.isNewProduct) {
+    if (isNewProduct) {
       return this.onCreateNewProductClick(evt)
     } else {
       return this.onEditProductClick(evt)
@@ -147,12 +160,15 @@ class ProductForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let activeCheckboxes = {}
-    if (Object.keys(nextProps.product).length !== 0 && nextProps.product.constructor === Object) {
+    const newPath = nextProps.match.path;
+    let activeCheckboxes = {};
+    if (
+      Object.keys(nextProps.product).length !== 0 &&
+      nextProps.product.constructor === Object &&
+      newPath !== '/products/create'
+    ) {
       nextProps.product.categories.forEach(category =>
-        Object.defineProperty(activeCheckboxes, category, {
-          value: true,
-        })
+        activeCheckboxes[category] = true
       )
       this.setState({
         title: nextProps.product.title,
@@ -160,19 +176,23 @@ class ProductForm extends React.Component {
         price: nextProps.product.price,
         inventory: nextProps.product.inventory,
         image: nextProps.product.image,
-        isNewProduct: this.props.match.path === '/products/create',
         activeCheckboxes,
       })
     }
   }
 
+  componentWillUnmount() {
+    this.resetForm();
+  }
+
   render() {
     const { categories } = this.props;
-    const { isNewProduct } = this.state;
+    const isNewProduct = this.props.match.path === '/products/create';
+    console.log('state', this.state)
     return (
       <Fragment>
-        {this.generateTitle()}
-        <form onSubmit={(evt) => this.onSubmit(evt)}>
+        {this.generateTitle(isNewProduct)}
+        <form onSubmit={(evt) => this.onSubmit(evt, isNewProduct)}>
           <h4>TITLE</h4>
           <input required name="title" type="text" placeholder="title" value={this.state.title} onChange={this.onInputChange} />
 
@@ -216,11 +236,11 @@ class ProductForm extends React.Component {
 
 const mapState = ({ product, categories }) => ({ product, categories });
 
-const mapDispatch = dispatch => ({
+const mapDispatch = (dispatch, ownProps) => ({
   fetchInitialData: () => dispatch(fetchProducts()),
   fetchProduct: id => dispatch(fetchProduct(id)),
-  editProduct: (reqBody, productId) => dispatch(editProduct(reqBody, productId)),
-  createProduct: product => dispatch(createProduct(product)),
+  editProduct: (reqBody, productId) => dispatch(editProduct(reqBody, productId, ownProps.history)),
+  createProduct: product => dispatch(createProduct(product, ownProps.history)),
 });
 
 export default connect(mapState, mapDispatch)(ProductForm);

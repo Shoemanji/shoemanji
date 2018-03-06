@@ -17,6 +17,7 @@ class AllProducts extends React.Component {
 
     this.onAddToCartClick = this.onAddToCartClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.addLineItemToLocalStorage = this.addLineItemToLocalStorage.bind(this);
   }
 
   componentDidMount() {
@@ -37,7 +38,22 @@ class AllProducts extends React.Component {
 
   onAddToCartClick(product) {
     const { quantity } = this.state;
-    this.props.addToCart({ product, quantity });
+    const lineItem = { product, quantity }
+    this.props.addToCart(lineItem);
+    this.addLineItemToLocalStorage(lineItem);
+  }
+
+  addLineItemToLocalStorage(lineItem) {
+    let updatedCart = [];
+    if (localStorage.getItem('cart')) {      
+      const cartInLocalStorage = JSON.parse(localStorage.getItem('cart'));
+      cartInLocalStorage.map(lineItem => updatedCart.push(lineItem))
+      updatedCart.push(lineItem);
+      window.localStorage.setItem('cart', JSON.stringify(updatedCart));
+    } else {
+      updatedCart.push(lineItem)
+      window.localStorage.setItem('cart', JSON.stringify(updatedCart));
+    }
   }
 
   onProductDeleteClick(productId) {
@@ -101,9 +117,10 @@ class AllProducts extends React.Component {
 }
 
 const mapStateToProps = ({ products, user, category }) => {
+  const availableProducts = products.filter(product => product.inventory > 0);
   return {
     isAdmin: user.isAdmin,
-    products,
+    products: availableProducts,
     category
   }
 }
