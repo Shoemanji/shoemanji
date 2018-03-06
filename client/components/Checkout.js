@@ -17,7 +17,6 @@ class Checkout extends React.Component {
     const city = event.target.city.value;
     const state = event.target.state.value;
     const zip = event.target.zip.value;
-
     const reqBody = {
       cart,
       status: 'created',
@@ -29,13 +28,12 @@ class Checkout extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
     return (
       <Fragment>
         <h1>Checkout</h1>
         <form onSubmit={this.handleSubmit}>
           <h4>Email</h4>
-          <input required name="email" type="email" placeholder="email address..." value={user.email ? user.email : null} />
+          <input required name="email" type="email" placeholder="email address..." />
 
           <h4>Address</h4>
           <input name="address" type="text" placeholder="shipping address..." />
