@@ -48,6 +48,8 @@ export const sendCart = (reqBody, history) => dispatch => {
     .then(res => {
       history.push(`/orders/${res.data.id}`);
       dispatch(clearCart());
+      axios.post('/api/sendmail')
+        .catch(error => console.error(error));
     })
     .catch(error => console.error(error))
 }
