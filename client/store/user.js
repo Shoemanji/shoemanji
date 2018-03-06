@@ -16,25 +16,12 @@ const defaultUser = {}
 /**
  * ACTION CREATORS
  */
-const getUser = user => ({type: GET_USER, user})
-const removeUser = () => ({type: REMOVE_USER})
+const getUser = user => ({ type: GET_USER, user })
+const removeUser = () => ({ type: REMOVE_USER })
 
 /**
  * THUNK CREATORS
  */
-export const updateUserRole = (userId, isAdmin) => dispatch => {
-  axios.put(`/api/users/${userId}`, isAdmin)
-  .then(res => console.log(res.data))
-  .catch(err => console.error(err));
-}
-
-export const deleteUser = userId => dispatch => {
-  axios.delete(`/api/users/${userId}`)
-  .then(res => {
-    dispatch(deleteCurrentUser(userId));
-  })
-  .catch(err => console.error(err));
-}
 
 export const me = () =>
   dispatch =>
@@ -48,9 +35,12 @@ export const auth = (email, password, method) =>
     axios.post(`/auth/${method}`, { email, password })
       .then(res => {
         dispatch(getUser(res.data))
+        console.log(res.data)
+        res.data.pendingPwReset ?
+        history.push(`/${res.data.id}/resetpw`) :
         history.push('/home')
       }, authError => { // rare example: a good use case for parallel (non-catch) error handler
-        dispatch(getUser({error: authError}))
+        dispatch(getUser({ error: authError }))
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
 
@@ -62,6 +52,33 @@ export const logout = () =>
         history.push('/login')
       })
       .catch(err => console.log(err))
+
+export const updateUserRole = (userId, isAdmin) => dispatch => {
+  axios.put(`/api/users/${userId}`, isAdmin)
+    .then(res => console.log(res.data))
+    .catch(err => console.error(err));
+}
+
+export const updateUserPassword = (userId, newpw, history) => dispatch => {
+  console.log(userId)
+  axios.put(`/auth/${userId}/resetpw`, newpw)
+    .then(() => history.push('/home'))
+    .catch(err => console.error(err));
+}
+
+export const forcePwReset = (userId) => dispatch => {
+  axios.put(`/api/users/${userId}/forcereset`, {pendingPwReset: true})
+    .then(res => console.log(res.data))
+    .catch(err => console.error(err));
+}
+
+export const deleteUser = userId => dispatch => {
+  axios.delete(`/api/users/${userId}`)
+    .then(res => {
+      dispatch(deleteCurrentUser(userId));
+    })
+    .catch(err => console.error(err));
+}
 
 /**
  * REDUCER

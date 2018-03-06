@@ -16,6 +16,7 @@ import {
   ProductForm,
   AllUsers,
   MyReviews,
+  ResetPw
 } from './components'
 import {me} from './store'
 
@@ -33,8 +34,8 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:id/review" component={AddReview} />
         <Route exact path="/orders/all" component={AllOrders} />
@@ -52,6 +53,7 @@ class Routes extends Component {
             <Switch>
               {/* Routes placed here are only available after logging in */}
               <Route path="/home" component={UserHome} />
+              <Route exact path="/:id/resetpw" component={ResetPw} />
             </Switch>
         }
         {/* Displays our Login component as a fallback */}

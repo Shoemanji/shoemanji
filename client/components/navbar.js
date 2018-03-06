@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({ handleClick, isLoggedIn, isAdmin, user }) => (
+const Navbar = ({ handleClick, isLoggedIn, isAdmin, user, pendingPwReset }) => (
   <div>
     <h1>SHOEMANJI</h1>
     <nav>
@@ -16,7 +16,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, user }) => (
       ) : (
         null
       )}
-      {isLoggedIn ? (
+      {isLoggedIn && !pendingPwReset ? (
         <div>
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
@@ -48,6 +48,7 @@ const mapState = state => {
     isLoggedIn: !!state.user.id,
     isAdmin: state.user.isAdmin,
     user: state.user,
+    pendingPwReset: state.user.pendingPwReset
   }
 }
 
@@ -61,10 +62,8 @@ const mapDispatch = dispatch => {
 
 export default connect(mapState, mapDispatch)(Navbar)
 
-/**
- * PROP TYPES
- */
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  isLoggedIn: PropTypes.bool.isRequired,
+  pendingPwReset: PropTypes.bool.isRequired
 }
