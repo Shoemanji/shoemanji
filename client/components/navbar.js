@@ -20,9 +20,11 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, user, pendingPwReset }) => (
         <div>
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
+          <Link to={`/${user.id}/resetpw`}>Change Password</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
+          <br />
           <Link to={`/user/${user.id}/orders`}>My Orders</Link>
           <Link to={`/user/${user.id}/reviews`}>My Reviews</Link>
           <br />
