@@ -34,7 +34,6 @@ class ProductForm extends React.Component {
   }
 
   resetForm() {
-    console.log('RESET FORM')
     this.setState({
       activeCheckboxes: {},
       title: '',
