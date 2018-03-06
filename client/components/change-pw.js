@@ -35,13 +35,6 @@ const mapReset = (state) => {
     error: state.user.error
   }
 }
-// const mapSignup = (state) => {
-//   return {
-//     name: 'signup',
-//     displayName: 'Sign Up',
-//     error: state.user.error
-//   }
-// }
 
 const mapDispatch = (dispatch, ownProps) => {
   return {
@@ -50,9 +43,6 @@ const mapDispatch = (dispatch, ownProps) => {
       const newpw = evt.target.newpw.value
       const confirmnewpw = evt.target.confirmnewpw.value
       const userid = user.id
-      // const PwResetStatus = false
-      // console.log(user)
-      // console.log(PwResetStatus)
       if (newpw === confirmnewpw){
         dispatch(updateUserPassword(userid, newpw, ownProps.history))
       }
@@ -61,7 +51,6 @@ const mapDispatch = (dispatch, ownProps) => {
 }
 
 export const ResetPw = connect(mapReset, mapDispatch)(ChangePw)
-// export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
 
 ChangePw.propTypes = {
   name: PropTypes.string.isRequired,
