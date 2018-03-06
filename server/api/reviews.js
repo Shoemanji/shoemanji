@@ -1,5 +1,5 @@
 const reviewRouter = require('express').Router();
-const { Review } = require('../db/models');
+const { Review, User } = require('../db/models');
 
 function isLoggedIn(req, res, next) {
   if (req.user) {
@@ -10,7 +10,9 @@ function isLoggedIn(req, res, next) {
 }
 
 reviewRouter.get('/', (req, res, next) => {
-  Review.findAll()
+  Review.findAll({
+    include: [{model: User}]
+  })
   .then(reviews => res.json(reviews))
   .catch(next);
 });
@@ -28,9 +30,16 @@ reviewRouter.get('/user/:id', (req, res, next) => {
 })
 
 reviewRouter.post('/', isLoggedIn, (req, res, next) => {
+  console.log(req.body)
   Review.create(req.body)
   .then(instance => res.json(instance))
   .catch(next);
 })
 
 module.exports = reviewRouter;
+
+// .then(review => {
+//   return User.findById(1)
+//   .then(user => {
+//     return review.setUser(user);
+//   })
