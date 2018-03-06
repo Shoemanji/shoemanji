@@ -29,13 +29,12 @@ class Checkout extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
     return (
       <Fragment>
         <h1>Checkout</h1>
         <form onSubmit={this.handleSubmit}>
           <h4>Email</h4>
-          <input required name="email" type="email" placeholder="email address..." value={user.email ? user.email : ''} />
+          <input required name="email" type="email" placeholder="email address..." />
 
           <h4>Address</h4>
           <input name="address" type="text" placeholder="shipping address..." />
@@ -58,7 +57,7 @@ class Checkout extends React.Component {
   }
 }
 
-const mapStateToProps = ({ cart, user }) => ({ cart, user })
+const mapStateToProps = ({ cart }) => ({ cart })
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
