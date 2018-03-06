@@ -34,7 +34,7 @@ class SingleProduct extends React.Component {
 
   addLineItemToLocalStorage(lineItem) {
     let updatedCart = [];
-    if (localStorage.getItem('cart')) {      
+    if (localStorage.getItem('cart')) {
       const cartInLocalStorage = JSON.parse(localStorage.getItem('cart'));
       cartInLocalStorage.map(lineItem => updatedCart.push(lineItem))
       updatedCart.push(lineItem);

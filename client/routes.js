@@ -40,19 +40,19 @@ class Routes extends Component {
         <Route exact path="/products/:id/review" component={AddReview} />
         <Route exact path="/orders/all" component={AllOrders} />
         <Route exact path="/orders/:id" component={SingleOrder} />
+        <Route exact path="/products/:id" component={SingleProduct} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/cart/checkout" component={Checkout} />
-        <Route exact path="/products/:id" component={SingleProduct} />
         {
           isLoggedIn &&
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
+            <Route exact path="/home" component={UserHome} />
             <Route exact path="/:id/resetpw" component={ResetPw} />
             <Route exact path="/user/:id/orders" component={AllOrders} />
             <Route exact path="/user/:id/reviews" component={MyReviews} />
             <Route exact path="/products/:id/edit" component={ProductForm} />
-            <Route exact path="/products/create" component={ProductForm} />
+            <Route exact path="/create" component={ProductForm} />
             <Route exact path="/users/all" component={AllUsers} />
           </Switch>
         }

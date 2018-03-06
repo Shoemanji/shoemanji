@@ -45,7 +45,7 @@ class AllProducts extends React.Component {
 
   addLineItemToLocalStorage(lineItem) {
     let updatedCart = [];
-    if (localStorage.getItem('cart')) {      
+    if (localStorage.getItem('cart')) {
       const cartInLocalStorage = JSON.parse(localStorage.getItem('cart'));
       cartInLocalStorage.map(lineItem => updatedCart.push(lineItem))
       updatedCart.push(lineItem);
@@ -68,7 +68,7 @@ class AllProducts extends React.Component {
     return (
       <div>
         {isAdmin ? (
-            <Link to="/products/create">
+            <Link to="/create">
               <button>CREATE NEW PRODUCT</button>
             </Link>
           ) :
@@ -77,7 +77,7 @@ class AllProducts extends React.Component {
         <FilterInput handleChange={this.handleChange} inputValue={inputValue} />
         <br />
         <CategorySelect />
-        <ul>
+        <ul className="all-products">
           {
             (category === 'ALL' || !category)
               ? products && products
