@@ -58,7 +58,7 @@ form div {
   display: inline-block;
 }
 
-ul {
+ul, li {
   padding: 0px;
   list-style-type: none;
 }
@@ -66,20 +66,62 @@ ul {
 .all-products {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  border: 10px solid goldenrod;
+  max-width: 900px;
+  margin: 0 auto;
+  margin-top: 20px;
+  align-content: space-between;
+  justify-content: space-around;
+  font-family: sans-serif;
 }
 
 .all-products li {
-  display: flex;
   flex-direction: column;
-  border: 10px solid dodgerblue;
   background-color: #fff;
+  color: #000;
+  margin-bottom: 20px;
+  width: 280px;
+  height: 330px;
+}
+
+.all-products li img {
+  width: 100%;
+  height: 192px;
+  margin-bottom: 22px;
+}
+
+.all-products span {
+  display: flex;
+  color: #000;
+  justify-content: center;
+  font-size: 12px;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.all-products span + span {
+  margin-bottom: 12px;
 }
 
 .all-products a {
+  justify-content: center;
+}
+
+.all-products button {
   display: flex;
   justify-content: center;
+  align-self: center;
+  background: #000;
+  color: #fff;
+  width: 100%;
+  height: 30px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.all-products button:hover {
+  background: #f02525;
+  transition: 0.35s;
 }
 
 .container {
@@ -104,7 +146,8 @@ ul {
   text-decoration: underline;
 }
 
-.container span {
+.container span,
+.container input::placeholder {
   display: block;
   font-size: 10px;
   color: #999;
@@ -113,8 +156,42 @@ ul {
 }
 
 .container input {
-  width: 350px;
+  width: 320px;
   height: 40px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 20px;
+}
+
+.container form {
+  width: 352px;
+  margin: 0 auto;
+}
+
+.container form label {
+  font-size: 12px;
+  font-weight: 600;
+  color: silver;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.container form span {
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.container form select {
+  border: 1px solid #dfdfdf;
+  position: relative;
+  top: -1px;
+  width: 80px;
+  height: 26px;
+  margin-left: 10px;
+}
+
+.container form select:focus {
+  outline: none;
 }
 
 .cartRow-container {
@@ -154,21 +231,21 @@ ul {
 
 .cart-quantity-container input {
   border-radius: 4px;
-  width: 35px;
+  width: 25px !important;
+  height: 12px !important;
   padding-left: 10px;
+  padding-right: 0px !important;
 }
 
 .cart-total {
-  display: block;
-  color: #525252;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-size: 12px;
+  color: #525252 !important;
+  letter-spacing: 1px !important;
+  font-size: 14px !important;
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
-.cart-checkout {
+.main-button {
   width: 280px;
   height: 40px;
   background-color: #ec1f27;
@@ -177,9 +254,30 @@ ul {
   cursor: pointer;
   color: #fff;
   text-transform: uppercase;
+  margin-top: 20px;
 }
 
-.cart-checkout:hover {
+.main-button:hover {
   background-color: #c92127;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.search-container input {
+  margin-bottom: 0px;
+}
+
+.product-card a:hover img,
+.product-card a:hover span {
+  opacity: 0.9;
+}
+
+.button-small {
+  width: 50% !important;
+  display: inline-block !important;
 }
 

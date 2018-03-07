@@ -33,23 +33,21 @@ class Checkout extends React.Component {
         <h3>CHECKOUT</h3>
         <form onSubmit={this.handleSubmit}>
           <span>Email</span>
-          <input required name="email" type="email" placeholder="email address..." />
+          <input required name="email" type="email" />
 
           <span>Address</span>
-          <input name="address" type="text" placeholder="shipping address..." />
+          <input name="address" type="text" />
 
           <span>City</span>
-          <input name="city" type="text" placeholder="city..." />
+          <input name="city" type="text" />
 
           <span>State</span>
-          <input name="state" type="text" maxLength="2" pattern="[a-zA-Z]{2}" placeholder="state..." />
+          <input name="state" type="text" maxLength="2" pattern="[a-zA-Z]{2}" />
 
           <span>Zip Code</span>
-          <input name="zip" type="text" maxLength="5" pattern="[0-9]{5}" placeholder="zipcode..." />
+          <input name="zip" type="text" maxLength="5" pattern="[0-9]{5}" />
 
-          <br />
-          <br />
-          <button>PLACE ORDER</button>
+          <button className="main-button">PLACE ORDER</button>
         </form>
       </div>
     )

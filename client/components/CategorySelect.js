@@ -21,10 +21,9 @@ class CategorySelect extends React.Component {
   render() {
     const { categories } = this.props;
     return (
-      <Fragment>
+      <div className="container">
         <form>
-          <label>
-            Sort by Category
+          <label>Sort by</label>
           <select onChange={this.handleChange}>
             <option value={'ALL'}> -- ALL -- </option>
               {
@@ -34,10 +33,9 @@ class CategorySelect extends React.Component {
                   );
                 })
               }
-            </select>
-          </label>
+          </select>
         </form>
-      </Fragment>
+      </div>
     );
   }
 }

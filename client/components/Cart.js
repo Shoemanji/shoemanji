@@ -15,7 +15,7 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    if (localStorage.getItem('cart')) {      
+    if (localStorage.getItem('cart')) {
       const cartInLocalStorage = JSON.parse(localStorage.getItem('cart'));
       this.props.getCart(cartInLocalStorage);
     }
@@ -23,7 +23,7 @@ class Cart extends React.Component {
 
   removeItemFromLocalStorage(product) {
     let updatedCart = [];
-    if (localStorage.getItem('cart')) {    
+    if (localStorage.getItem('cart')) {
       const cartInLocalStorage = JSON.parse(localStorage.getItem('cart'));
       updatedCart = cartInLocalStorage.filter(lineItem => lineItem.product.id !== product.id);
       window.localStorage.setItem('cart', JSON.stringify(updatedCart));
@@ -33,7 +33,7 @@ class Cart extends React.Component {
 
   updateItemInLocalStorage(updatedLineItem) {
     let updatedCart = [];
-    if (localStorage.getItem('cart')) {    
+    if (localStorage.getItem('cart')) {
       const cartInLocalStorage = JSON.parse(localStorage.getItem('cart'));
       const index = cartInLocalStorage.findIndex(cartRow => cartRow.product.id === updatedLineItem.product.id);
       updatedCart = [
@@ -86,7 +86,8 @@ class Cart extends React.Component {
               <div className="cartRow-container" key={product.id}>
                 <img src={product.image} />
                 <div className="cartRow-product">{product.title}</div>
-                <div className="cartRow-details">{`price: $${product.price}`}</div>
+                <div className="cartRow-details">{`price: $${product.price}.00`}</div>
+                <div className="cartRow-details">{`size: ${product.size}`}</div>
                 <div className="cart-quantity-container">
                   <div className="cartRow-details">quantity:</div>
                   <input
@@ -106,7 +107,7 @@ class Cart extends React.Component {
           </div>
           <span className="cart-total">Order Total: ${this.calculateTotal()}</span>
           <Link to="/cart/checkout">
-            <button className="cart-checkout">Go to Checkout</button>
+            <button className="main-button">Go to Checkout</button>
           </Link>
         </div>
       ) : (
