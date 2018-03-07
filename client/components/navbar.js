@@ -6,7 +6,6 @@ import { logout } from '../store'
 
 const Navbar = ({ handleClick, isLoggedIn, isAdmin, user, pendingPwReset }) => (
   <div className="navbar-container">
-    <span>SHOEMANJI</span>
     <nav>
       {isLoggedIn && isAdmin ? (
         <div>
@@ -38,6 +37,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, user, pendingPwReset }) => (
       {!isLoggedIn ? (
         <div>
           {/* The navbar will show these links before you log in */}
+          <Link className="logo" to="/home">Shoemanji</Link>
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
           <Link to="/products">All Products</Link>
@@ -46,7 +46,6 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, user, pendingPwReset }) => (
       ) : (null
         )}
     </nav>
-    <hr />
   </div>
 )
 

@@ -30,6 +30,11 @@ textarea {
   border: 1px solid #dfdfdf;
 }
 
+.logo {
+  position: absolute;
+  left: 40px;
+}
+
 .navbar-container {
   background-color: #333;
 }
@@ -68,7 +73,7 @@ ul, li {
   flex-wrap: wrap;
   max-width: 900px;
   margin: 0 auto;
-  margin-top: 20px;
+  margin-top: 35px;
   align-content: space-between;
   justify-content: space-around;
   font-family: sans-serif;
