@@ -54,7 +54,7 @@ class Checkout extends React.Component {
   }
 }
 
-const mapStateToProps = ({ cart, user }) => ({ cart, user })
+const mapStateToProps = ({ cart, user }) => ({ cart, user });
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {

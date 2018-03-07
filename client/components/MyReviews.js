@@ -11,9 +11,9 @@ class MyReviews extends React.Component {
     }
 
     componentDidMount() {
-        const userId = Number(this.props.match.params.id)
-        this.props.myReviews(userId)
-        this.props.allProducts(userId)
+        const userId = Number(this.props.match.params.id);
+        this.props.myReviews(userId);
+        this.props.allProducts(userId);
     }
 
     renderProductTitle(product) {
@@ -40,7 +40,7 @@ class MyReviews extends React.Component {
     }
 
     render() {
-        const { reviews, products } = this.props
+        const { reviews, products } = this.props;
         return (
             reviews.length ? (
                 <ul className="container">
@@ -54,7 +54,7 @@ class MyReviews extends React.Component {
 }
 
 
-const mapStateToProps = ({ reviews, products }) => ({ reviews, products })
+const mapStateToProps = ({ reviews, products }) => ({ reviews, products });
 
 const mapDispatchToProps = dispatch => ({
     myReviews: userId => dispatch(myReviews(userId)),

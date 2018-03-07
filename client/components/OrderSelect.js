@@ -5,7 +5,7 @@ const OrderSelect = ({ orders, handleChange }) => {
   const statuses = orders.map(order => order.status);
   const uniqueStatuses = Array.from(new Set(statuses));
   return (
-    <div className="container">
+    <div className="container order-select">
       <form>
         <label>
           Sort by status

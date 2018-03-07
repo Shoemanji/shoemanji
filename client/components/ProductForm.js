@@ -4,7 +4,7 @@ import { fetchProduct, editProduct, createProduct, fetchProducts } from '../stor
 
 class ProductForm extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       activeCheckboxes: {},
       title: '',
@@ -13,7 +13,7 @@ class ProductForm extends React.Component {
       inventory: null,
       image: '',
       newCategory: '',
-    }
+    };
     this.generateTitle = this.generateTitle.bind(this);
     this.onEditProductClick = this.onEditProductClick.bind(this);
     this.onCreateNewProductClick = this.onCreateNewProductClick.bind(this);
@@ -114,7 +114,7 @@ class ProductForm extends React.Component {
       }
     })
     if (this.state.newCategory) {
-      categories.push(this.state.newCategory)
+      categories.push(this.state.newCategory);
     }
     return categories;
   }
@@ -153,9 +153,9 @@ class ProductForm extends React.Component {
   onSubmit(evt, isNewProduct) {
     evt.preventDefault();
     if (isNewProduct) {
-      return this.onCreateNewProductClick(evt)
+      return this.onCreateNewProductClick(evt);
     } else {
-      return this.onEditProductClick(evt)
+      return this.onEditProductClick(evt);
     }
   }
 
@@ -177,7 +177,7 @@ class ProductForm extends React.Component {
         inventory: nextProps.product.inventory,
         image: nextProps.product.image,
         activeCheckboxes,
-      })
+      });
     }
   }
 

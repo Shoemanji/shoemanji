@@ -340,6 +340,7 @@ ul, li {
 
 .line-items-container {
   display: flex;
+  justify-content: center;
 }
 
 .single-order-selector {
@@ -348,6 +349,10 @@ ul, li {
   align-items: center;
   margin-top: 20px;
   margin-bottom: 40px;
+}
+
+.order-select {
+  margin-top: 20px;
 }
 
 .container-auth h3,

@@ -1,22 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {addReviews} from '../store/reviews';
+import { addReviews } from '../store/reviews';
 
 class AddReview extends React.Component {
     constructor(props){
-        super(props)
+        super(props);
         this.submit = this.submit.bind(this);
     }
+
     submit(event){
-        event.preventDefault()
+        event.preventDefault();
         const review = {
-            productId: this.props.match.params.id, 
+            productId: this.props.match.params.id,
             text: event.target.review.value,
             rating: Number(event.target.rating.value),
             userId: this.props.user.id
         }
-        this.props.addReview(review)
-        this.props.history.push(`/products/${review.productId}`)
+        this.props.addReview(review);
+        this.props.history.push(`/products/${review.productId}`);
     }
 
     render(){
@@ -31,17 +32,16 @@ class AddReview extends React.Component {
                 <input required type="radio" name="rating" value="4" />4
                 <input required type="radio" name="rating" value="5" />5
             </form>
-
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ review, user }) => ({ review, user })
+const mapStateToProps = ({ review, user }) => ({ review, user });
 
 const mapDispatchToProps = dispatch => ({
     addReview: review => dispatch(addReviews(review))
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddReview);
 

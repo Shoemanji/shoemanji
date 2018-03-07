@@ -5,7 +5,7 @@ import { updateIsFetching, clearCart, deleteFromCart, updateCart, getCart } from
 
 class Cart extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.onQuantityChange = this.onQuantityChange.bind(this);
     this.onCartSubmit = this.onCartSubmit.bind(this);
     this.onRemoveItemClick = this.onRemoveItemClick.bind(this);
@@ -43,7 +43,7 @@ class Cart extends React.Component {
           quantity: updatedLineItem.quantity
         },
         ...cartInLocalStorage.slice(index + 1),
-      ]
+      ];
       window.localStorage.setItem('cart', JSON.stringify(updatedCart));
       this.props.getCart(updatedCart);
     }
@@ -120,7 +120,7 @@ class Cart extends React.Component {
   }
 }
 
-const mapStateToProps = ({ cart, isFetching }) => ({ cart, isFetching })
+const mapStateToProps = ({ cart, isFetching }) => ({ cart, isFetching });
 
 const mapDispatchToProps = dispatch => ({
   updateIsFetching: fetch => dispatch(updateIsFetching(fetch)),

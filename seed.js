@@ -1,4 +1,4 @@
-const db = require('./server/db')
+const db = require('./server/db');
 const { User, Product, Review, Order, LineItem } = require('./server/db/models');
 
 function generateUsers () {

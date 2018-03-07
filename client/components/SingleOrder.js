@@ -5,23 +5,23 @@ import { Link } from 'react-router-dom';
 
 class SingleOrder extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       orderStatus: '',
-    }
+    };
     this.onChange = this.onChange.bind(this);
     this.onUpdateOrderStatusClick = this.onUpdateOrderStatusClick.bind(this);
     this.renderLineItems = this.renderLineItems.bind(this);
   }
 
   componentDidMount() {
-    const orderId = Number(this.props.match.params.id);
+    const orderId = +this.props.match.params.id;
     this.props.fetchOrder(orderId);
   }
 
   onChange(evt) {
     const orderStatus = evt.target.value;
-    this.setState({ orderStatus })
+    this.setState({ orderStatus });
   }
 
   onUpdateOrderStatusClick() {
@@ -98,11 +98,11 @@ class SingleOrder extends React.Component {
   }
 }
 
-const mapStateToProps = ({ order, user }) => ({ order, user })
+const mapStateToProps = ({ order, user }) => ({ order, user });
 
 const mapDispatchToProps = dispatch => ({
   fetchOrder: id => dispatch(fetchOrder(id)),
   updateOrderStatus: (orderId, orderData) => dispatch(updateOrder(orderId, orderData))
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleOrder);

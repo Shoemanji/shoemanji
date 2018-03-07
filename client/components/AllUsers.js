@@ -4,10 +4,10 @@ import { fetchUsers, updateUserRole, forcePwReset, deleteUser } from '../store';
 
 class AllUsers extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       userDropdowns: {},
-    }
+    };
     this.onChange = this.onChange.bind(this);
     this.onUpdateUserRoleClick = this.onUpdateUserRoleClick.bind(this);
     this.onDeleteUserClick = this.onDeleteUserClick.bind(this);
@@ -21,7 +21,7 @@ class AllUsers extends React.Component {
   onChange(evt, userId) {
     let userDropdowns = this.state.userDropdowns;
     userDropdowns[userId] = evt.target.value;
-    this.setState({ userDropdowns })
+    this.setState({ userDropdowns });
   }
 
   onUpdateUserRoleClick(evt, userId) {
@@ -42,7 +42,7 @@ class AllUsers extends React.Component {
     nextProps.users.map(user => {
       if (user.isAdmin) { userDropdowns[user.id] = 'admin' }
       else { userDropdowns[user.id] = 'standard' }
-    })
+    });
     this.setState({ userDropdowns });
   }
 
@@ -78,7 +78,7 @@ const mapStateToProps = ({ users, user }) => {
   return {
     users: filteredUsers,
   }
-}
+};
 
 const mapDispatchToProps = dispatch => ({
   fetchUsers: () => dispatch(fetchUsers()),

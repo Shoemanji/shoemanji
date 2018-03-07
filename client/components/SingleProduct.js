@@ -6,10 +6,10 @@ import AllReviews from './AllReviews';
 
 class SingleProduct extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       quantity: 1,
-    }
+    };
     this.onQuantityChange = this.onQuantityChange.bind(this);
     this.onSizeChange = this.onSizeChange.bind(this);
     this.onAddToCartClick = this.onAddToCartClick.bind(this);
@@ -17,7 +17,7 @@ class SingleProduct extends React.Component {
   }
 
   componentDidMount() {
-    const productId = Number(this.props.match.params.id);
+    const productId = +this.props.match.params.id;
     this.props.fetchProduct(productId);
   }
 
@@ -33,7 +33,7 @@ class SingleProduct extends React.Component {
 
   onAddToCartClick(product) {
     const { quantity } = this.state;
-    const lineItem = { product, quantity }
+    const lineItem = { product, quantity };
     this.props.addToCart(lineItem);
     this.addLineItemToLocalStorage(lineItem);
   }
@@ -42,11 +42,11 @@ class SingleProduct extends React.Component {
     let updatedCart = [];
     if (localStorage.getItem('cart')) {
       const cartInLocalStorage = JSON.parse(localStorage.getItem('cart'));
-      cartInLocalStorage.map(lineItem => updatedCart.push(lineItem))
+      cartInLocalStorage.map(lineItem => updatedCart.push(lineItem));
       updatedCart.push(lineItem);
       window.localStorage.setItem('cart', JSON.stringify(updatedCart));
     } else {
-      updatedCart.push(lineItem)
+      updatedCart.push(lineItem);
       window.localStorage.setItem('cart', JSON.stringify(updatedCart));
     }
   }
@@ -102,11 +102,11 @@ class SingleProduct extends React.Component {
   }
 }
 
-const mapStateToProps = ({ product, cart }) => ({ product, cart })
+const mapStateToProps = ({ product, cart }) => ({ product, cart });
 
 const mapDispatchToProps = dispatch => ({
   fetchProduct: id => dispatch(fetchProduct(id)),
   addToCart: cartRow => dispatch(addToCart(cartRow)),
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);

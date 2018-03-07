@@ -6,10 +6,6 @@ class CategorySelect extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      category: '',
-    }
-
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -27,9 +23,9 @@ class CategorySelect extends React.Component {
           <select onChange={this.handleChange}>
             <option value={'ALL'}> -- ALL -- </option>
               {
-                categories.map((category, i) => {
+                categories.map((category) => {
                   return (
-                    <option key={i} value={category}>{category}</option>
+                    <option key={category} value={category}>{category}</option>
                   );
                 })
               }
@@ -44,7 +40,7 @@ const mapStateToProps = ({ categories }) => ({ categories });
 
 const mapDispatchToProps = dispatch => ({
   getCategory: category => dispatch(getCategory(category)),
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategorySelect);
 
