@@ -20,10 +20,10 @@ class AllOrders extends React.Component {
 
   componentDidMount() {
     if (this.props.match.path === '/orders/all') {
-      this.props.fetchAllOrders()
+      this.props.fetchAllOrders();
     } else {
-      const userId = Number(this.props.match.params.id)
-      this.props.fetchOrders(userId)
+      const userId = Number(this.props.match.params.id);
+      this.props.fetchOrders(userId);
     }
   }
 
@@ -32,11 +32,11 @@ class AllOrders extends React.Component {
     const newPath = nextProps.match.path;
     const shouldDisplayAllOrders = this.state.displayAllOrders;
     if (newPath === '/orders/all') {
-      this.setState({ displayAllOrders: true })
+      this.setState({ displayAllOrders: true });
     }
     if (currentPath !== newPath) {
-      this.setState({ displayAllOrders: !shouldDisplayAllOrders })
-      this.updatePage(!shouldDisplayAllOrders)
+      this.setState({ displayAllOrders: !shouldDisplayAllOrders });
+      this.updatePage(!shouldDisplayAllOrders);
     }
   }
 
@@ -71,14 +71,15 @@ class AllOrders extends React.Component {
         </Fragment>);
     }
 
-    return (<Fragment>
-      <ul>
-        {orders.filter(order => order.status === this.state.currentStatus).map(order =>
-          (<li key={order.id}>
-            <OrderRow order={order} isAdmin={user.isAdmin} />
-          </li>)
-        )}
-      </ul>
+    return (
+      <Fragment>
+        <ul>
+          {orders.filter(order => order.status === this.state.currentStatus).map(order =>
+            (<li key={order.id}>
+              <OrderRow order={order} isAdmin={user.isAdmin} />
+            </li>)
+          )}
+        </ul>
     </Fragment>);
   }
 
@@ -94,11 +95,11 @@ class AllOrders extends React.Component {
   }
 }
 
-const mapStateToProps = ({ orders, user }) => ({ orders, user })
+const mapStateToProps = ({ orders, user }) => ({ orders, user });
 
 const mapDispatchToProps = dispatch => ({
   fetchOrders: userId => dispatch(fetchOrders(userId)),
   fetchAllOrders: () => dispatch(fetchAllOrders())
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllOrders);

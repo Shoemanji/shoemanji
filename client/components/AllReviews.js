@@ -4,10 +4,6 @@ import { fetchReviews } from '../store';
 import { Link } from 'react-router-dom';
 
 class AllReviews extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
     componentDidMount() {
         this.props.fetchReviews();
     }
@@ -21,7 +17,7 @@ class AllReviews extends React.Component {
                     {filteredReviews && filteredReviews.map(review =>
                         (<li key={review.id}>
                             <h3><Link to={`/user/${review.userId}/reviews/`}> User : {review.userId}</Link></h3>
-                            
+
                             {review.rating} out of 5
                             <br />
                             {review.text}
@@ -33,10 +29,10 @@ class AllReviews extends React.Component {
         )
     }
 }
-const mapStateToProps = ({ reviews }) => ({ reviews })
+const mapStateToProps = ({ reviews }) => ({ reviews });
 
 const mapDispatchToProps = dispatch => ({
-    fetchReviews: () =>  dispatch(fetchReviews())
+    fetchReviews: () => dispatch(fetchReviews())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllReviews);

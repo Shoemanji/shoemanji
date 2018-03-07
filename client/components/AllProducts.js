@@ -8,12 +8,12 @@ import { escapeRegExp } from 'lodash';
 
 class AllProducts extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       quantity: 1,
       inputValue: '',
-    }
+    };
 
     this.onAddToCartClick = this.onAddToCartClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -38,14 +38,14 @@ class AllProducts extends React.Component {
 
   onAddToCartClick(product) {
     const { quantity } = this.state;
-    const lineItem = { product, quantity }
+    const lineItem = { product, quantity };
     this.props.addToCart(lineItem);
     this.addLineItemToLocalStorage(lineItem);
   }
 
   addLineItemToLocalStorage(lineItem) {
     let updatedCart = [];
-    if (localStorage.getItem('cart')) {      
+    if (localStorage.getItem('cart')) {
       const cartInLocalStorage = JSON.parse(localStorage.getItem('cart'));
       cartInLocalStorage.map(lineItem => updatedCart.push(lineItem))
       updatedCart.push(lineItem);
@@ -123,7 +123,7 @@ const mapStateToProps = ({ products, user, category }) => {
     products: availableProducts,
     category
   }
-}
+};
 
 const mapDispatchToProps = dispatch => ({
   fetchInitialData: () => dispatch(fetchProducts()),

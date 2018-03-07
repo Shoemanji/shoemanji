@@ -5,7 +5,7 @@ import { updateIsFetching, clearCart, deleteFromCart, updateCart, getCart } from
 
 class Cart extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.onQuantityChange = this.onQuantityChange.bind(this);
     this.onCartSubmit = this.onCartSubmit.bind(this);
     this.onRemoveItemClick = this.onRemoveItemClick.bind(this);
@@ -15,7 +15,7 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    if (localStorage.getItem('cart')) {      
+    if (localStorage.getItem('cart')) {
       const cartInLocalStorage = JSON.parse(localStorage.getItem('cart'));
       this.props.getCart(cartInLocalStorage);
     }
@@ -23,7 +23,7 @@ class Cart extends React.Component {
 
   removeItemFromLocalStorage(product) {
     let updatedCart = [];
-    if (localStorage.getItem('cart')) {    
+    if (localStorage.getItem('cart')) {
       const cartInLocalStorage = JSON.parse(localStorage.getItem('cart'));
       updatedCart = cartInLocalStorage.filter(lineItem => lineItem.product.id !== product.id);
       window.localStorage.setItem('cart', JSON.stringify(updatedCart));
@@ -33,7 +33,7 @@ class Cart extends React.Component {
 
   updateItemInLocalStorage(updatedLineItem) {
     let updatedCart = [];
-    if (localStorage.getItem('cart')) {    
+    if (localStorage.getItem('cart')) {
       const cartInLocalStorage = JSON.parse(localStorage.getItem('cart'));
       const index = cartInLocalStorage.findIndex(cartRow => cartRow.product.id === updatedLineItem.product.id);
       updatedCart = [
@@ -43,7 +43,7 @@ class Cart extends React.Component {
           quantity: updatedLineItem.quantity
         },
         ...cartInLocalStorage.slice(index + 1),
-      ]
+      ];
       window.localStorage.setItem('cart', JSON.stringify(updatedCart));
       this.props.getCart(updatedCart);
     }
@@ -114,7 +114,7 @@ class Cart extends React.Component {
   }
 }
 
-const mapStateToProps = ({ cart, isFetching }) => ({ cart, isFetching })
+const mapStateToProps = ({ cart, isFetching }) => ({ cart, isFetching });
 
 const mapDispatchToProps = dispatch => ({
   updateIsFetching: fetch => dispatch(updateIsFetching(fetch)),
