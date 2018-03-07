@@ -20,7 +20,7 @@ emailRouter.post('/', (req, res, next) => {
             button: {
                 color: '#1E90FF', // Optional action button color
                 text: 'Check your order',
-                link: `http://localhost:8080/user/${req.user.dataValues.id}/orders`
+                link: `https://shoemanji.herokuapp.com/user/${req.user.dataValues.id}/orders`
             }
         },
         outro: 'Need help, or have questions? Just reply to this email, we\'d love to help.'
