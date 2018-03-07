@@ -83,10 +83,16 @@ class AllProducts extends React.Component {
               ? products && products
                   .filter(product => product.title.match(regex))
                   .map(product =>
-                    (<li key={product.id}>
+                    (
+                      <li key={product.id}>
                       <img width="200" src={  product.image } />
-                      <Link to={`/products/${product.id}`}>{product.title}</Link>
-                      <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
+                      <Link to={`/products/${product.id}`}>
+                      <span>{product.title}</span>
+                      <span>{`$${product.price}.00`}</span>
+                      </Link>
+                      <button onClick={() => this.onAddToCartClick(product)}>
+                        ADD TO CART
+                      </button>
                       {isAdmin ? (
                         <div>
                           <button onClick={() => this.onProductDeleteClick(product.id)}>DELETE PRODUCT</button>
@@ -103,11 +109,25 @@ class AllProducts extends React.Component {
                   .map(product => {
                     return (
                       <li key={product.id}>
-                        <img width="200" src={  product.image } />
-                        <Link to={`/products/${product.id}`}>{product.title}</Link>
-                        <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
-                      </li>
-                    );
+                      <img width="200" src={  product.image } />
+                      <Link to={`/products/${product.id}`}>
+                      <span>{product.title}</span>
+                      <span>{`$${product.price}.00`}</span>
+                      </Link>
+                      <button onClick={() => this.onAddToCartClick(product)}>
+                        ADD TO CART
+                      </button>
+                      {isAdmin ? (
+                        <div>
+                          <button onClick={() => this.onProductDeleteClick(product.id)}>DELETE PRODUCT</button>
+                          <Link to={`/products/${product.id}/edit`}>
+                            <button>EDIT PRODUCT</button>
+                          </Link>
+                        </div>
+                      ) : (
+                        null
+                      )}
+                    </li>)
                   })
           }
         </ul>
@@ -132,3 +152,10 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllProducts);
+
+
+// <li key={product.id}>
+// <img width="200" src={  product.image } />
+// <Link to={`/products/${product.id}`}>{product.title}</Link>
+// <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
+// </li>

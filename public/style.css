@@ -14,6 +14,7 @@ label {
 nav a {
   display: inline-block;
   margin: 1em;
+  font-size: 11px;
 }
 
 form div {
@@ -29,18 +30,51 @@ ul {
 .all-products {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  border: 10px solid goldenrod;
+  max-width: 880px;
+  margin: 0 auto;
+  align-content: space-between;
+  justify-content: space-around;
+  font-family: sans-serif;
 }
 
 .all-products li {
-  display: flex;
   flex-direction: column;
-  border: 10px solid dodgerblue;
   background-color: #fff;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.all-products span {
+  display: flex;
+  color: dodgerblue;
+  justify-content: center;
+  font-size: 13px;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
 }
 
 .all-products a {
+  justify-content: center;
+  /* border: 1px solid transparent; */
+}
+
+/* .all-products a:hover {
+  border: 1px solid #f02525;
+  transition: all ease-in 0.3s
+} */
+
+.all-products button {
   display: flex;
   justify-content: center;
+  align-self: center;
+  background: #000;
+  color: #fff;
+  width: 100px;
+  height: 30px;
+  font-size: 11px;
+}
+
+.all-products button:hover {
+  background: #f02525;
+  transition: 0.35s;
 }
