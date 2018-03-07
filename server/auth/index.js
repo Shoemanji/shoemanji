@@ -3,7 +3,7 @@ const User = require('../db/models/user')
 module.exports = router
 
 router.post('/login', (req, res, next) => {
-  User.findOne({where: {email: req.body.email}})
+  User.findOne({ where: { email: req.body.email } })
     .then(user => {
       if (!user) {
         res.status(401).send('User not found')
@@ -12,6 +12,19 @@ router.post('/login', (req, res, next) => {
       } else {
         req.login(user, err => (err ? next(err) : res.json(user)))
       }
+    })
+    .catch(next)
+})
+
+router.put('/:id/resetpw', (req, res, next) => {
+  User.update(req.body, {
+    where: {
+      id: req.params.id
+    },
+    individualHooks: true
+  })
+    .then(([updatedRows, [updatedUser]]) => {
+      res.status(200).json(updatedUser)
     })
     .catch(next)
 })

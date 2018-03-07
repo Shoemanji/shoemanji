@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {withRouter, Route, Switch} from 'react-router-dom';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Login,
@@ -16,6 +16,7 @@ import {
   ProductForm,
   AllUsers,
   MyReviews,
+  ResetPw,
 } from './components';
 import { me } from './store';
 
@@ -33,26 +34,34 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
+        <Route exact path="/" component={AllProducts} />
+        <Route exact path="/login" component={Login} />
+        <Route
+          exact path="/github"
+          component={() => {
+            window.location = 'https://github.com/Shoemanji/shoemanji';
+            return null;
+          }} />
+        <Route exact path="/signup" component={Signup} />
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:id/review" component={AddReview} />
         <Route exact path="/orders/all" component={AllOrders} />
-        <Route exact path="/user/:id/orders" component={AllOrders} />
         <Route exact path="/orders/:id" component={SingleOrder} />
+        <Route exact path="/products/:id" component={SingleProduct} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/cart/checkout" component={Checkout} />
-        <Route exact path="/user/:id/reviews" component={MyReviews} />
-        <Route exact path="/products/:id/edit" component={ProductForm} />
-        <Route exact path="/products/create" component={ProductForm} />
-        <Route exact path="/products/:id" component={SingleProduct} />
-        <Route exact path="/users/all" component={AllUsers} />
         {
           isLoggedIn &&
-            <Switch>
-              {/* Routes placed here are only available after logging in */}
-              <Route path="/home" component={UserHome} />
-            </Switch>
+          <Switch>
+            {/* Routes placed here are only available after logging in */}
+            <Route exact path="/home" component={AllProducts} />
+            <Route exact path="/:id/resetpw" component={ResetPw} />
+            <Route exact path="/user/:id/orders" component={AllOrders} />
+            <Route exact path="/user/:id/reviews" component={MyReviews} />
+            <Route exact path="/products/:id/edit" component={ProductForm} />
+            <Route exact path="/create" component={ProductForm} />
+            <Route exact path="/users/all" component={AllUsers} />
+          </Switch>
         }
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />

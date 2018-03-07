@@ -1,14 +1,14 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 const OrderSelect = ({ orders, handleChange }) => {
   const statuses = orders.map(order => order.status);
   const uniqueStatuses = Array.from(new Set(statuses));
   return (
-    <Fragment>
+    <div className="container order-select">
       <form>
         <label>
-          Sort by Order Status
+          Sort by status
         <select onChange={handleChange}>
           <option value={'ALL'}> -- ALL -- </option>
             {
@@ -21,7 +21,7 @@ const OrderSelect = ({ orders, handleChange }) => {
           </select>
         </label>
       </form>
-    </Fragment>
+    </div>
   );
 }
 

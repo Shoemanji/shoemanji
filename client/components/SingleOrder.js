@@ -11,6 +11,7 @@ class SingleOrder extends React.Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onUpdateOrderStatusClick = this.onUpdateOrderStatusClick.bind(this);
+    this.renderLineItems = this.renderLineItems.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +40,29 @@ class SingleOrder extends React.Component {
     }
   }
 
+  renderLineItems() {
+    return this.props.order.map(lineItem => {
+      if (lineItem.product){
+        return (
+          <li className="cartRow-container" key={lineItem.id}>
+            <img src={lineItem.product.image} />
+            <Link to={`/products/${lineItem.product.id}`}>
+              <div className="cartRow-product">{lineItem.product.title}</div>
+            </Link>
+            <div className="cartRow-details">{`price: $${lineItem.product.price}.00`}</div>
+            <div className="cartRow-details">{`size: ${lineItem.product.size}`}</div>
+            <div className="cartRow-details">Price: ${lineItem.priceAtPurchase}</div>
+            <div className="cartRow-details">Quantity: {lineItem.quantity}</div>
+          </li>
+        )
+      } else {
+        return (
+          <div>This line represents another product you purchased as part of this order that is no longer in the database.</div>
+        )
+      }
+    })
+  }
+
   render() {
     const { order, user } = this.props;
     const orderHistory = order[0];
@@ -46,34 +70,29 @@ class SingleOrder extends React.Component {
       order, orderHistory ? (
         <div>
           {user.isAdmin ? (
-            <div>
-              <h4>Order Status</h4>
+            <div className="container single-order-selector">
+              <span>Order Status</span>
               <select name="status" value={this.state.orderStatus} onChange={this.onChange}>
                 <option value="created">Created</option>
                 <option value="processing">Processing</option>
                 <option value="cancelled">Cancelled</option>
                 <option value="completed">Completed</option>
               </select>
-              <button onClick={(evt) => this.onUpdateOrderStatusClick(evt)}>UPDATE STATUS</button>
+              <button className="update-button" onClick={(evt) => this.onUpdateOrderStatusClick(evt)}>UPDATE STATUS</button>
             </div>
           ) : (
             null
           )}
-          <div>Order ID: {orderHistory.orderId}</div>
-          <div>Date Placed: {orderHistory.order.placedAt.substr(0, 10)}</div>
-          <div>Shipping Address: {orderHistory.order.shippingAddress}</div>
-          <div>Email: {orderHistory.order.email}</div>
-          <ul>
-            {this.props.order.map(lineItem =>
-              (<li key={lineItem.id}>
-                <div><Link to={`/products/${lineItem.product.id}`}>Product name: {lineItem.product.title} </Link></div>
-                <div>Description: {lineItem.product.description}</div>
-                <div>Quantity: {lineItem.quantity}</div>
-                <div>Price: {lineItem.priceAtPurchase}</div>
-              </li>
-              ))}
-          </ul>
-        </div>
+          <div className="container row-container order-row-container">
+            <span>Order# {orderHistory.orderId}</span>
+            <span>Date Placed {orderHistory.order.placedAt.substr(0, 10)}</span>
+            <span>Shipping Address {orderHistory.order.shippingAddress}</span>
+            <span>Email {orderHistory.order.email}</span>
+          </div>
+            <ul className="container line-items-container">
+              {this.renderLineItems()}
+            </ul>
+          </div>
       ) : null
     )
   }

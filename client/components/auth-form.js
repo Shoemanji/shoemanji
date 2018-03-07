@@ -3,25 +3,23 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { auth } from '../store';
 
-/**
- * COMPONENT
- */
 const AuthForm = (props) => {
   const {name, displayName, handleSubmit, error} = props;
 
   return (
-    <div>
+    <div className="container container-auth">
+      <h3>{displayName}</h3>
       <form onSubmit={handleSubmit} name={name}>
         <div>
-          <label htmlFor="email"><small>Email</small></label>
+          <span>Email</span>
           <input name="email" type="text" />
         </div>
         <div>
-          <label htmlFor="password"><small>Password</small></label>
+          <span>Password</span>
           <input name="password" type="password" />
         </div>
         <div>
-          <button type="submit">{displayName}</button>
+          <button className="main-button" type="submit">{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
@@ -68,9 +66,6 @@ const mapDispatch = (dispatch) => {
 export const Login = connect(mapLogin, mapDispatch)(AuthForm);
 export const Signup = connect(mapSignup, mapDispatch)(AuthForm);
 
-/**
- * PROP TYPES
- */
 AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,

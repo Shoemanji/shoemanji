@@ -11,6 +11,7 @@ class SingleProduct extends React.Component {
       quantity: 1,
     };
     this.onQuantityChange = this.onQuantityChange.bind(this);
+    this.onSizeChange = this.onSizeChange.bind(this);
     this.onAddToCartClick = this.onAddToCartClick.bind(this);
     this.addLineItemToLocalStorage = this.addLineItemToLocalStorage.bind(this);
   }
@@ -23,6 +24,11 @@ class SingleProduct extends React.Component {
   onQuantityChange(evt) {
     const quantity = +evt.target.value;
     this.setState({ quantity });
+  }
+
+  onSizeChange(evt) {
+    const size = evt.target.value;
+    this.setState({ size });
   }
 
   onAddToCartClick(product) {
@@ -50,27 +56,41 @@ class SingleProduct extends React.Component {
     const { quantity } = this.state;
     return (
       product ? (
-        <div>
-          <h2>{product.title}</h2>
-          <p>{product.description}</p>
+        <div className="container container-single-product">
+          <h3>{product.title}</h3>
           <img src={product.image} />
-          <br />
+          <span>{product.description}</span>
           {product.inventory > 0 ? (
             <div>
-              <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
-              <input
-                onClick={(evt) => this.onQuantityChange(evt)}
-                type="number"
-                defaultValue={quantity}
-                min="1"
-                max={product.inventory}
-                step="1"
-              />
-              <br /><br />
-              <AllReviews productId={product.id} />
-              <Link to={`/products/${product.id}/review`}>
-                <button>ADD REVIEW</button>
-              </Link>
+              <div className="container cart-quantity-container single-product-quantity-container">
+                <span>quantity</span>
+                <input
+                  onClick={(evt) => this.onQuantityChange(evt)}
+                  type="number"
+                  defaultValue={quantity}
+                  min="1"
+                  max={product.inventory}
+                  step="1"
+                />
+                <span>size</span>
+                <select onChange={(evt) => this.onSizeChange(evt)}>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                </select>
+              </div>
+              <div>
+                <button className="main-button" onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
+                <h3>REVIEWS</h3>
+                <AllReviews productId={product.id} />
+                <Link to={`/products/${product.id}/review`}>
+                  <button className="main-button" >ADD REVIEW</button>
+                </Link>
+              </div>
             </div>
           ) : (
               <h3>Product is currently unavailable</h3>

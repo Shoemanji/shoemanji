@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchUsers, updateUserRole, deleteUser } from '../store';
+import { fetchUsers, updateUserRole, forcePwReset, deleteUser } from '../store';
 
 class AllUsers extends React.Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class AllUsers extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onUpdateUserRoleClick = this.onUpdateUserRoleClick.bind(this);
     this.onDeleteUserClick = this.onDeleteUserClick.bind(this);
+    this.onForcePwResetClick = this.onForcePwResetClick.bind(this)
   }
 
   componentDidMount() {
@@ -26,6 +27,10 @@ class AllUsers extends React.Component {
   onUpdateUserRoleClick(evt, userId) {
     const isAdmin = this.state.userDropdowns[userId] === 'admin';
     this.props.updateUserRole(userId, { isAdmin });
+  }
+
+  onForcePwResetClick(evt, userId) {
+    this.props.forcePwReset(userId)
   }
 
   onDeleteUserClick(evt, userId) {
@@ -44,20 +49,21 @@ class AllUsers extends React.Component {
   render() {
     const { users } = this.props;
     return (
-      <div>
-        <h4>Users</h4>
+      <div className="container">
+        <h3>Users</h3>
         <ul>
         {
           users.map(user => {
             return (
-              <li key={user.id}>
-                <h4>{user.email}</h4>
+              <li className="row-container" key={user.id}>
+                <span>{user.email}</span>
                 <select name="isAdmin" value={this.state.userDropdowns[user.id]} onChange={(evt) => this.onChange(evt, user.id)}>
                   <option value="admin">Admin</option>
                   <option value="standard">Standard</option>
                 </select>
-                <button onClick={(evt) => this.onUpdateUserRoleClick(evt, user.id)}>UPDATE USER ROLE</button>
-                <button onClick={(evt) => this.onDeleteUserClick(evt, user.id)}>DELETE USER</button>
+                <button className="update-button" onClick={(evt) => this.onUpdateUserRoleClick(evt, user.id)}>UPDATE ROLE</button>
+                <button className="update-button" onClick={(evt) => this.onForcePwResetClick(evt, user.id)}>RESET PW</button>
+                <button className="update-button" onClick={(evt) => this.onDeleteUserClick(evt, user.id)}>DELETE</button>
               </li>
             )
           })
@@ -78,6 +84,7 @@ const mapDispatchToProps = dispatch => ({
   fetchUsers: () => dispatch(fetchUsers()),
   updateUserRole: (userId, isAdmin) => dispatch(updateUserRole(userId, isAdmin)),
   deleteUser: userId => dispatch(deleteUser(userId)),
+  forcePwReset: userId => dispatch(forcePwReset(userId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllUsers);

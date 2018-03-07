@@ -56,11 +56,11 @@ class AllOrders extends React.Component {
   filteredRender(orders, statusFlag) {
     const { user } = this.props;
 
-    if (!orders.length) return (<h3>No Orders Found </h3>);
+    if (!orders.length) return (<h3>No orders found</h3>);
 
     if (statusFlag === 'ALL') {
       return (
-        <Fragment>
+        <div className="container orders-container">
           <ul>
             {orders.map(order =>
               (<li key={order.id}>
@@ -68,11 +68,12 @@ class AllOrders extends React.Component {
               </li>)
             )}
           </ul>
-        </Fragment>);
+        </div>
+      );
     }
 
     return (
-      <Fragment>
+      <div className="container orders-container">
         <ul>
           {orders.filter(order => order.status === this.state.currentStatus).map(order =>
             (<li key={order.id}>
@@ -80,7 +81,8 @@ class AllOrders extends React.Component {
             </li>)
           )}
         </ul>
-    </Fragment>);
+      </div>
+    );
   }
 
   render() {
