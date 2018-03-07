@@ -96,17 +96,17 @@ class AllProducts extends React.Component {
                           <span>{product.title}</span>
                           <span>{`$${product.price}.00`}</span>
                         </Link>
-                        <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
                         {isAdmin ? (
                           <div>
-                            <button className="button-small" onClick={() => this.onProductDeleteClick(product.id)}>DELETE</button>
                             <Link to={`/products/${product.id}/edit`}>
                               <button className="button-small">EDIT</button>
                             </Link>
+                            <button className="button-small" onClick={() => this.onProductDeleteClick(product.id)}>DELETE</button>
                           </div>
                         ) : (
-                          null
+                          <div className="spacing" />
                         )}
+                        <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
                       </li>
                       )
                     )
@@ -120,17 +120,17 @@ class AllProducts extends React.Component {
                           <span>{product.title}</span>
                           <span>{`$${product.price}.00`}</span>
                         </Link>
-                        <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
                         {isAdmin ? (
                           <div>
-                            <button className="button-small" onClick={() => this.onProductDeleteClick(product.id)}>DELETE</button>
                             <Link to={`/products/${product.id}/edit`}>
                               <button className="button-small">EDIT</button>
                             </Link>
+                            <button className="button-small" onClick={() => this.onProductDeleteClick(product.id)}>DELETE</button>
                           </div>
                         ) : (
-                          null
+                          <div className="spacing" />
                         )}
+                        <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
                       </li>
                     )
                   })

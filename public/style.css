@@ -401,3 +401,7 @@ ul, li {
   text-transform: none;
   font-size: 12px;
 }
+
+.spacing {
+  height: 30px;
+}
