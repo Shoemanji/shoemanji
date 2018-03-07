@@ -49,21 +49,21 @@ class AllUsers extends React.Component {
   render() {
     const { users } = this.props;
     return (
-      <div>
-        <h4>Users</h4>
+      <div className="container">
+        <h3>Users</h3>
         <ul>
         {
           users.map(user => {
             return (
-              <li key={user.id}>
-                <h4>{user.email}</h4>
+              <li className="row-container" key={user.id}>
+                <span>{user.email}</span>
                 <select name="isAdmin" value={this.state.userDropdowns[user.id]} onChange={(evt) => this.onChange(evt, user.id)}>
                   <option value="admin">Admin</option>
                   <option value="standard">Standard</option>
                 </select>
-                <button onClick={(evt) => this.onUpdateUserRoleClick(evt, user.id)}>UPDATE USER ROLE</button>
-                <button onClick={(evt) => this.onForcePwResetClick(evt, user.id)}>FORCE PASSWORD RESET</button>
-                <button onClick={(evt) => this.onDeleteUserClick(evt, user.id)}>DELETE USER</button>
+                <button className="update-button" onClick={(evt) => this.onUpdateUserRoleClick(evt, user.id)}>UPDATE ROLE</button>
+                <button className="update-button" onClick={(evt) => this.onForcePwResetClick(evt, user.id)}>RESET PW</button>
+                <button className="update-button" onClick={(evt) => this.onDeleteUserClick(evt, user.id)}>DELETE</button>
               </li>
             )
           })

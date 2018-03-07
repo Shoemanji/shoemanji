@@ -15,18 +15,16 @@ class AllReviews extends React.Component {
 
     renderReviews() {
         return this.props.filteredReviews.map(review => {
-            return (
-                <li key={review.id}>
-                    <h3>
-                        <Link to={`/user/${review.userId}/reviews/`}>{review.user.email}</Link>
-                    </h3>
-                    <span>{review.rating} out of 5</span>
-                    <br />
-                    <span>{review.text}</span>
-                    <br />
-                    <br />
-                </li>
-            )
+            if (review.user) {
+                return (
+                    <li className="review" key={review.id}>
+                        <span>
+                            <Link to={`/user/${review.userId}/reviews/`}>{review.user.email} rated it {review.rating} / 5</Link>
+                        </span>
+                        <span>{review.text}</span>
+                    </li>
+                )
+            }
         })
     }
 

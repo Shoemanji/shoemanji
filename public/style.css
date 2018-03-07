@@ -53,10 +53,10 @@ nav a:hover {
   color: #dfdfdf;
 }
 
-form div {
+/* form div {
   margin: 1em;
   display: inline-block;
-}
+} */
 
 ul, li {
   padding: 0px;
@@ -147,7 +147,8 @@ ul, li {
 }
 
 .container span,
-.container input::placeholder {
+.container input::placeholder,
+.container textarea::placeholder {
   display: block;
   font-size: 10px;
   color: #999;
@@ -158,6 +159,15 @@ ul, li {
 .container input {
   width: 320px;
   height: 40px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 20px;
+}
+
+.container textarea {
+  width: 320px;
+  height: 60px;
+  padding-top: 15px;
   padding-left: 15px;
   padding-right: 15px;
   margin-bottom: 20px;
@@ -181,7 +191,7 @@ ul, li {
   text-align: left;
 }
 
-.container form select {
+.container select {
   border: 1px solid #dfdfdf;
   position: relative;
   top: -1px;
@@ -190,7 +200,7 @@ ul, li {
   margin-left: 10px;
 }
 
-.container form select:focus {
+.container select:focus {
   outline: none;
 }
 
@@ -255,10 +265,29 @@ ul, li {
   color: #fff;
   text-transform: uppercase;
   margin-top: 20px;
+  margin-bottom: 40px;
 }
 
 .main-button:hover {
   background-color: #c92127;
+}
+
+.update-button {
+  width: 105px;
+  height: 24px;
+  position: relative;
+  top: -1px;
+  margin-left: 15px;
+  cursor: pointer;
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.update-button:hover {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
 }
 
 .search-container {
@@ -281,3 +310,89 @@ ul, li {
   display: inline-block !important;
 }
 
+.orders-container {
+  max-width: 420px;
+  margin-top: 40px;
+}
+
+.row-container {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.row-container span {
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #333;
+  margin-right: 60px;
+}
+
+.order-row-container {
+  max-width: 670px;
+  margin-bottom: 35px;
+}
+
+.line-items-container {
+  display: flex;
+}
+
+.single-order-selector {
+  width: 307px;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.container-auth h3,
+.container-single-product h3 {
+  text-transform: uppercase;
+}
+
+.checkbox {
+  display: flex;
+}
+
+.checkbox input {
+  width: 12px;
+  height: 12px;
+  margin-right: 15px;
+}
+
+.checkbox span {
+  position: relative;
+  top: 1px;
+}
+
+.single-product-quantity-container {
+  width: 200px;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.single-product-quantity-container select {
+  width: 40px;
+}
+
+.single-product-quantity-container input {
+  height: 22px !important;
+  position: relative;
+  top: -1px;
+  margin-bottom: 0px;
+  margin-right: 20px;
+  margin-left: 10px;
+}
+
+.review {
+  margin-bottom: 20px;
+}
+
+.review span {
+  margin-bottom: 5px;
+}
+
+.review span + span {
+  text-transform: none;
+  font-size: 12px;
+}
