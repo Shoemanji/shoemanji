@@ -77,42 +77,44 @@ class Cart extends React.Component {
     const { cart, isFetching } = this.props;
     return (
       cart.length ? (
-        <Fragment>
+        <div className="container">
           <h3>CART</h3>
+          <div className="cart-inner-container">
           {cart.map(cartRow => {
             const { product, quantity } = cartRow
             return (
-              <Fragment key={product.id}>
-                <div>{product.title}</div>
-                <img width="200" src={ product.image } />
-                <div>{`size: ${product.size}`}</div>
-                <div>{`price: $${product.price}`}</div>
-                <div>quantity:
-                <input
-                  onClick={(evt) => this.onQuantityChange(evt, product)}
-                  type="number"
-                  defaultValue={quantity}
-                  min="1"
-                  max={product.inventory}
-                  step="1"
-                />
+              <div className="cartRow-container" key={product.id}>
+                <img src={product.image} />
+                <div className="cartRow-product">{product.title}</div>
+                <div className="cartRow-details">{`price: $${product.price}.00`}</div>
+                <div className="cartRow-details">{`size: ${product.size}`}</div>
+                <div className="cart-quantity-container">
+                  <div className="cartRow-details">quantity:</div>
+                  <input
+                    className="cartRow-details"
+                    onClick={(evt) => this.onQuantityChange(evt, product)}
+                    type="number"
+                    defaultValue={quantity}
+                    min="1"
+                    max={product.inventory}
+                    step="1"
+                  />
                 </div>
-
-                <button onClick={() => this.onRemoveItemClick(product)}>REMOVE ITEM</button>
-              </Fragment>
+                <Link to="/cart" onClick={() => this.onRemoveItemClick(product)}>remove item</Link>
+              </div>
             )
           })}
-          <br />
-          <h4>Total: ${this.calculateTotal()}</h4>
+          </div>
+          <span className="cart-total">Order Total: ${this.calculateTotal()}</span>
           <Link to="/cart/checkout">
-            <button>Go to Checkout</button>
+            <button className="main-button">Go to Checkout</button>
           </Link>
-        </Fragment>
+        </div>
       ) : (
-        <Fragment>
-          <h3>No Products in your cart</h3>
+        <div className="container">
+          <h3>You have no items in your shopping cart.</h3>
           <Link to="/products">Browse our products</Link>
-        </Fragment>
+        </div>
       )
     )
   }

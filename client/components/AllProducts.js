@@ -67,16 +67,22 @@ class AllProducts extends React.Component {
 
     return (
       <div>
+        <div className="container search-container">
+          <FilterInput
+            handleChange={this.handleChange}
+            inputValue={inputValue}
+          />
+          <CategorySelect />
+        </div>
         {isAdmin ? (
-            <Link to="/create">
-              <button>CREATE NEW PRODUCT</button>
-            </Link>
+            <div className="container">
+              <Link to="/create">
+                <button className="main-button">CREATE NEW PRODUCT</button>
+              </Link>
+            </div>
           ) :
           (null)
         }
-        <FilterInput handleChange={this.handleChange} inputValue={inputValue} />
-        <br />
-        <CategorySelect />
         <ul className="all-products">
           {
             (category === 'ALL' || !category)
@@ -84,50 +90,49 @@ class AllProducts extends React.Component {
                   .filter(product => product.title.match(regex))
                   .map(product =>
                     (
-                      <li key={product.id}>
-                      <img width="200" src={  product.image } />
-                      <Link to={`/products/${product.id}`}>
-                      <span>{product.title}</span>
-                      <span>{`$${product.price}.00`}</span>
-                      </Link>
-                      <button onClick={() => this.onAddToCartClick(product)}>
-                        ADD TO CART
-                      </button>
-                      {isAdmin ? (
-                        <div>
-                          <button onClick={() => this.onProductDeleteClick(product.id)}>DELETE PRODUCT</button>
-                          <Link to={`/products/${product.id}/edit`}>
-                            <button>EDIT PRODUCT</button>
-                          </Link>
-                        </div>
-                      ) : (
-                        null
-                      )}
-                    </li>))
+                      <li className="product-card" key={product.id}>
+                        <Link to={`/products/${product.id}`}>
+                          <img src={product.image} />
+                          <span>{product.title}</span>
+                          <span>{`$${product.price}.00`}</span>
+                        </Link>
+                        {isAdmin ? (
+                          <div>
+                            <Link to={`/products/${product.id}/edit`}>
+                              <button className="button-small">EDIT</button>
+                            </Link>
+                            <button className="button-small" onClick={() => this.onProductDeleteClick(product.id)}>DELETE</button>
+                          </div>
+                        ) : (
+                          <div className="spacing" />
+                        )}
+                        <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
+                      </li>
+                      )
+                    )
               : products.filter(product => product.categories.includes(category))
                   .filter(product => product.title.match(regex))
                   .map(product => {
                     return (
-                      <li key={product.id}>
-                      <img width="200" src={  product.image } />
-                      <Link to={`/products/${product.id}`}>
-                      <span>{product.title}</span>
-                      <span>{`$${product.price}.00`}</span>
-                      </Link>
-                      <button onClick={() => this.onAddToCartClick(product)}>
-                        ADD TO CART
-                      </button>
-                      {isAdmin ? (
-                        <div>
-                          <button onClick={() => this.onProductDeleteClick(product.id)}>DELETE PRODUCT</button>
-                          <Link to={`/products/${product.id}/edit`}>
-                            <button>EDIT PRODUCT</button>
-                          </Link>
-                        </div>
-                      ) : (
-                        null
-                      )}
-                    </li>)
+                      <li className="product-card" key={product.id}>
+                        <Link to={`/products/${product.id}`}>
+                          <img src={product.image} />
+                          <span>{product.title}</span>
+                          <span>{`$${product.price}.00`}</span>
+                        </Link>
+                        {isAdmin ? (
+                          <div>
+                            <Link to={`/products/${product.id}/edit`}>
+                              <button className="button-small">EDIT</button>
+                            </Link>
+                            <button className="button-small" onClick={() => this.onProductDeleteClick(product.id)}>DELETE</button>
+                          </div>
+                        ) : (
+                          <div className="spacing" />
+                        )}
+                        <button onClick={() => this.onAddToCartClick(product)}>ADD TO CART</button>
+                      </li>
+                    )
                   })
           }
         </ul>

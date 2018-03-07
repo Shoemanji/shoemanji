@@ -6,20 +6,21 @@ import {updateUserPassword} from '../store'
 const ChangePw = (props) => {
   const {name, displayName, handleSubmit, error, user} = props
   return (
-    <div>
+    <div className="container">
+      <h3>RESET YOUR PASSWORD</h3>
       <form onSubmit={(evt) => handleSubmit(evt, user)} name={name}>
         <div>
-          <label htmlFor="newpw"><small>Enter New Password</small></label>
+          <span>Enter New Password</span>
           <input name="newpw" type="password" />
         </div>
         <br />
         <div>
-          <label htmlFor="confirmnewpw"><small>Confirm New Password</small></label>
+          <span>Confirm New Password</span>
           <input name="confirmnewpw" type="password" />
         </div>
         <br />
         <div>
-          <button type="submit">{displayName}</button>
+          <button className="main-button" type="submit">{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>

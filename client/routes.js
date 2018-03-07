@@ -34,6 +34,7 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
+        <Route exact path="/" component={AllProducts} />
         <Route exact path="/login" component={Login} />
         <Route
           exact path="/github"
@@ -53,7 +54,7 @@ class Routes extends Component {
           isLoggedIn &&
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route exact path="/home" component={UserHome} />
+            <Route exact path="/home" component={AllProducts} />
             <Route exact path="/:id/resetpw" component={ResetPw} />
             <Route exact path="/user/:id/orders" component={AllOrders} />
             <Route exact path="/user/:id/reviews" component={MyReviews} />

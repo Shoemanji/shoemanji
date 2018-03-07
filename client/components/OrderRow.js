@@ -9,9 +9,9 @@ export default class OrderRow extends React.Component {
     const { order, isAdmin } = this.props;
 
     return (
-      <div>
-        <h4>Order Id: {order.id} </h4>
-        <h4>Status: {order.status}</h4>
+      <div className="row-container">
+        <span>- Order#: {order.id} </span>
+        <span>Status: {order.status}</span>
         <Link to={`/orders/${order.id}`}>show order</Link>
       </div>
     )

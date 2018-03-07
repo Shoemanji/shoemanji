@@ -43,8 +43,8 @@ class MyReviews extends React.Component {
         const { reviews, products } = this.props
         return (
             reviews.length ? (
-                <ul>
-                {this.renderReviews(products)}
+                <ul className="container">
+                    {this.renderReviews(products)}
                 </ul>
             ) : (
                 <h3>No Reviews Found</h3>

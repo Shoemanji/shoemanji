@@ -28,26 +28,26 @@ function generateUsers () {
 
 function generateProducts () {
   const product1 = Product.create({
-    title: 'Wild Jordans',
+    title: 'Adidas Yeezy',
     description: "Whether you're tearin' up the hardwood, burnin' up the dancefloor, or stompin' up the Subway steps, these flashy kicks are sure to earn you an audience.",
     price: 200.00,
-    image: '/jordans600x393.jpg',
+    image: '/images/Adidas_Yeezy.jpg',
     inventory: 2,
     categories: ['sport']
   })
   const product2 = Product.create({
-    title: 'Pumpernickel Loafers',
+    title: 'Air Jordans',
     description: "If you know what's good for you, you know that comfort is king.",
     price: 50.00,
-    image: '/loafers600x393.jpg',
+    image: '/images/Air_Jordan_800564_1.jpg',
     inventory: 10,
     categories: ['casual']
   })
   const product3 = Product.create({
-    title: 'Hip Boots',
+    title: 'Hip NMD',
     description: "Your local barista's latte art may not be good enough for your inner aesthete, but these boots sure are good enough for whatever Mama Weather throws your way.",
     price: 75.00,
-    image: '/boots600x393.jpg',
+    image: '/images/NMD_800255_1.jpg',
     inventory: 10,
     categories: ['winter']
   })
@@ -55,9 +55,9 @@ function generateProducts () {
     title: 'Flawless Pumps',
     description: "Dayum gurl, where'dju find those?!",
     price: 100.00,
-    image: '/pumps600x393.jpg',
+    image: '/images/Nike_Running_801821_1.jpg',
     inventory: 10,
-    categories: ['heels']
+    categories: ['running']
   })
   return Promise.all([product1, product2, product3, product4])
 }

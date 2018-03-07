@@ -189,46 +189,44 @@ class ProductForm extends React.Component {
     const { categories } = this.props;
     const isNewProduct = this.props.match.path === '/create';
     return (
-      <Fragment>
+      <div className="container">
         {this.generateTitle(isNewProduct)}
         <form onSubmit={(evt) => this.onSubmit(evt, isNewProduct)}>
-          <h4>TITLE</h4>
-          <input required name="title" type="text" placeholder="title" value={this.state.title} onChange={this.onInputChange} />
+          <span>TITLE</span>
+          <input required name="title" type="text" value={this.state.title} onChange={this.onInputChange} />
 
-          <h4>DESCRIPTION</h4>
-          <textarea name="description" type="text" placeholder="description" value={this.state.description} onChange={this.onInputChange} />
+          <span>DESCRIPTION</span>
+          <textarea name="description" type="text" value={this.state.description} onChange={this.onInputChange} />
 
-          <h4>PRICE</h4>
-          <input name="price" type="number" pattern="[0-9]" placeholder="price" value={this.state.price} onChange={this.onInputChange} />
+          <span>PRICE</span>
+          <input name="price" type="number" pattern="[0-9]" value={this.state.price} onChange={this.onInputChange} />
 
-          <h4>INVENTORY</h4>
-          <input name="inventory" type="number" pattern="[0-9]" placeholder="inventory" value={this.state.inventory} onChange={this.onInputChange} />
+          <span>INVENTORY</span>
+          <input name="inventory" type="number" pattern="[0-9]" value={this.state.inventory} onChange={this.onInputChange} />
 
-          <h4>IMAGE</h4>
-          <input name="image" type="text" placeholder="image URL" value={this.state.image} onChange={this.onInputChange} />
+          <span>IMAGE</span>
+          <input name="image" type="text" value={this.state.image} onChange={this.onInputChange} />
 
-          <h4>CATEGORY</h4>
+          <span>CATEGORIES</span>
           {
             categories.map(category => {
               return (
-                <div key={category}>
+                <div className="checkbox" key={category}>
                   <input type="checkbox" name={category} value={category} checked={this.state.activeCheckboxes[category]} onChange={(evt) => this.onCheckboxChange(evt, category)} />
-                  <label>{category}</label>
+                  <span>{category}</span>
                 </div>
               )
             })
           }
-          <h4>Add new Category</h4>
-          <input name="newCategory" type="text" placeholder="category name" onChange={this.onInputChange} />
-          <br />
-          <br />
+          <span>Add new Category</span>
+          <input name="newCategory" type="text" onChange={this.onInputChange} />
           {isNewProduct ? (
-            <button>CREATE</button>
+            <button className="main-button">CREATE</button>
           ) : (
-            <button>EDIT</button>
+            <button className="main-button">EDIT</button>
           )}
         </form>
-      </Fragment>
+      </div>
     )
   }
 }
