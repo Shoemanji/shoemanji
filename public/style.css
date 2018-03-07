@@ -1,6 +1,7 @@
 body {
   font-family: sans-serif;
   background-color: #f7f7f7;
+  margin: 0;
 }
 
 a {
@@ -11,9 +12,45 @@ label {
   display: block;
 }
 
+h3 {
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: #333;
+}
+
+input, 
+textarea,
+button {
+  outline: none;
+  border-style: none;
+}
+
+input, 
+textarea {
+  border: 1px solid #dfdfdf;
+}
+
+.navbar-container {
+  background-color: #333;
+}
+
+nav div {
+  display: flex;
+  justify-content: center;
+}
+
 nav a {
   display: inline-block;
   margin: 1em;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: 300;
+}
+
+nav a:hover {
+  color: #dfdfdf;
 }
 
 form div {
@@ -44,3 +81,105 @@ ul {
   display: flex;
   justify-content: center;
 }
+
+.container {
+  max-width: 636px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.container img {
+  width: 180px;
+  height: 117px;
+  margin-bottom: 7px;
+}
+
+.container a {
+  color: #68b2fc;
+  outline: none;
+  font-size: 12px;
+}
+
+.container a:hover {
+  text-decoration: underline;
+}
+
+.container span {
+  display: block;
+  font-size: 10px;
+  color: #999;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.container input {
+  width: 350px;
+  height: 40px;
+}
+
+.cartRow-container {
+  text-align: left;
+  width: 180px;
+  border: 1px solid #d3d3d3;
+  padding: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.cart-inner-container {
+  display: flex;
+  justify-content: center;
+}
+
+.cartRow-product {
+  text-transform: uppercase;
+  color: #333;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 3px;
+}
+
+.cartRow-details {
+  color: #777;
+  letter-spacing: 1px;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.cart-quantity-container {
+  display: flex;
+}
+
+.cart-quantity-container input {
+  border-radius: 4px;
+  width: 35px;
+  padding-left: 10px;
+}
+
+.cart-total {
+  display: block;
+  color: #525252;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.cart-checkout {
+  width: 280px;
+  height: 40px;
+  background-color: #ec1f27;
+  font-size: 12px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.cart-checkout:hover {
+  background-color: #c92127;
+}
+
