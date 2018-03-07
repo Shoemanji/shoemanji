@@ -22,7 +22,7 @@ form div {
   display: inline-block;
 }
 
-ul {
+ul, li {
   padding: 0px;
   list-style-type: none;
 }

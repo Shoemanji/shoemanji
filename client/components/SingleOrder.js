@@ -11,6 +11,7 @@ class SingleOrder extends React.Component {
     }
     this.onChange = this.onChange.bind(this);
     this.onUpdateOrderStatusClick = this.onUpdateOrderStatusClick.bind(this);
+    this.renderOrders = this.renderOrders.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +40,31 @@ class SingleOrder extends React.Component {
     }
   }
 
+  renderOrders() {
+    return this.props.order.map(lineItem => {
+      if (lineItem.product){
+        return (
+          <li key={lineItem.id}>
+          <div><Link to={`/products/${lineItem.product.id}`}>Product name: {lineItem.product.title} </Link></div>
+          <img width="200" src={  lineItem.product.image } />
+          <div>Description: {lineItem.product.description}</div>
+          <div>Size: {lineItem.product.size}</div>
+          <div>Price: ${lineItem.priceAtPurchase}</div>
+          <div>Quantity: {lineItem.quantity}</div>
+        </li>
+        )
+      } else {
+        return (
+          <div>
+          <br />
+          <br />
+          <div>This line represents another product you purchased as part of this order that is no longer in the database.</div>
+          </div>
+        )
+      }
+    })
+}
+
   render() {
     const { order, user } = this.props;
     const orderHistory = order[0];
@@ -64,14 +90,7 @@ class SingleOrder extends React.Component {
           <div>Shipping Address: {orderHistory.order.shippingAddress}</div>
           <div>Email: {orderHistory.order.email}</div>
           <ul>
-            {this.props.order.map(lineItem =>
-              (<li key={lineItem.id}>
-                <div><Link to={`/products/${lineItem.product.id}`}>Product name: {lineItem.product.title} </Link></div>
-                <div>Description: {lineItem.product.description}</div>
-                <div>Quantity: {lineItem.quantity}</div>
-                <div>Price: {lineItem.priceAtPurchase}</div>
-              </li>
-              ))}
+            {this.renderOrders()}
           </ul>
         </div>
       ) : null
