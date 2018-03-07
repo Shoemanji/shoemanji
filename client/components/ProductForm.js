@@ -165,7 +165,7 @@ class ProductForm extends React.Component {
     if (
       Object.keys(nextProps.product).length !== 0 &&
       nextProps.product.constructor === Object &&
-      newPath !== '/products/create'
+      newPath !== '/create'
     ) {
       nextProps.product.categories.forEach(category =>
         activeCheckboxes[category] = true
